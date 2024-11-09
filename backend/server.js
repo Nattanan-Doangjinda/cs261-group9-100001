@@ -73,7 +73,16 @@ app.post('/user', async (req, res) => {
 });
 
 app.get('/user/:userId', async (req, res) => {
-
+    try {
+        const userId = req.params.userId;
+        const result = await conn.request()
+            .input('userId', sql.Int, userId)
+            .query('SELECT * FROM requestFormData WHERE userId = @userId');
+        res.json(result.recordset);
+    } catch (error) {
+        console.error('Error fetching requests:', error);
+        res.status(500).json({ message: 'Failed to fetch requests' });
+    }
 });
 
 app.post('/user/:userId', async (req, res) => {
@@ -102,21 +111,30 @@ app.put('/user/:requestFormId', async (req, res) => {
         const id = req.params.requestFormId;
 
         const result = await conn.request()
-        .input('requestFormId', sql.Int, id)
-        .input('details', sql.NVarChar, JSON.stringify(updateDetails.details))
-        .query('UPDATE requestFormData SET details = @details WHERE requestFormId = @requestFormId');
+            .input('requestFormId', sql.Int, id)
+            .input('details', sql.NVarChar, JSON.stringify(updateDetails.details))
+            .query('UPDATE requestFormData SET details = @details WHERE requestFormId = @requestFormId');
 
         res.json({
             message: 'Update success'
-        });      
+        });
     } catch (error) {
         console.log('error', error);
         res.status(500).json({ message: error });
     }
 });
 
-app.delete('/user/:requestFormId', async (req, res) => {
-
+app.delete('/user/:requestFormId', async (req, res) => { // <--- แก้ไข route
+    try {
+        const requestFormId = req.params.requestFormId;
+        const result = await conn.request()
+            .input('requestFormId', sql.Int, requestFormId)
+            .query('DELETE FROM requestFormData WHERE requestFormId = @requestFormId');
+        res.json({ message: 'DELETE success' });
+    } catch (error) {
+        console.error('Error deleting request:', error);  // ควร log error details ที่ server
+        res.status(500).json({ message: 'Failed to delete request' }); // return generic message ให้ client
+    }
 });
 
 app.listen(8000, async (req, res) => {
