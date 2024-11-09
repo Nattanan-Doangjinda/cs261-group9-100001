@@ -1,13 +1,15 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
-    <title>Form Page</title>
-    <link rel="stylesheet" href="/public/register_cross_program.css" />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../public/register_cross_program.css" />
+    <link rel="stylesheet" href="../public/homepage.css" />
     <link
       rel="stylesheet"
-      href="../public/homepage.css"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
     />
+    <title>แบบฟอร์มจดทะเบียนวิชาข้ามหลักสูตร</title>
   </head>
   <body>
     <div class="nav-bar">
@@ -18,9 +20,9 @@
       <div class="nav-links">
         <div class="links-logout">
           <ul class="links">
-            <li><a href="#">หน้าหลัก</a></li>
-            <li><a href="#">สร้างคำร้อง</a></li>
-            <li><a href="#">เเบบร่าง</a></li>
+            <li><a href="../views/homepage.html">หน้าหลัก</a></li>
+            <li><a href="../views/createForm.html">สร้างคำร้อง</a></li>
+            <li><a href="../views/Draft.html">เเบบร่าง</a></li>
           </ul>
 
           <button class="logout">Logout</button>
@@ -30,7 +32,7 @@
     </div>
     <div class="container">
       <div class="header">เรื่อง จดทะเบียนวิชาข้ามหลักสูตร</div>
-      <form action="/submit-form" method="POST">
+      <form id="register-cross-program-form">
         <div class="form-group">
           <div class="header">เรียน คณบดีคณะวิทยาศาสตร์และเทคโนโลยี</div>
           <div class="form-group special-row">
@@ -46,8 +48,8 @@
             <div class="third-width">
               <input
                 type="text"
-                name="studentName"
-                id="studentName"
+                name="first_name"
+                id="first_name"
                 placeholder="ชื่อ"
                 required
               />
@@ -55,8 +57,8 @@
             <div class="third-width">
               <input
                 type="text"
-                name="studentLastName"
-                id="studentLastName"
+                name="last_name"
+                id="last_name"
                 placeholder="นามสกุล"
                 required
               />
@@ -68,8 +70,8 @@
           <div class="half-width">
             <input
               type="text"
-              name="studentId"
-              id="studentId"
+              name="student_id"
+              id="student_id"
               placeholder="กรอกเลขทะเบียนนักศึกษา..."
               required
             />
@@ -104,8 +106,8 @@
           <div class="third-width">
             <input
               type="text"
-              name="district"
-              id="district"
+              name="sub_district"
+              id="sub_district"
               placeholder="แขวง/ตำบล"
               required
             />
@@ -114,8 +116,8 @@
           <div class="third-width">
             <input
               type="text"
-              name="subDistrict"
-              id="subDistrict"
+              name="district"
+              id="district"
               placeholder="เขต/อำเภอ"
               required
             />
@@ -138,8 +140,8 @@
               <i class="fa fa-phone"></i>
               <input
                 type="text"
-                name="contact"
-                id="contact"
+                name="phone_number"
+                id="phone_number"
                 placeholder="xxx xxx xxxx"
                 required
               />
@@ -154,8 +156,8 @@
               <i class="fa fa-phone"></i>
               <input
                 type="text"
-                name="parentContactNumber"
-                id="parentContactNumber"
+                name="parent_phone_number"
+                id="parent_phone_number"
                 placeholder="xxx xxx xxxx"
                 required
               />
@@ -165,8 +167,8 @@
           <label>อาจารย์ที่ปรึกษา</label>
           <input
             type="text"
-            name="advisor"
-            id="advisor"
+            name="advisor_name"
+            id="advisor_name"
             placeholder="อาจารย์ที่ปรึกษา"
             required
           />
@@ -175,9 +177,18 @@
           <label>ประสงค์จะยื่นคำร้องเรื่อง ขอจดทะเบียนศึกษารายวิชาข้ามหลักสูตร</label>
         </div>
         <div class="form-group special-row">
+          <label>ตั้งแต่ภาคการศึกษาที่</label>
+          <div class="quarter-width">
+            <input
+              name="pre_year"
+              id="pre_year"
+              placeholder="ภาคการศึกษา"
+              required
+            />
+          </div>
           <label>ภาคการศึกษาที่</label>
           <div class="small-width">
-            <select name="sinceSemester" id="sinceSemester" required>
+            <select name="year" id="year" required>
               <option value="" selected disabled hidden></option>
               <option value="2567">2567</option>
               <option value="2568">2568</option>
@@ -200,8 +211,8 @@
           <div class="third-width">
             <input
               type="text"
-              name="courseId"
-              id="courseId"
+              name="course_code"
+              id="course_code"
               placeholder="รหัสวิชา"
               required
             />
@@ -209,8 +220,8 @@
           <div class="third-width">
             <input
               type="text"
-              name="courseName"
-              id="courseName"
+              name="course_name"
+              id="course_name"
               placeholder="ชื่อวิชา"
               required
             />
@@ -228,8 +239,8 @@
         <div class="form-group">
           <label>เหตุผลที่ยื่นคำร้องเนื่องจาก</label>
           <textarea
-            name="requestReason"
-            id="requestReason"
+            name="reason_for_request"
+            id="reason_for_request"
             placeholder="โปรดกรอกเหตุผล....."
             required
           ></textarea>
@@ -241,11 +252,13 @@
           </p>
         </div>
         <div class="buttons">
-          <button type="submit" class="submit">ส่ง</button>
+          <button type="submit" class="submit" id="submit-form">ส่ง</button>
           <button type="button" class="save-draft">บันทึกแบบร่าง</button>
           <button type="button" class="cancel">ยกเลิก</button>
         </div>
       </form>
     </div>
+
+    <script src="register_cross_program.js"></script>
   </body>
 </html>

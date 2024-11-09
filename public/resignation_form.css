@@ -1,14 +1,70 @@
-body {
-    font-family: Arial, sans-serif;
-    background-color: #fff;
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;300;400;500;600;700;900&family=IBM+Plex+Sans+Thai:wght@100;200;300;400;500;600;700&family=Noto+Sans+Thai:wght@100..900&display=swap');
+
+* {
     margin: 0;
-    padding: 0 20px;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Body background gradient */
+body {
+    background: linear-gradient(to bottom, rgba(230, 61, 61,0.3), #FFFFFF 20%);
+    min-height: 100vh;
+    font-family: 'Inter', 'IBM Plex Sans Thai', 'Noto Sans Thai', sans-serif;
+}
+
+.nav_box {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: row;
+    margin: 0 30px 10px 30px;
+}
+
+.logo {
+    margin: 15px 0 0 15px;
+}
+
+.navBar {
+    border-bottom: 1px solid black;
+}
+
+.logo img {
+    width: 118px;
+    height: 118px;
+}
+
+.content {
+    margin: 0 20px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 25px;
+}
+
+.navi {
+    margin: 0 63rem 0 0;
+}
+
+.navi a {
+    color: #000;
+    margin: 0 25px;
+    text-decoration: none;
+}
+
+.Logout a {
+    color: #000;
+    font-size: 30px;
+    padding: 0 30px;
+    text-shadow: 5px 5px 5px rgba(0, 0, 0, 0.5);
+    text-decoration: none;
 }
 
 .container {
     max-width: 1500px;
     margin: 20px auto;
-    background-color: #f5f5f5;
+    background-color: #fff;
     border-radius: 30px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     padding: 30px;
@@ -30,6 +86,7 @@ body {
     width: calc(100% - 20px);
     padding: 10px;
     font-size: 15px;
+    font-family: 'Inter', sans-serif;
     border: 1px solid #ccc;
     border-radius: 10px;
 }
@@ -37,8 +94,7 @@ body {
 .quarter-width,
 .third-width,
 .half-width {
-    max-width: 100%;
-    /* Ensures containers don't exceed their intended width */
+    max-width: 100%; /* Ensures containers don't exceed their intended width */
 }
 
 /* Specific layout adjustments for rows with multiple fields */
@@ -46,11 +102,19 @@ body {
     display: flex;
     align-items: center;
     gap: 10px;
-    white-space: nowrap;
-    flex-wrap: nowrap;
+    white-space: nowrap;   
+    flex-wrap: nowrap; 
     width: 100%;
 }
 
+.form-group.reason {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    white-space: nowrap;   
+    flex-wrap: nowrap; 
+    width: 100%;
+}
 .form-group select {
     width: 100%;
 }
@@ -58,14 +122,30 @@ body {
 .form-group textarea {
     height: 100px;
 }
-
-.form-group .half-width {
+.form-group .fifty-width {
     width: calc(50% - 10px);
+    display: inline-block;
+}
+.form-group .sixty-width {
+    width: calc(60% - 10px);
+    display: inline-block;
+}
+.form-group .half-width {
+    width: calc(43.15% - 10px);
+    display: inline-block;
+}
+.form-group .one-width {
+    width: calc(100% - 10px);
     display: inline-block;
 }
 
 .form-group .third-width {
     width: calc(33.33% - 10px);
+    display: inline-block;
+}
+
+.form-group .two-width {
+    width: calc(11% - 10px);
     display: inline-block;
 }
 
@@ -90,7 +170,6 @@ body {
 .form-group .small-width:not(:last-child) {
     margin-right: 10px;
 }
-
 .form-group .icon-input {
     position: relative;
 }
@@ -101,14 +180,13 @@ body {
 
 .form-group .icon-input .fa {
     position: absolute;
-    left: 10px;
+    left: 0px;
     top: 50%;
     transform: translateY(-50%);
     color: #888;
 }
-
 .form-group .empty-column {
-    width: 10%;
+    width: 5%;
     display: inline-block;
 }
 
@@ -121,7 +199,7 @@ select:invalid {
 }
 
 .large-label {
-    font-size: 20px;
+    font-size:20px; 
 }
 
 .buttons {
@@ -137,7 +215,7 @@ select:invalid {
     border-radius: 15px;
     cursor: pointer;
     margin: 0 10px;
-    box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.2);
+    box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.2); 
 }
 
 .buttons .submit {
@@ -154,6 +232,6 @@ select:invalid {
 
 .buttons .cancel {
     background-color: #d4a3a3;
-    color: #333;    
+    color: #333;
     box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3);
 }
