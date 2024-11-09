@@ -210,7 +210,6 @@ select:invalid {
 .buttons button {
     padding: 10px 20px;
     font-size: 14px;
-    font-weight: bold;
     border: none;
     border-radius: 15px;
     cursor: pointer;
@@ -220,7 +219,7 @@ select:invalid {
 
 .buttons .submit {
     background-color: #a3d4a3;
-    color: #333;
+    color: #fff;
     box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3);
 }
 
@@ -232,6 +231,6 @@ select:invalid {
 
 .buttons .cancel {
     background-color: #d4a3a3;
-    color: #333;
+    color: #fff;
     box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3);
 }

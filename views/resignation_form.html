@@ -3,13 +3,16 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Form Page</title>
-    <link rel="stylesheet" href="/public/resignation_form.css" />
+    <link rel="stylesheet" href="../public/resignation_form.css" />
     <link
       rel="stylesheet"
       href="../public/homepage.css"
+    />
+    <link
+      rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
     />
+    <title>แบบฟอร์มขอลาออก</title>
   </head>
   <body>
     <div class="nav-bar">
@@ -20,9 +23,9 @@
       <div class="nav-links">
         <div class="links-logout">
           <ul class="links">
-            <li><a href="#">หน้าหลัก</a></li>
-            <li><a href="#">สร้างคำร้อง</a></li>
-            <li><a href="#">เเบบร่าง</a></li>
+            <li><a href="../views/homepage.html">หน้าหลัก</a></li>
+            <li><a href="../views/createForm.html">สร้างคำร้อง</a></li>
+            <li><a href="../views/Draft.html">เเบบร่าง</a></li>
           </ul>
 
           <button class="logout">Logout</button>
@@ -32,7 +35,7 @@
     </div>
     <div class="container">
       <div class="header">เรื่อง ขอลาออก</div>
-      <form id="resignationForm">
+      <form id="resignation-form">
         <div class="form-group">
           <div class="header">เรียน คณบดีคณะวิทยาศาสตร์และเทคโนโลยี</div>
           <div class="form-group special-row">
@@ -48,8 +51,8 @@
             <div class="third-width">
               <input
                 type="text"
-                name="studentName"
-                id="studentName"
+                name="first_name"
+                id="first_name"
                 placeholder="ชื่อ"
                 required
               />
@@ -57,22 +60,21 @@
             <div class="third-width">
               <input
                 type="text"
-                name="studentLastName"
-                id="studentLastName"
+                name="last_name"
+                id="last_name"
                 placeholder="นามสกุล"
                 required
               />
             </div>
           </div>
         </div>
-
         <div class="form-group special-row">
           <label>เลขทะเบียน</label>
           <div class="half-width">
             <input
               type="text"
-              name="studentId"
-              id="studentId"
+              name="student_id"
+              id="student_id"
               placeholder="กรอกเลขทะเบียนนักศึกษา..."
               required
             />
@@ -117,8 +119,8 @@
           <div class="third-width">
             <input
               type="text"
-              name="subDistrict"
-              id="subDistrict"
+              name="sub_district"
+              id="sub_district"
               placeholder="เขต/อำเภอ"
               required
             />
@@ -141,8 +143,8 @@
               <i class="fa fa-phone"></i>
               <input
                 type="text"
-                name="contact"
-                id="contact"
+                name="phone"
+                id="phone"
                 placeholder="xxx xxx xxxx"
                 required
               />
@@ -157,8 +159,8 @@
               <i class="fa fa-phone"></i>
               <input
                 type="text"
-                name="parentContactNumber"
-                id="parentContactNumber"
+                name="guardian_phone"
+                id="guardian_phone"
                 placeholder="xxx xxx xxxx"
                 required
               />
@@ -181,15 +183,15 @@
           <label>ตั้งแต่ภาคการศึกษาที่</label>
           <div class="quarter-width">
             <input
-              name="sinceSemester"
-              id="sinceSemester"
+              name="pre_year"
+              id="pre_year"
               placeholder="ภาคการศึกษา"
               required
             />
           </div>
           <label>ภาคการศึกษาที่</label>
           <div class="small-width">
-            <select name="semesterYear" id="semesterYear" required>
+            <select name="year" id="year" required>
               <option value="" selected disabled hidden></option>
               <option value="2567">2567</option>
               <option value="2568">2568</option>
@@ -199,7 +201,7 @@
           </div>
           <label class="large-label">/</label>
           <div class="small-width">
-            <select name="semesterTerm" id="semesterTerm" required>
+            <select name="term" id="term" required>
               <option value="" selected disabled hidden></option>
               <option value="1">1</option>
               <option value="2">2</option>
@@ -212,8 +214,8 @@
           <div class="third-width">
             <input
               type="text"
-              name="courseId"
-              id="courseId"
+              name="course_code"
+              id="course_code"
               placeholder="รหัสวิชา"
               required
             />
@@ -221,8 +223,8 @@
           <div class="third-width">
             <input
               type="text"
-              name="courseName"
-              id="courseName"
+              name="course_name"
+              id="course_name"
               placeholder="ชื่อวิชา"
               required
             />
@@ -240,8 +242,8 @@
         <div class="form-group">
           <label>เหตุผลที่ยื่นคำร้องเนื่องจาก</label>
           <textarea
-            name="requestReason"
-            id="requestReason"
+            name="reason"
+            id="reason"
             placeholder="โปรดกรอกเหตุผล....."
             required
           ></textarea>
@@ -253,11 +255,13 @@
           </p>
         </div>
         <div class="buttons">
-          <button type="submit" class="submit">ส่ง</button>
+          <button type="button" class="submit" id="submit-form">ส่ง</button>
           <button type="button" class="save-draft">บันทึกแบบร่าง</button>
           <button type="button" class="cancel">ยกเลิก</button>
         </div>
       </form>
     </div>
+
+    <script src="../public/resignation_form.js"></script>
   </body>
 </html>
