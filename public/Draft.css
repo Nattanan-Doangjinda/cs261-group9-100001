@@ -1,0 +1,76 @@
+@import url('https://fonts.googleapis.com/css2?family=Afacad+Flux:wght@100..1000&family=IBM+Plex+Sans+Thai:wght@100;200;300;400;500;600;700&family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Noto+Sans+Thai:wght@100..900&display=swap');
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Body background gradient */
+body {
+    background: linear-gradient(to bottom, rgba(230, 61, 61,0.3), #FFFFFF 20%);
+    min-height: 100vh;
+    font-family: "Noto Sans Thai";
+    /* background-color: brown; */
+}
+.nav_box{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: row;
+    margin: 0 30px 10px 30px;
+}
+
+.logo{
+    margin: 15px 0 0 15px;
+}
+.navBar{  
+    border-bottom: 1px solid black;
+}
+
+.logo img{
+    width: 118px;
+    height: 118px;
+}
+
+.content{
+    margin:0 20px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 25px;
+    /* padding-bottom:; */
+}
+.navi{
+    margin: 0 63rem 0 0;
+}
+.navi a{
+    color : #000;
+    margin: 0 25px;
+    text-decoration: none;
+}
+
+.Logout a{
+    color : #000;
+    font-size: 30px;
+    padding : 0 30px;
+    text-shadow: 5px 5px 5px rgba(0, 0, 0, 0.5);
+    /* font-weight: 400; */
+    text-decoration: none;
+}
+
+.topic{
+    margin: 3rem 0 0 16rem;
+}
+
+.topic p{
+    font-size: 30px;
+    border-bottom: #000 1px solid;
+    display: inline-block;
+}
+
+.draftForm{
+    font-size:25px;
+    color: #878592;
+    margin: 1rem 0 0 22rem;
+}
