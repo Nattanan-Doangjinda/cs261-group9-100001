@@ -5,10 +5,11 @@ const submitForm = async () => {
   
   // ดึงข้อมูลจากฟอร์ม และสร้างวัตถุ `formData` เพื่อส่งข้อมูล
   const formData = {
-    type: "cross_program_registration", // ประเภทคำร้องคือการจดทะเบียนวิชาข้ามหลักสูตร
+    type: "ขอจดทะเบียนเพิ่มวิชา", // ประเภทคำร้องคือการจดทะเบียนวิชาข้ามหลักสูตร
     details: {
       status: "รอดำเนินการ", // สถานะคำร้อง
-      date: new Date().toLocaleDateString(), // วัน/เดือน/ปี
+      state: "Submitted", // เปลี่ยนจาก "Draft" เป็น "Submitted" เมื่อส่งข้อมูล
+      date: new Date().toISOString(), // วัน/เดือน/ปี (ISO format: yyyy-mm-ddT00:00:00Z)
       studentName: `${document.getElementById('title').value} ${document.getElementById('first_name').value} ${document.getElementById('last_name').value}`,
       studentId: document.getElementById('student_id').value,
       semester: document.getElementById('semester').value,
@@ -19,12 +20,12 @@ const submitForm = async () => {
       contact: document.getElementById('phone').value,
       parentContactNumber: document.getElementById('guardian_phone').value,
       advisor: document.getElementById('advisor').value,
-      sinceSemester: document.getElementById('pre_year').value,
-      term: document.getElementById('term').value,
+      sinceSemester: "", // Set to empty unless it's a "ลาออก" request
+      Semester: `${document.getElementById('year').value}/${document.getElementById('term').value}`, // Combine Year and Term
       courseId: document.getElementById('course_code').value,
       courseName: document.getElementById('course_name').value,
       section: document.getElementById('section').value,
-      requestReason: document.getElementById('reason').value
+      requestReason: document.getElementById('reason_for_request').value
     }
   };
 
@@ -39,6 +40,9 @@ const submitForm = async () => {
   }
 
   try {
+    // แสดง spinner ระหว่างส่งคำขอ
+    document.getElementById('loading-spinner').style.display = 'block'; // Show loading spinner
+
     // ส่งคำขอ POST ไปยัง API เพื่อบันทึกข้อมูล
     const response = await fetch(`http://localhost:8000/user/${userId}`, {
       method: 'POST',
@@ -47,6 +51,9 @@ const submitForm = async () => {
       },
       body: jsonData
     });
+
+    // ซ่อน spinner เมื่อคำขอเสร็จสิ้น
+    document.getElementById('loading-spinner').style.display = 'none'; // Hide loading spinner
 
     // รับผลลัพธ์จาก API และแสดงผลการส่งข้อมูล
     const result = await response.json();
@@ -60,6 +67,7 @@ const submitForm = async () => {
   } catch (error) {
     console.error('Error:', error);
     alert('เกิดข้อผิดพลาดในการส่งข้อมูล');
+    document.getElementById('loading-spinner').style.display = 'none'; // Hide loading spinner on error
   }
 };
 
@@ -76,15 +84,15 @@ const saveDraft = async () => {
     district: document.getElementById('district').value,
     sub_district: document.getElementById('sub_district').value,
     province: document.getElementById('province').value,
-    phone: document.getElementById('phone').value,
-    guardian_phone: document.getElementById('guardian_phone').value,
+    phone: document.getElementById('phone').value, 
+    guardian_phone: document.getElementById('guardian_phone').value, 
     advisor: document.getElementById('advisor').value,
-    pre_year: document.getElementById('pre_year').value,
+    pre_year: document.getElementById('year').value,
     term: document.getElementById('term').value,
     course_code: document.getElementById('course_code').value,
     course_name: document.getElementById('course_name').value,
     section: document.getElementById('section').value,
-    reason: document.getElementById('reason').value
+    reason: document.getElementById('reason_for_request').value
   };
 
   const userId = localStorage.getItem('userId');
@@ -134,7 +142,11 @@ const clearDraft = () => {
 
 // เพิ่ม Event Listeners สำหรับการจับการคลิกของปุ่มต่างๆ
 // เมื่อผู้ใช้คลิกปุ่ม submit จะเรียกฟังก์ชัน submitForm
-document.getElementById('submit-form').addEventListener('click', submitForm);
+document.getElementById('submit-form').addEventListener('click', async () => {
+  document.getElementById('loading-spinner').style.display = 'block'; // แสดง spinner เมื่อผู้ใช้คลิก submit
+  await submitForm();
+  document.getElementById('loading-spinner').style.display = 'none'; // ซ่อน spinner หลังจากการส่งข้อมูล
+});
 // เมื่อผู้ใช้คลิกปุ่ม save draft จะเรียกฟังก์ชัน saveDraft
 document.querySelector('.save-draft').addEventListener('click', saveDraft);
 // เมื่อผู้ใช้คลิกปุ่ม cancel จะเรียกฟังก์ชัน cancelForm
