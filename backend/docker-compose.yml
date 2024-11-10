@@ -13,11 +13,11 @@ services:
     networks:
       - my_network
     volumes:
-      - ./init.sql:/docker-entrypoint-initdb.d/
+      - mysql_data:/var/lib/mysql
 
   backend:
     build: 
-      dockerfile: DockerBE.dockerfile
+      dockerfile: dockerBackend.dockerfile
     container_name: node_backend
     environment:
       - DB_SERVER=db
@@ -30,6 +30,7 @@ services:
       - db
     networks:
       - my_network
+    restart: always
   
 networks:
   my_network:
@@ -45,3 +46,7 @@ volumes:
 # docker rm -f $(docker ps -a -q)
 # docker network ls
 # docker network prune -f
+
+# docker-compose up -d --build
+# docker-compose up -d
+# docker-compose down

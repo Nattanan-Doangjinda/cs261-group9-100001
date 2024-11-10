@@ -9,6 +9,16 @@ app.use(bodyparser.json());
 
 let conn = null;
 
+/*
+    user: 'sa',
+    password: 'YourStrong@Passw0rd',
+    server: 'localhost',
+    database: 'myDB',
+    options: {
+        encrypt: true,
+        trustServerCertificate: true
+    }
+*/
 const initMySQL = async () => {
     conn = await sql.connect({
         user: process.env.DB_USER,
@@ -42,7 +52,9 @@ const createTable = `
         CREATE TABLE requestFormData (
             requestFormId INT PRIMARY KEY IDENTITY(1,1),
             userId INT,
-            type VARCHAR(255),
+            status NVARCHAR(255) NOT NULL,
+            state VARCHAR(255) NOT NULL,
+            type NVARCHAR(255) NOT NULL,
             details NVARCHAR(MAX),
             CHECK (ISJSON(details) = 1), 
             FOREIGN KEY (userId) REFERENCES users(userId)
@@ -50,6 +62,7 @@ const createTable = `
     END
 `;
 
+// เก็บข้อมูล user ลง database
 app.post('/user', async (req, res) => {
     try {
         const user = req.body;
@@ -58,13 +71,18 @@ app.post('/user', async (req, res) => {
             .query('SELECT * FROM users WHERE username = @username');
 
         if (result.recordset.length === 0) {
-            result = await conn.request()
+            await conn.request()
                 .input('username', sql.VarChar, user.studentId)
                 .query('INSERT INTO users (username) VALUES (@username)');
+
+            result = await conn.request()
+                .input('username', sql.VarChar, user.studentId)
+                .query('SELECT * FROM users WHERE username = @username');
         }
 
         res.json({
-            message: "Login success"
+            message: "Login success",
+            userId: result.recordset[0].userId
         });
     } catch (error) {
         console.log('error', error);
@@ -72,19 +90,23 @@ app.post('/user', async (req, res) => {
     }
 });
 
-app.get('/user/:userId', async (req, res) => {
+// เอาข้อมูลคำร้องจาก database
+app.get('/user/published/:userId', async (req, res) => {
     try {
         const userId = req.params.userId;
         const result = await conn.request()
+            .input('state', sql.VarChar, 'Published')
             .input('userId', sql.Int, userId)
-            .query('SELECT * FROM requestFormData WHERE userId = @userId');
+            .query('SELECT type, requestFormId, status FROM requestFormData WHERE userId = @userId AND state = @state');
+
         res.json(result.recordset);
     } catch (error) {
-        console.error('Error fetching requests:', error);
-        res.status(500).json({ message: 'Failed to fetch requests' });
+        console.log('error', error);
+        res.status(500).json({ message: error });
     }
 });
 
+// ส่งข้อมูลคำร้องไปเก็บ database
 app.post('/user/:userId', async (req, res) => {
     try {
         const requestDetails = req.body;
@@ -92,9 +114,11 @@ app.post('/user/:userId', async (req, res) => {
 
         const result = await conn.request()
             .input('userId', sql.Int, id)
-            .input('type', sql.VarChar, requestDetails.type)
+            .input('status', sql.NVarChar, requestDetails.status)
+            .input('state', sql.VarChar, requestDetails.state)
+            .input('type', sql.NVarChar, requestDetails.type)
             .input('details', sql.NVarChar, JSON.stringify(requestDetails.details))
-            .query('INSERT INTO requestFormData (userId, type, details) VALUES (@userId, @type, @details)');
+            .query('INSERT INTO requestFormData (status, state, userId, type, details) VALUES (@status, @state, @userId, @type, @details)');
 
         res.json({
             message: 'Insert success',
@@ -105,6 +129,7 @@ app.post('/user/:userId', async (req, res) => {
     }
 })
 
+// update ข้อมูลคำร้อง
 app.put('/user/:requestFormId', async (req, res) => {
     try {
         const updateDetails = req.body;
@@ -124,7 +149,8 @@ app.put('/user/:requestFormId', async (req, res) => {
     }
 });
 
-app.delete('/user/:requestFormId', async (req, res) => { // <--- แก้ไข route
+// ลบข้อมูลคำร้อง
+app.delete('/user/:requestFormId', async (req, res) => {
     try {
         const requestFormId = req.params.requestFormId;
         const result = await conn.request()
@@ -132,8 +158,53 @@ app.delete('/user/:requestFormId', async (req, res) => { // <--- แก้ไข
             .query('DELETE FROM requestFormData WHERE requestFormId = @requestFormId');
         res.json({ message: 'DELETE success' });
     } catch (error) {
-        console.error('Error deleting request:', error);  // ควร log error details ที่ server
-        res.status(500).json({ message: 'Failed to delete request' }); // return generic message ให้ client
+        console.log('error', error);
+        res.status(500).json({ message: error });
+    }
+});
+
+// เอาข้อมูลคำร้อง
+app.get('/user/request/:requestFormId', async (req, res) => {
+    try {
+        const id = req.params.requestFormId;
+
+        const result = await conn.request()
+            .input('requestFormId', sql.Int, id)
+            .query('SELECT * FROM requestFormData WHERE requestFormId = @requestFormId');
+
+        result.recordset[0].details = JSON.parse(result.recordset[0].details);
+
+        res.json(result.recordset[0]);
+    } catch (error) {
+        console.log('error', error);
+        res.status(500).json({ message: error });
+    }
+});
+
+// เอาข้อมูลคำร้อง draft จาก database
+app.get('/user/draft/:userId', async (req, res) => {
+    try {
+        const data = []
+        const userId = req.params.userId;
+        const result = await conn.request()
+            .input('state', sql.VarChar, 'Draft')
+            .input('userId', sql.Int, userId)
+            .query('SELECT type, requestFormId, details FROM requestFormData WHERE userId = @userId AND state = @state');
+
+        for (var i = 0; i < result.recordset.length; i++) {
+            const response = {
+                type: result.recordset[i].type,
+                requestFormId: result.recordset[i].requestFormId,
+                date: JSON.parse(result.recordset[i].details).date
+            }
+
+            data.push(response);
+        }
+
+        res.json(data);
+    } catch (error) {
+        console.log('error', error);
+        res.status(500).json({ message: error });
     }
 });
 
