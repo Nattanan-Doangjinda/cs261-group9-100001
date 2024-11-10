@@ -1,0 +1,47 @@
+version: "3.7"
+
+services:
+  db:
+    image: mcr.microsoft.com/mssql/server:2019-latest
+    container_name: sql_server
+    environment:
+      - ACCEPT_EULA=Y
+      - MSSQL_SA_PASSWORD=YourStrong@Passw0rd
+      - MSSQL_PID=Express
+    ports:
+      - "1433:1433"
+    networks:
+      - my_network
+    volumes:
+      - ./init.sql:/docker-entrypoint-initdb.d/
+
+  backend:
+    build: 
+      dockerfile: DockerBE.dockerfile
+    container_name: node_backend
+    environment:
+      - DB_SERVER=db
+      - DB_USER=sa
+      - DB_PASSWORD=YourStrong@Passw0rd
+      - DB_NAME=myDB
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+    networks:
+      - my_network
+  
+networks:
+  my_network:
+    driver: bridge
+
+volumes:
+  mysql_data:
+    driver: local
+
+# docker network create mynetwork
+# docker build -f DockerContainer_MS_SQL.dockerfile -t my-mssql-image .
+# docker run -d --name sql-server --network mynetwork -e "ACCEPT_EULA=Y" -e "SA_PASSWORD=YourStrong@Passw0rd" -p 1433:1433 my-mssql-image
+# docker rm -f $(docker ps -a -q)
+# docker network ls
+# docker network prune -f
