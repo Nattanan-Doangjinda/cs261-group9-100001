@@ -31,7 +31,7 @@
         <div class="traker-content">
             <div class="approve-tracker">
                 <div class="tracker-title">
-                    <button class="dropdown-icon">
+                    <button class="dropdown-icon approve-drop">
                         <i class='bx bx-menu'></i>
                     </button>
                     <p>อนุมัติ / Approve</p>
@@ -40,16 +40,23 @@
 
                 <div class="approve-status-container">
                     <p class="approve-no-data"></p>
-                    <div class="approve-status">
-                        <p>คำร้องจดทะเบียนล่าช้า</p>
-                        <button class="approve-btn">อนุมัติ</button>
+                    <div class="approve-container">
+                        <div class="approve-status">
+                            <p>คำร้องจดทะเบียนล่าช้า</p>
+                            <button class="approve-btn">อนุมัติ</button>
+                        </div>
+
+                        <div class="approve-status">
+                            <p>คำร้องจดทะเบียนล่าช้า</p>
+                            <button class="approve-btn">อนุมัติ</button>
+                        </div>
                     </div>
                 </div>
             </div>
 
             <div class="pending-tracker">
                 <div class="tracker-title">
-                    <button class="dropdown-icon">
+                    <button class="dropdown-icon pending-drop">
                         <i class='bx bx-menu'></i>
                     </button>
                     <p>รอดำเนินการ / Pending</p>
@@ -58,11 +65,13 @@
 
                 <div class="pending-status-container">
                     <p class="pending-no-data"></p>
-                    <div class="pending-status">
-                        <p>คำร้องขอลาออก</p>
-                        <div class="pending-btns">
-                            <button class="edit-btn">แก้ไข</button>
-                            <button class="cancel-btn">ยกเลิก</button>
+                    <div class="pending-container">
+                        <div class="pending-status">
+                            <p>คำร้องขอลาออก</p>
+                            <div class="pending-btns">
+                                <button class="edit-btn">แก้ไข</button>
+                                <button class="cancel-btn">ยกเลิก</button>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -70,7 +79,7 @@
 
             <div class="reject-tracker">
                 <div class="tracker-title">
-                    <button class="dropdown-icon">
+                    <button class="dropdown-icon reject-drop">
                         <i class='bx bx-menu'></i>
                     </button>
                     <p>ถูกปฏิเสธ / Reject</p>
@@ -79,13 +88,17 @@
 
                 <div class="reject-status-container">
                     <p class="reject-no-data"></p>
-                    <div class="reject-status">
-                        <p>คำร้องขอถอนรายวิชา</p>
-                        <button class="reject-btn">ถูกปฏิเสธ</button>
+                    <div class="reject-container">
+                        <div class="reject-status">
+                            <p>คำร้องขอถอนรายวิชา</p>
+                            <button class="reject-btn">ถูกปฏิเสธ</button>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+
+    <script src="../public/homepage.js"></script>
 </body>
 </html>

@@ -117,6 +117,10 @@ button.dropdown-icon{
     color: crimson;
 }
 
+.approve-status-container{
+    margin-bottom: 70px;
+}
+
 .approve-status{
     display: flex;
     justify-content: space-between;
@@ -127,8 +131,13 @@ button.dropdown-icon{
     background-color: #F0F0F0;
     box-shadow: rgba(0, 0, 0, 0.3) 0px 1px 4px;
     margin-top: 20px;
-    margin-bottom: 70px;
     width: 70%;
+    transition: all 0.2s ease;
+}
+
+.approve-container{
+    transition: all 0.2s ease;
+    height: fit-content;
 }
 
 .approve-status p{
@@ -157,8 +166,17 @@ button.dropdown-icon{
     background-color: #F0F0F0;
     box-shadow: rgba(0, 0, 0, 0.3) 0px 1px 4px;
     margin-top: 20px;
-    margin-bottom: 70px;
     width: 70%;
+    transition: all 0.2s ease;
+}
+
+.pending-container{
+    transition: all 0.2s ease;
+    height: fit-content;
+}
+
+.pending-status-container{
+    margin-bottom: 70px;
 }
 
 .pending-status p{
@@ -200,8 +218,13 @@ button.dropdown-icon{
     background-color: #F0F0F0;
     box-shadow: rgba(0, 0, 0, 0.3) 0px 1px 4px;
     margin-top: 20px;
-    margin-bottom: 70px;
     width: 70%;
+    transition: all 0.2s ease;
+}
+
+.reject-container{
+    transition: all 0.2s ease;
+    height: fit-content;
 }
 
 .reject-status p{
@@ -219,3 +242,18 @@ button.dropdown-icon{
     cursor: pointer;
     box-shadow: rgba(0, 0, 0, 0.3) 0px 1px 4px;
 }
+
+.reject-status-container{
+    margin-bottom: 70px;
+}
+
+.approve-no-data , .pending-no-data , .reject-no-data{
+    color: #878592;
+}
+
+.hide-status{
+    height: 0;
+    opacity: 0;
+    pointer-events: none;
+}
+
