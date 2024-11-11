@@ -8,6 +8,10 @@ RUN npm install
 
 COPY . .
 
-EXPOSE 8000
+COPY ./views .
+
+COPY ./public .
+
+EXPOSE 3000
 
 CMD ["node", "server.js"]
