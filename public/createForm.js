@@ -1,28 +1,46 @@
-const addSubject = document.getElementById("addSubject")
-const withDraw = document.getElementById("withDraw")
-const resign = document.getElementById("resign")
-const crossProgram = document.getElementById("crossProgram")
-const urlParams = new URLSearchParams(window.location.search);
-const userID = urlParams.get('userID');
-// let requestFormId = localStorage.getItem("requestFormId");
+document.addEventListener("DOMContentLoaded", function () {
+    const addSubject = document.getElementById("addSubject");
+    const withDraw = document.getElementById("withDraw");
+    const resign = document.getElementById("resign");
+    const crossProgram = document.getElementById("crossProgram");
 
-addSubject.addEventListener("click" , () => {
-    // window.location.href = "request_add_subject.html";
-     window.location.href = `../views/request_add_subject.html?id=${userID}`
-    // localStorage.setItem("editingExistingDraft", "true");
-})
+    const urlParams = new URLSearchParams(window.location.search);
+    console.log(window.location.search)
+    const userID = urlParams.get('id');
 
-withDraw.addEventListener("click",() => {
-    window.location.href = `../views/request_withdraw.html?id=${userID}`;
-})
+    if (userID) {
+        document.getElementById("homepage-link").href += `?id=${userID}`;
+        document.getElementById("createForm-link").href += `?id=${userID}`;
+        document.getElementById("draft-link").href += `?id=${userID}`;
+    }
 
-resign.addEventListener("click",() => {
-    // window.location.href = "resignation_form.html";
-    window.location.href = `../views/resignation_form.html?id=${userID}`;
-})
+    // Check if userID is available
+    if (!userID) {
+        console.warn("User ID is missing from URL parameters.");
+        return;
+    }
 
-crossProgram.addEventListener("click",() => {
-    // window.location.href = "register_cross_program.html";
-    window.location.href = `../views/register_cross_program.html?id=${userID}`;
-})
+    if (addSubject) {
+        addSubject.addEventListener("click", () => {
+            window.location.href = `../views/request_add_subject.html?id=${userID}`;
+        });
+    }
 
+    if (withDraw) {
+        withDraw.addEventListener("click", () => {
+            window.location.href = `../views/request_withdraw.html?id=${userID}`;
+        });
+    }
+
+    if (resign) {
+        resign.addEventListener("click", () => {
+            window.location.href = `../views/resignation_form.html?id=${userID}`;
+        });
+    }
+
+    if (crossProgram) {
+        crossProgram.addEventListener("click", () => {
+            window.location.href = `../views/register_cross_program.html?id=${userID}`;
+        });
+    }
+});

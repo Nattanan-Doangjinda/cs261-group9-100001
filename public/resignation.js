@@ -1,6 +1,11 @@
 document.addEventListener("DOMContentLoaded", async function(event)  {
   const urlParams = new URLSearchParams(window.location.search);
-  const userID = urlParams.get('userID');
+  const userID = urlParams.get('id');
+  if (userID) {
+    document.getElementById("homepage-link").href += `?id=${userID}`;
+    document.getElementById("createForm-link").href += `?id=${userID}`;
+    document.getElementById("draft-link").href += `?id=${userID}`;
+}
     const submitButton = document.querySelector('.submit');
     submitButton.addEventListener('click', function(event) {
       if (address.value === "") {
@@ -76,6 +81,7 @@ document.addEventListener("DOMContentLoaded", async function(event)  {
       });
       if (response.ok) {
         showModal(); // แสดง pop-up เมื่อส่งฟอร์มสำเร็จ
+        ReturnToHomepage();
       } else {
         alert('เกิดข้อผิดพลาดในการส่งข้อมูล');
       }
@@ -128,7 +134,7 @@ document.addEventListener("DOMContentLoaded", async function(event)  {
     }
   
     function ReturnToHomepage(){
-      window.location.href = '../views/homepage.html'; 
+      window.location.href = `../views/homepage.html?id=${userID}`;
     }
   
     function formDataToJSON(formData) {
