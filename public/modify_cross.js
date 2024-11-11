@@ -128,9 +128,9 @@ document.addEventListener("DOMContentLoaded", async function(event)  {
           }
       });
   
-      const url = "http://localhost:8000/user/"+userID;
+      const url = "http://localhost:8000/user/"+requestFormId;
       const response = await fetch(url, {
-          method: "POST",
+          method: "PUT",
           headers: header,
           body: body,
       });
@@ -140,7 +140,6 @@ document.addEventListener("DOMContentLoaded", async function(event)  {
       } else {
         alert('เกิดข้อผิดพลาดในการส่งข้อมูล');
       }
-      Delete(requestFormId);
   }
   
   
@@ -154,6 +153,9 @@ document.addEventListener("DOMContentLoaded", async function(event)  {
       };
   
       const body = JSON.stringify({
+          "status": "รอดำเนินการ",
+          "state": "Draft",
+          "type": "จดทะเบียนวิชาข้ามหลักสูตร",
           "details": {
               "date" : Datefrom,
               "studentName": formDataObj.title+" "+formDataObj.first_name+" "+formDataObj.last_name,
@@ -238,23 +240,4 @@ document.addEventListener("DOMContentLoaded", async function(event)  {
     });
   }
 
-  async function Delete(re){
-    const header = {
-      "Content-Type": "application/json"
-    };
-    const body = JSON.stringify({
-      
-    });
-    const url2 = "http://localhost:8000/user/"+re;
-    await fetch(url2, {
-      method: "DELETE",
-      headers: header,
-      body: body,
-    });
-    if (response.ok) {
-      
-    } else {
-      
-    }
-  }
   });

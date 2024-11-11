@@ -138,7 +138,8 @@ app.put('/user/:requestFormId', async (req, res) => {
         const result = await conn.request()
             .input('requestFormId', sql.Int, id)
             .input('details', sql.NVarChar, JSON.stringify(updateDetails.details))
-            .query('UPDATE requestFormData SET details = @details WHERE requestFormId = @requestFormId');
+            .input('state', sql.VarChar, updateDetails.state)
+            .query('UPDATE requestFormData SET details = @details, state = @state WHERE requestFormId = @requestFormId');
 
         res.json({
             message: 'Update success'
