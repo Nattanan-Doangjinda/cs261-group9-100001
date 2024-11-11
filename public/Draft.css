@@ -65,38 +65,67 @@ button.logout{
     height: 150px;
 }
 
-.Form{
-    
-    margin-top: 5rem;
-    display: flex;
-    /* justify-content: center; */
-    align-items: center;
-    flex-direction: column;
+.topic{
+    margin: 4rem 0 0 21rem;
 }
 
-.formContent{
+.topic p{
+    font-size: 30px;
+    border-bottom: #000 1px solid;
+    display: inline-block;
+}
+
+.draftForm{
+    font-size:25px;
+    color: #878592;
+    margin: 1rem 0 0 22rem;
+}
+
+.wrapper{
     display: flex;
-    padding: 15px 30px;
     justify-content: space-between;
     align-items: center;
     flex-direction: row;
-    margin-bottom: 5rem;
+    width: 80%;
+    /* border: 1px red solid; */
+    padding: 15px 30px;
+    border-radius: 19px;
     background-color: #F0F0F0;
+    box-shadow: 2px 5px 5px rgba(0, 0, 0, 0.5);
+    /* margin-bottom: 3rem; */
+    margin-top: 3rem;
+}
+.wrapper .text{
+    color: #000;
     font-size: 30px;
-    border-radius: 25px;
-    width: 50%; /* Set a width for equal alignment */
-    box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.5);
+}
+.wrapper .date{
+    color: #000;
+    font-size: 20px;
+    font-weight: 400;
 }
 
-.buttons button{
-    padding: 5px 15px;
+.wrapper .btnContainer{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 18%;
+    /* border: 1px red solid; */
+}
+.wrapper .btnContainer button{
+    padding: 10px 20px;
     font-size: 20px;
-    font-weight: 600;
-    border-radius: 10px;
-    outline: none;
+    border-radius: 19px;
     border: none;
-    background-color: #B7DBB5;
-    text-shadow: 5px 5px 5px rgba(0, 0, 0, 0.5);
+    width: 100px;
     cursor: pointer;
-    box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.5);
+    box-shadow: 2px 5px 5px rgba(0, 0, 0, 0.5);
+}
+
+.wrapper .btnContainer .btn1{
+    background-color: #FFFFFF;
+    margin-right: 20px;
+}
+.wrapper .btnContainer .btn2{
+    background-color: #DBB5B5;
 }

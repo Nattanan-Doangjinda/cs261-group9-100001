@@ -21,10 +21,10 @@ let conn = null;
 */
 const initMySQL = async () => {
     conn = await sql.connect({
-        user: process.env.DB_USER,
-        password: process.env.DB_PASSWORD,
-        server: process.env.DB_SERVER,
-        database: process.env.DB_NAME,
+        user: 'sa',
+        password: 'cs261',
+        server: 'localhost',
+        database: 'myDB',
         options: {
             encrypt: true,
             trustServerCertificate: true
