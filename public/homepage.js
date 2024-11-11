@@ -5,6 +5,13 @@ const cancelBtn = document.querySelector('.cancel-btn');
 const pendingStatusList = document.querySelector('.pending-container');
 const approveStatusList = document.querySelector('.approve-container');
 const rejectStatusList = document.querySelector('.reject-container');
+var pendingContainer = document.querySelector('.pending-container')
+var approveContaienr = document.querySelector('.approve-container')
+var rejectContainer = document.querySelector('.reject-container')
+var registerCross = "register_cross_program.html"
+var requestAdd = "request_add_subject.html"
+var requestWithdraw = "request_withdraw.html"
+var resignationForm = "resignation_form.html"
 
 pendingDrop.addEventListener('click' , () => {
     console.log("button is clicked")
@@ -20,3 +27,63 @@ rejectDrop.addEventListener('click' , () => {
     console.log("button is clicked")
     rejectStatusList.classList.toggle('hide-status');
 });
+
+var request = null
+
+window.onload = async function() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const id = urlParams.get('id');
+
+    const response = await fetch(`http://localhost:8000/user/published/${id}`, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+        }
+    })
+    request = await response.json()
+    console.log(request)
+
+    var pendingtext = document.querySelector('.pending-text')
+    request.forEach(item => {
+        var data = null
+        var ref = null
+        if(item.type === "ขอจดทะเบียนเพิ่มวิชา"){
+            ref = requestAdd
+        } else if (item.type === "ขอถอนรายวิชา") {
+            ref = requestWithdraw
+        } else if (item.type === "ขอลาออก"){
+            ref = resignationForm
+        } else {
+            ref = registerCross
+        }
+
+        if(item.status === "รอดำเนินการ" ){
+            data = `<div class="pending-status">
+                <p class="pending-text">${item.type}</p>
+                <div class="pending-btns">
+                   <button class="edit-btn" onclick="window.location.href='${ref}?id=${item.requestFormId}'">แก้ไข</button>
+                    <button class="cancel-btn" onclick="requestDel(${item.requestFormId})">ยกเลิก</button>
+                </div>
+                </div>`
+            pendingContainer.innerHTML += data
+        } else if (item.status === "อนุมัติ"){
+            data = `<div class="approve-status">
+                    <p>${item.type}</p>
+                    <button class="approve-btn">อนุมัติ</button>
+                    </div>`
+            approveContaienr.innerHTML += data
+        } else {
+            data = `<div class="reject-status"><p>${item.type}</p><button class="reject-btn">ถูกปฏิเสธ</button></div>`
+            rejectContainer.innerHTML += data
+        }
+            
+        
+    });
+}
+
+const requestDel = async (id) =>{
+    await fetch(`http://localhost:8000/user/${id}`, {
+        method: 'DELETE'
+    })
+    window.location.reload();
+}
