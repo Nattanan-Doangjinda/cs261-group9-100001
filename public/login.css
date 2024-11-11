@@ -53,7 +53,7 @@ h2{
     text-transform: uppercase;
 }
 
-form{
+.form{
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -64,7 +64,7 @@ form{
     gap: 10px;
 }
 
-form > div{
+.form > div{
     width: 100%;
     display: flex;
     justify-content: center;
@@ -74,7 +74,7 @@ label svg{
     fill: var(--base-color);
 }
 
-form label{
+.form label{
     flex-shrink: 0;
     height: 50px;
     width: 50px;
@@ -88,7 +88,7 @@ form label{
     font-weight: 500;
 }
 
-form input{
+.form input{
     flex-grow: 1;
     min-width: 0;
     height: 50px;
@@ -101,7 +101,7 @@ form input{
     transition: 150ms ease;
 }
 
-form input:hover{
+.form input:hover{
     border-color: var(--accent-color);
 }
 
@@ -114,7 +114,7 @@ div:has(input:focus) > label{
     background-color: var(--text-color);
 }
 
-form button{
+.form button{
     font: inherit;
     margin-top: 10px;
     padding: 0.85em 4em;
@@ -128,11 +128,11 @@ form button{
     transition: 150ms ease;
 }
 
-form button:hover{
+.form button:hover{
     background-color: var(--accent-color);
 }
 
-form button:focus{
+.form button:focus{
     outline: none;
     background-color: var(--text-color);
 }
@@ -145,11 +145,11 @@ form button:focus{
 
 }
 
-form div.incorrect label{
+.form div.incorrect label{
     background-color: #f06272;
 }
 
-form div.incorrect input{
+.form div.incorrect input{
     border-color: #f06272;
 }
 
