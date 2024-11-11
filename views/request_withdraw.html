@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <link rel="stylesheet" href="../public/request_add_subject_and_ withdraw.css" />
+    <link rel="stylesheet" href="../public/request.css" />
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
@@ -119,21 +119,21 @@
         <div class="form-group">
           <label>ภาคการศึกษาที่</label>
           <div class="small-width">
-            <select name="year" id="year" required>
-              <option value="" selected disabled hidden></option>
-              <option value="2567">2567</option>
-              <option value="2568">2568</option>
-              <option value="2569">2569</option>
-              <option value="2570">2570</option>
+            <select name="term" id="term" required>
+              <option value="" selected disabled hidden>ภาค</option>
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
             </select>
           </div>
           <label class="large-label">/</label>
           <div class="small-width">
-            <select name="term" id="term" required>
-              <option value="" selected disabled hidden></option>
-              <option value="1">1</option>
-              <option value="2">2</option>
-              <option value="3">3</option>
+            <select name="year" id="year" required>
+              <option value="" selected disabled hidden>ปี</option>
+              <option value="2567">2567</option>
+              <option value="2568">2568</option>
+              <option value="2569">2569</option>
+              <option value="2570">2570</option>
             </select>
           </div>
         </div>
@@ -165,13 +165,34 @@
         <br>
         <br>
         <div class="buttons">
-          <button type="submit" class="submit">ส่ง</button>
-          <button type="button" class="save-draft" id="drop_Subject">บันทึกแบบร่าง</button>
+          <button type="submit" class="submit" id="drop_Subject">ส่ง</button>
+          <button type="button" class="save-draft">บันทึกแบบร่าง</button>
           <button type="button" class="cancel">ยกเลิก</button>
         </div>
       </form>
     </div>
+    
+    <div id="successModal" class="modal">
+      <div class="modal-content">
+        <div class="modal-header">
+          <br>
+          <span class="modal-dot"></span><h1>ส่งฟอร์มคำร้องสำเร็จ !</h1>
+        </div>
+        <br>
+        <button id="closeModal"><h2>ตกลง</h2></button>
+      </div>
+    </div>
+    <div id="successModal2" class="modal">
+      <div class="modal-content">
+        <div class="modal-header">
+          <br>
+          <span class="modal-dot"></span><h1>บันทึกแบบร่างสำเร็จ !</h1>
+        </div>
+        <br>
+        <button id="closeModal2"><h2>ตกลง</h2></button>
+      </div>
+    </div>
 
-    <script src="../public/add_Subject_And_withdraw.js"></script>
+    <script src="../public/withdrow.js"></script>
   </body>
 </html>

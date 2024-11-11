@@ -6,7 +6,7 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
     />
-    <title>แบบฟอร์มขอจดทะเบียนวิชาข้ามหลักสูตร</title>
+    <title>แบบฟอร์มจดทะเบียนเพิ่มรายวิชา</title>
   </head>
   <body>
     <div class="nav_box">
@@ -30,7 +30,7 @@
 
 
     <div class="container">
-      <div class="header">เรื่อง จดทะเบียนวิชาข้ามหลักสูตร</div>
+      <div class="header">เรื่อง จดทะเบียนเพิ่มวิชา</div>
       <form action="/submit-form" method="POST">
         <div class="form-group">
           <div class="header">เรียน คณบดีคณะวิทยาศาสตร์และเทคโนโลยี</div>
@@ -79,11 +79,11 @@
           </div>
           <label>แขวง/ตำบล</label>
           <div class="third-width">
-            <input type="text" name="district" id="district" placeholder="แขวง/ตำบล" required />
+            <input type="text" name="sub_district" id="sub_district" placeholder="แขวง/ตำบล" required />
           </div>
           <label>เขต/อำเภอ</label>
           <div class="third-width">
-            <input type="text" name="sub_district" id="sub_district" placeholder="เขต/อำเภอ" required />
+            <input type="text" name="district" id="district" placeholder="เขต/อำเภอ" required />
           </div>
         </div>
         <div class="form-group special-row">
@@ -114,7 +114,7 @@
           </div>
         </div>
         <div class="form-group">
-          <label>ประสงค์จะยื่นคำร้องเรื่อง ขอจดทะเบียนศึกษารายวิชาข้ามหลักสูตร</label>
+          <label>ประสงค์จะยื่นคำร้องเรื่อง จดทะเบียนล่าช้า / เพิ่มล้าช้า</label>
         </div>
         <div class="form-group">
           <label>ภาคการศึกษาที่</label>
@@ -165,18 +165,11 @@
         <br>
         <br>
         <div class="buttons">
-          <button type="submit" class="submit" id="drop_Subject">ส่ง</button>
+          <button type="submit" class="submit" id="add_Subject">ส่ง</button>
           <button type="button" class="save-draft">บันทึกแบบร่าง</button>
           <button type="button" class="cancel">ยกเลิก</button>
         </div>
       </form>
-    </div>
-    <div id="successModal" class="modal">
-      <div class="modal-content">
-        <span class="modal-dot"></span>
-        <p>ส่งฟอร์มคำร้องสำเร็จ !</p>
-        <button id="closeModal">ตกลง</button>
-      </div>
     </div>
     <div id="successModal" class="modal">
       <div class="modal-content">
@@ -200,6 +193,6 @@
     </div>
     
 
-    <script src="../public/cross.js"></script>
+    <script src="../public/modify_add.js"></script>
   </body>
 </html>

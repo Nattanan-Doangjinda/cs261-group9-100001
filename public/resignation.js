@@ -1,0 +1,181 @@
+document.addEventListener("DOMContentLoaded", async function(event)  {
+  const urlParams = new URLSearchParams(window.location.search);
+  const userID = urlParams.get('userID');
+    const submitButton = document.querySelector('.submit');
+    submitButton.addEventListener('click', function(event) {
+      if (address.value === "") {
+        address.value = "-";
+      }
+      if (sub_district.value === "") {
+        sub_district.value = "-";
+      }
+      if (district.value === "") {
+        district.value = "-";
+      }
+      if (province.value === "") {
+        province.value = "-";
+      }
+        event.preventDefault();
+        const form = document.querySelector('form');
+          if (form.checkValidity()) {
+            savedFormData(form);
+            ReturnToHomepage()
+          } else {
+              alert('กรุณากรอกข้อมูลให้ครบทุกช่อง!');
+          }
+    });
+  
+    const saveDraftButton = document.querySelector('.save-draft');
+    saveDraftButton.addEventListener('click', function(event) {
+        event.preventDefault();
+        saveDraft();
+        ReturnToHomepage()
+    });
+  
+    const cancelButton = document.querySelector('.cancel');
+    cancelButton.addEventListener('click', function(event) {
+      ReturnToHomepage()
+    });
+  
+    async function savedFormData() {
+      const savedData = new FormData(document.querySelector('form'));
+      const formDataObj = formDataToJSON(savedData); 
+      const Datefrom = getCurrentDateTime();
+      console.log('ข้อมูลที่ถูกบันทึก:', formDataObj);
+      const header = {
+          "Content-Type": "application/json"
+      };
+  
+      const body = JSON.stringify({
+          "status": "รอดำเนินการ",
+          "state": "Published",
+          "type": "ขอลาออก",
+          "details": {
+              "date" : Datefrom,
+              "studentName": formDataObj.title+" "+formDataObj.first_name+" "+formDataObj.last_name,
+              "studentId": formDataObj.student_id,
+              "year": formDataObj.semester,
+              "address": formDataObj.address + " " + formDataObj.sub_district + " " + formDataObj.district + " " + formDataObj.province,
+              "contact": formDataObj.phone,
+              "parentContactNumber": formDataObj.guardian_phone,
+              "advisor": formDataObj.advisor,
+              "sinceSemester": formDataObj.term + "/" + formDataObj.year,
+              "Semester": formDataObj.term + "/" + formDataObj.year,
+              "courseId": formDataObj.course_code,
+              "courseName": formDataObj.course_name,
+              "section": formDataObj.section,
+              "requestReason": formDataObj.reason
+          }
+      });
+  
+      const url = "http://localhost:8000/user/"+userID;
+      const response = await fetch(url, {
+          method: "POST",
+          headers: header,
+          body: body,
+      });
+      if (response.ok) {
+        showModal(); // แสดง pop-up เมื่อส่งฟอร์มสำเร็จ
+      } else {
+        alert('เกิดข้อผิดพลาดในการส่งข้อมูล');
+      }
+  }
+  
+  
+    async function saveDraft() {
+      const savedData = new FormData(document.querySelector('form'));
+      const formDataObj = formDataToJSON(savedData); 
+      const Datefrom = getCurrentDateTime();
+      console.log('ข้อมูลที่ถูกบันทึก:', formDataObj);
+      const header = {
+          "Content-Type": "application/json"
+      };
+  
+      const body = JSON.stringify({
+          "status": "รอดำเนินการ",
+          "state": "Draft",
+          "type": "ขอลาออก",
+          "details": {
+              "date" : Datefrom,
+              "studentName": formDataObj.title+" "+formDataObj.first_name+" "+formDataObj.last_name,
+              "studentId": formDataObj.student_id,
+              "year": formDataObj.semester,
+              "address": formDataObj.address + " " + formDataObj.district + " " + formDataObj.sub_district + " " + formDataObj.province,
+              "contact": formDataObj.phone,
+              "parentContactNumber": formDataObj.guardian_phone,
+              "advisor": formDataObj.advisor,
+              "sinceSemester": formDataObj.term + "/" + formDataObj.year,
+              "Semester": formDataObj.term + "/" + formDataObj.year,
+              "courseId": formDataObj.course_code,
+              "courseName": formDataObj.course_name,
+              "section": formDataObj.section,
+              "requestReason": formDataObj.reason
+          }
+      });
+  
+      const url = "http://localhost:8000/user/"+userID;
+      const response = await fetch(url, {
+          method: "POST",
+          headers: header,
+          body: body,
+      });
+  
+      if (response.ok) {
+        showModal2(); // แสดง pop-up เมื่อส่งฟอร์มสำเร็จ
+      } else {
+        alert('เกิดข้อผิดพลาดในการส่งข้อมูล');
+      }
+    }
+  
+    function ReturnToHomepage(){
+      window.location.href = '../views/homepage.html'; 
+    }
+  
+    function formDataToJSON(formData) {
+      const obj = {};
+      formData.forEach((value, key) => {
+        obj[key] = value;
+      });
+      return obj;
+    }
+    
+    function getCurrentDateTime() {
+      const currentDate = new Date();
+      const day = currentDate.getDate();
+      const month = currentDate.getMonth() + 1; // เดือนเริ่มจาก 0
+      const year = currentDate.getFullYear();
+      const hours = String(currentDate.getHours()).padStart(2, '0');
+      const minutes = String(currentDate.getMinutes()).padStart(2, '0');
+      return `${day}/${month}/${year} ${hours}:${minutes}`;
+    }
+    
+  const showModal = () => {
+    document.getElementById('successModal').style.display = 'block';
+  };
+
+  const closeModal = () => {
+    document.getElementById('successModal').style.display = 'none';
+  };
+
+  const closeModalButton = document.getElementById('closeModal'); 
+  if (closeModalButton) {
+    closeModalButton.addEventListener('click', function() {
+      closeModal(); // เมื่อกดปุ่ม "ตกลง" ให้ปิด modal
+    });
+  }
+
+  const showModal2 = () => {
+    document.getElementById('successModal2').style.display = 'block';
+  };
+
+  const closeModal2 = () => {
+    document.getElementById('successModal2').style.display = 'none';
+  };
+
+  const closeModalButton2 = document.getElementById('closeModal2'); 
+  if (closeModalButton2) {
+    closeModalButton2.addEventListener('click', function() {
+      closeModal2(); // เมื่อกดปุ่ม "ตกลง" ให้ปิด modal
+    });
+  }
+  });
