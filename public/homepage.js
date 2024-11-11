@@ -8,10 +8,10 @@ const rejectStatusList = document.querySelector('.reject-container');
 var pendingContainer = document.querySelector('.pending-container')
 var approveContaienr = document.querySelector('.approve-container')
 var rejectContainer = document.querySelector('.reject-container')
-var registerCross = "register_cross_program.html"
-var requestAdd = "request_add_subject.html"
-var requestWithdraw = "request_withdraw.html"
-var resignationForm = "resignation_form.html"
+var registerCross = "modify_request_cross.html"
+var requestAdd = "modify_request_add.html"
+var requestWithdraw = "modify_request_withdrow.html"
+var resignationForm = "modify_resignation.html"
 
 pendingDrop.addEventListener('click' , () => {
     console.log("button is clicked")
@@ -61,7 +61,7 @@ window.onload = async function() {
             data = `<div class="pending-status">
                 <p class="pending-text">${item.type}</p>
                 <div class="pending-btns">
-                   <button class="edit-btn" onclick="window.location.href='${ref}?id=${item.requestFormId}'">แก้ไข</button>
+                   <button class="edit-btn" onclick="window.location.href='${ref}?requestFormId=${item.requestFormId}'">แก้ไข</button>
                     <button class="cancel-btn" onclick="requestDel(${item.requestFormId})">ยกเลิก</button>
                 </div>
                 </div>`
