@@ -119,12 +119,12 @@ document.addEventListener("DOMContentLoaded", async function(event)  {
           headers: header,
           body: body,
       });
-  
-      if (response.ok) {
-        showModal2(); // แสดง pop-up เมื่อส่งฟอร์มสำเร็จ
-      } else {
-        alert('เกิดข้อผิดพลาดในการส่งข้อมูล');
-      }
+   
+    if (response.ok) {
+      showModal2(); // แสดง pop-up เมื่อบันทึกสำเร็จ
+    } else {
+      alert('เกิดข้อผิดพลาดในการบันทึกแบบร่าง');
+    }
     }
   
     function ReturnToHomepage(){
@@ -148,7 +148,6 @@ document.addEventListener("DOMContentLoaded", async function(event)  {
       const minutes = String(currentDate.getMinutes()).padStart(2, '0');
       return `${day}/${month}/${year} ${hours}:${minutes}`;
     }
-    
   const showModal = () => {
     document.getElementById('successModal').style.display = 'block';
   };

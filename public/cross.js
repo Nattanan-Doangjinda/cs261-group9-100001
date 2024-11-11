@@ -51,7 +51,7 @@ document.addEventListener("DOMContentLoaded", async function(event) {
     const body = JSON.stringify({
       "status": "รอดำเนินการ",
       "state": "Published",
-      "type": "จดทะเบียนวิชาข้ามหลักสูตร ",
+      "type": "จดทะเบียนวิชาข้ามหลักสูตร",
       "details": {
         "date": Datefrom,
         "studentName": formDataObj.title + " " + formDataObj.first_name + " " + formDataObj.last_name,
@@ -96,7 +96,7 @@ document.addEventListener("DOMContentLoaded", async function(event) {
     const body = JSON.stringify({
       "status": "รอดำเนินการ",
       "state": "Draft",
-      "type": "จดทะเบียนวิชาข้ามหลักสูตร ",
+      "type": "จดทะเบียนวิชาข้ามหลักสูตร",
       "details": {
         "date": Datefrom,
         "studentName": formDataObj.title + " " + formDataObj.first_name + " " + formDataObj.last_name,
@@ -164,7 +164,7 @@ document.addEventListener("DOMContentLoaded", async function(event) {
     closeModalButton.addEventListener('click', function() {
       closeModal(); // เมื่อกดปุ่ม "ตกลง" ให้ปิด modal
     });
-  }3
+  }
 
   const showModal2 = () => {
     document.getElementById('successModal2').style.display = 'block';
@@ -181,3 +181,7 @@ document.addEventListener("DOMContentLoaded", async function(event) {
     });
   }
 });
+
+
+
+
