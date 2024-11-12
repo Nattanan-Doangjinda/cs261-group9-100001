@@ -44,3 +44,8 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 });
+
+
+document.getElementById('logout').addEventListener('click' , () => {
+    window.location.href = window.location.href = `../views/login.html`;
+  })
