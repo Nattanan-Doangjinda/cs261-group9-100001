@@ -65,5 +65,5 @@ const adjustDraft = (type,requestFormId) => {
         ref = registerCross
     }
     // console.log(requestFormId)
-    window.location.href= `${ref}?requestFormId=${requestFormId}`
+    window.location.href= `${ref}?id=${requestFormId}`
 }

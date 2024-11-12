@@ -68,7 +68,7 @@ window.onload = async function() {
             data = `<div class="pending-status">
                 <p class="pending-text">${item.type}</p>
                 <div class="pending-btns">
-                   <button class="edit-btn" onclick="window.location.href='${ref}?requestFormId=${item.requestFormId}'">แก้ไข</button>
+                   <button class="edit-btn" onclick="window.location.href='${ref}?id=${item.requestFormId}'">แก้ไข</button>
                     <button class="cancel-btn" onclick="requestDel(${item.requestFormId})">ยกเลิก</button>
                 </div>
                 </div>`
