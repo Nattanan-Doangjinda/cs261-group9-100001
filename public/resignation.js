@@ -1,8 +1,12 @@
 document.addEventListener("DOMContentLoaded", async function(event) {
   const urlParams = new URLSearchParams(window.location.search);
   const userID = urlParams.get('id');
-
   const submitButton = document.querySelector('.submit');
+  if (userID) {
+    document.getElementById("homepage-link").href += `?id=${userID}`;
+    document.getElementById("createForm-link").href += `?id=${userID}`;
+    document.getElementById("draft-link").href += `?id=${userID}`;
+  }
 
   submitButton.addEventListener('click', async function(event) {
     event.preventDefault(); // ป้องกันการ reload หน้า

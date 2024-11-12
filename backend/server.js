@@ -7,30 +7,15 @@ const sql = require('mssql');
 app.use(cors());
 app.use(bodyparser.json());
 
-let conn = null;
-
-/*
-    user: 'sa',
-    password: 'YourStrong@Passw0rd',
-    server: 'localhost',
-    database: 'myDB',
-    options: {
-        encrypt: true,
-        trustServerCertificate: true
-    }
-*/
-const initMySQL = async () => {
-    conn = await sql.connect({
-        user: process.env.DB_USER,
-        password: process.env.DB_PASSWORD,
-        server: process.env.DB_SERVER,
-        database: process.env.DB_NAME,
-        options: {
-            encrypt: true,
-            trustServerCertificate: true
-        }
-    });
-};
+const createDatabase = `
+    IF NOT EXISTS (
+        SELECT * FROM sys.databases 
+        WHERE name = 'myDB'
+    )
+    BEGIN
+        CREATE DATABASE myDB;
+    END
+`;
 
 const createTable = `
     IF NOT EXISTS (
@@ -61,6 +46,38 @@ const createTable = `
         );
     END
 `;
+
+var conn = null;
+
+const initMySQL = async () => {
+    conn = await sql.connect({
+        user: process.env.DB_USER,
+        password: process.env.DB_PASSWORD,
+        server: process.env.DB_SERVER,
+        database: process.env.DB_NAME,
+        options: {
+            encrypt: true,
+            trustServerCertificate: true
+        }
+    });
+    await conn.request().query(createDatabase);
+
+    await conn.close();
+    await new Promise(resolve => setTimeout(resolve, 5000));
+    
+    conn = await sql.connect({
+        user: process.env.DB_USER,
+        password: process.env.DB_PASSWORD,
+        server: process.env.DB_SERVER,
+        database: 'myDB',
+        options: {
+            encrypt: true,
+            trustServerCertificate: true
+        }
+    });
+    await conn.request().query(createTable);
+};
+
 
 // เก็บข้อมูล user ลง database
 app.post('/user', async (req, res) => {
@@ -211,6 +228,6 @@ app.get('/user/draft/:userId', async (req, res) => {
 
 app.listen(8000, async (req, res) => {
     await initMySQL();
-    await conn.request().query(createTable);
+    // await initMySQLNewDatabase();
     console.log('http server runing at ' + 8000);
 });

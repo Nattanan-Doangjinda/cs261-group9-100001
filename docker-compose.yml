@@ -13,7 +13,18 @@ services:
     networks:
       - my_network
     volumes:
-      - mysql_data:/var/lib/mysql
+      - mssql_data:/var/lib/mysql
+    restart: always
+
+  frontend:
+    build: 
+      dockerfile: dockerFrontend.dockerfile
+    container_name: node_frontend
+    ports:
+      - "3000:3000"
+    networks:
+      - my_network
+    restart: always
 
   backend:
     build: 
@@ -23,7 +34,7 @@ services:
       - DB_SERVER=db
       - DB_USER=sa
       - DB_PASSWORD=YourStrong@Passw0rd
-      - DB_NAME=myDB
+      - DB_NAME=master
     ports:
       - "8000:8000"
     depends_on:
@@ -37,7 +48,7 @@ networks:
     driver: bridge
 
 volumes:
-  mysql_data:
+  mssql_data:
     driver: local
 
 # docker network create mynetwork

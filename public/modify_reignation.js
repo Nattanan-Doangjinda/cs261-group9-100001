@@ -55,12 +55,21 @@ window.onload = async function() {
         document.getElementById('term').value = term;
         document.getElementById('year').value = year;
         document.getElementById('reason').value = data.details.requestReason;
-
+        updateLinks(userID)
     } else {
         console.log("Error:", response.status);
         alert("ไม่สามารถดึงข้อมูลได้");
     }
 }
+
+function updateLinks(userID) {
+  if (userID) {
+    document.getElementById("homepage-link").href += `?id=${userID}`;
+    document.getElementById("createForm-link").href += `?id=${userID}`;
+    document.getElementById("draft-link").href += `?id=${userID}`;
+  }
+}
+
 
 document.addEventListener("DOMContentLoaded", async function(event)  {
   const urlParams = new URLSearchParams(window.location.search);

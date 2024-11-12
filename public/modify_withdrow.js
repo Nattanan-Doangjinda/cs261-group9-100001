@@ -58,6 +58,7 @@ window.onload = async function() {
         document.getElementById('course_name').value = data.details.courseName;
         document.getElementById('section').value = data.details.section;
         document.getElementById('reason').value = data.details.requestReason;
+        updateLinks(userID);
 
     } else {
         console.log("Error:", response.status);
@@ -65,10 +66,17 @@ window.onload = async function() {
     }
 }
 
+function updateLinks(userID) {
+  if (userID) {
+    document.getElementById("homepage-link").href += `?id=${userID}`;
+    document.getElementById("createForm-link").href += `?id=${userID}`;
+    document.getElementById("draft-link").href += `?id=${userID}`;
+  }
+}
+
 document.addEventListener("DOMContentLoaded", async function(event)  {
   const urlParams = new URLSearchParams(window.location.search);
   const requestFormId = urlParams.get('id');
-
     const submitButton = document.querySelector('.submit');
     submitButton.addEventListener('click', function(event) {
       if (address.value === "") {
@@ -100,7 +108,7 @@ document.addEventListener("DOMContentLoaded", async function(event)  {
   
     const cancelButton = document.querySelector('.cancel');
     cancelButton.addEventListener('click', function(event) {
-      ReturnToHomepage();
+      ReturnToHomepage()
     });
   
     async function savedFormData() {
@@ -159,8 +167,8 @@ document.addEventListener("DOMContentLoaded", async function(event)  {
       };
   
       const body = JSON.stringify({
-        "status": "รอดำเนินการ",
-          "state": "Dradt",
+          "status": "รอดำเนินการ",
+          "state": "Draft",
           "type": "ขอถอนรายวิชา",
           "details": {
               "date" : Datefrom,
@@ -192,7 +200,6 @@ document.addEventListener("DOMContentLoaded", async function(event)  {
       } else {
         alert('เกิดข้อผิดพลาดในการส่งข้อมูล');
       }
-      
     }
   
     function ReturnToHomepage(){

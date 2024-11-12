@@ -2,6 +2,12 @@ document.addEventListener("DOMContentLoaded", async function(event) {
   const urlParams = new URLSearchParams(window.location.search);
   const userID = urlParams.get('id');
 
+  if (userID) {
+    document.getElementById("homepage-link").href += `?id=${userID}`;
+    document.getElementById("createForm-link").href += `?id=${userID}`;
+    document.getElementById("draft-link").href += `?id=${userID}`;
+}
+
   const submitButton = document.querySelector('.submit');
 
   submitButton.addEventListener('click', async function(event) {

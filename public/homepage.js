@@ -30,9 +30,16 @@ rejectDrop.addEventListener('click' , () => {
 
 var request = null
 
+
 window.onload = async function() {
     const urlParams = new URLSearchParams(window.location.search);
     const id = urlParams.get('id');
+
+    if (id) {
+        document.getElementById("homepage-link").href += `?id=${id}`;
+        document.getElementById("createForm-link").href += `?id=${id}`;
+        document.getElementById("draft-link").href += `?id=${id}`;
+    }
 
     const response = await fetch(`http://localhost:8000/user/published/${id}`, {
         method: 'GET',

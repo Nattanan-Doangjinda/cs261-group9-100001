@@ -58,6 +58,7 @@ window.onload = async function() {
         document.getElementById('course_name').value = data.details.courseName;
         document.getElementById('section').value = data.details.section;
         document.getElementById('reason').value = data.details.requestReason;
+        updateLinks(userID);
 
     } else {
         console.log("Error:", response.status);
@@ -65,10 +66,17 @@ window.onload = async function() {
     }
 }
 
+function updateLinks(userID) {
+  if (userID) {
+    document.getElementById("homepage-link").href += `?id=${userID}`;
+    document.getElementById("createForm-link").href += `?id=${userID}`;
+    document.getElementById("draft-link").href += `?id=${userID}`;
+  }
+}
+
 document.addEventListener("DOMContentLoaded", async function(event)  {
   const urlParams = new URLSearchParams(window.location.search);
   const requestFormId = urlParams.get('id');
-
     const submitButton = document.querySelector('.submit');
     submitButton.addEventListener('click', function(event) {
       if (address.value === "") {
@@ -115,7 +123,7 @@ document.addEventListener("DOMContentLoaded", async function(event)  {
       const body = JSON.stringify({
           "status": "รอดำเนินการ",
           "state": "Published",
-          "type": "ขอจดทะเบยีนเพิ่มวิชา",
+          "type": "ขอจดทะเบียนเพิ่มวิชา",
           "details": {
               "date" : Datefrom,
               "studentName": formDataObj.title+" "+formDataObj.first_name+" "+formDataObj.last_name,
@@ -161,7 +169,7 @@ document.addEventListener("DOMContentLoaded", async function(event)  {
       const body = JSON.stringify({
           "status": "รอดำเนินการ",
           "state": "Draft",
-          "type": "ขอจดทะเบยีนเพิ่มวิชา",
+          "type": "ขอจดทะเบียนเพิ่มวิชา",
           "details": {
               "date" : Datefrom,
               "studentName": formDataObj.title+" "+formDataObj.first_name+" "+formDataObj.last_name,
@@ -231,7 +239,6 @@ document.addEventListener("DOMContentLoaded", async function(event)  {
         ReturnToHomepage();
       });
     }
-
     
   const showModal2 = () => {
     document.getElementById('successModal2').style.display = 'block';
@@ -248,4 +255,5 @@ document.addEventListener("DOMContentLoaded", async function(event)  {
       ReturnToHomepage();
     });
   }
+
   });
