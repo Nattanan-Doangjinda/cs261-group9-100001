@@ -67,3 +67,8 @@ const adjustDraft = (type,requestFormId) => {
     // console.log(requestFormId)
     window.location.href= `${ref}?id=${requestFormId}`
 }
+
+
+document.getElementById('logout').addEventListener('click' , () => {
+    window.location.href = window.location.href = `../views/login.html`;
+  })
