@@ -55,7 +55,11 @@
         <div class="form-group special-row">
           <label>เลขทะเบียน</label>
           <div class="sixty-width">
+<<<<<<< HEAD
             <input type="text" name="student_id" id="student_id" placeholder="xxx xxx xxxx"  maxlength="10" onkeydown="return restrictNumberInput(event)" oninput="this.value = this.value.replace(/[^0-9]/g, '')" required>
+=======
+            <input type="text" name="student_id" id="student_id" placeholder="xxx xxx xxxx" maxlength="10" onkeydown="return restrictNumberInput(event)" oninput="this.value = this.value.replace(/[^0-9]/g, '')" required>
+>>>>>>> 8ba4262f0339be2e0b5d702f43cac3e727903e67
           </div>
           <label>ชั้นปีการศึกษา</label>
           <div class="third-width">
@@ -95,7 +99,7 @@
           <div class="fifty-width">
             <div class="icon-input">
               <i class="fa fa-phone"></i>
-              <input type="number" name="phone" id="phone" placeholder="xxx xxx xxxx" oninput="if(this.value.length > 10) this.value = this.value.slice(0, 10);" required>
+              <input type="text" name="phone" id="phone" placeholder="xxx xxx xxxx" maxlength="10" onkeydown="return restrictNumberInput(event)" oninput="this.value = this.value.replace(/[^0-9]/g, '')" required>
             </div>
           </div>
         </div>
@@ -105,7 +109,7 @@
           <div class="half-width">
             <div class="icon-input">
               <i class="fa fa-phone"></i>
-              <input type="number" name="guardian_phone" id="guardian_phone" placeholder="xxx xxx xxxx" oninput="if(this.value.length > 10) this.value = this.value.slice(0, 10);" required>
+              <input type="text" name="guardian_phone" id="guardian_phone" placeholder="xxx xxx xxxx" maxlength="10" onkeydown="return restrictNumberInput(event)" oninput="this.value = this.value.replace(/[^0-9]/g, '')" required>
             </div>
           </div>
           <label>อาจารย์ที่ปรึกษา</label>
