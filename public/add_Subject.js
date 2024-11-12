@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", async function(event) {
   const urlParams = new URLSearchParams(window.location.search);
-  const userID = urlParams.get('userID');
+  const userID = urlParams.get('id');
 
   const submitButton = document.querySelector('.submit');
 
@@ -78,7 +78,8 @@ document.addEventListener("DOMContentLoaded", async function(event) {
     });
 
     if (response.ok) {
-      showModal(); // แสดง pop-up เมื่อส่งฟอร์มสำเร็จ
+      await showModal(); // แสดง pop-up เมื่อส่งฟอร์มสำเร็จ
+      
     } else {
       alert('เกิดข้อผิดพลาดในการส่งข้อมูล');
     }
@@ -123,14 +124,15 @@ document.addEventListener("DOMContentLoaded", async function(event) {
     });
 
     if (response.ok) {
-      showModal2(); // แสดง pop-up เมื่อบันทึกสำเร็จ
+      await showModal2(); // แสดง pop-up เมื่อบันทึกสำเร็จ
     } else {
       alert('เกิดข้อผิดพลาดในการบันทึกแบบร่าง');
     }
   }
 
   function ReturnToHomepage() {
-    window.location.href = '../views/homepage.html';
+    window.location.href = `../views/homepage.html?id=${userID}`;
+
   }
 
   function formDataToJSON(formData) {
@@ -163,6 +165,7 @@ document.addEventListener("DOMContentLoaded", async function(event) {
   if (closeModalButton) {
     closeModalButton.addEventListener('click', function() {
       closeModal(); // เมื่อกดปุ่ม "ตกลง" ให้ปิด modal
+      ReturnToHomepage();
     });
   }
 
@@ -178,6 +181,7 @@ document.addEventListener("DOMContentLoaded", async function(event) {
   if (closeModalButton2) {
     closeModalButton2.addEventListener('click', function() {
       closeModal2(); // เมื่อกดปุ่ม "ตกลง" ให้ปิด modal
+      ReturnToHomepage();
     });
   }
 });

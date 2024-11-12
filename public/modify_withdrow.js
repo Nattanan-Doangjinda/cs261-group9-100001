@@ -1,6 +1,7 @@
+let userID;
 window.onload = async function() {
   const urlParams = new URLSearchParams(window.location.search);
-  const requestFormId = urlParams.get('requestFormId');
+  const requestFormId = urlParams.get('id');
     const header = {
         "Content-Type": "application/json"
     };
@@ -11,6 +12,14 @@ window.onload = async function() {
     });
     if (response.ok) {
         const data = await response.json();
+        if ( data.state === "Published") {
+          // ซ่อนปุ่ม "บันทึกแบบร่าง" หาก state คือ "Published"
+          document.querySelector(".save-draft").style.display = "none";
+      } else {
+          // แสดงปุ่ม "บันทึกแบบร่าง" ในกรณีอื่นๆ
+          document.querySelector(".save-draft").style.display = "inline-block";
+      }
+      userID = data.userId;
         //ชื่อ
         const studentName = data.details.studentName;
         const nameParts = studentName.split(" ");
@@ -58,8 +67,7 @@ window.onload = async function() {
 
 document.addEventListener("DOMContentLoaded", async function(event)  {
   const urlParams = new URLSearchParams(window.location.search);
-  const userID = urlParams.get('userID');
-  const requestFormId = urlParams.get('requestFormId');
+  const requestFormId = urlParams.get('id');
 
     const submitButton = document.querySelector('.submit');
     submitButton.addEventListener('click', function(event) {
@@ -79,7 +87,6 @@ document.addEventListener("DOMContentLoaded", async function(event)  {
         const form = document.querySelector('form');
           if (form.checkValidity()) {
             savedFormData(form);
-            ReturnToHomepage()
           } else {
               alert('กรุณากรอกข้อมูลให้ครบทุกช่อง!');
           }
@@ -89,12 +96,11 @@ document.addEventListener("DOMContentLoaded", async function(event)  {
     saveDraftButton.addEventListener('click', function(event) {
         event.preventDefault();
         saveDraft();
-        ReturnToHomepage()
     });
   
     const cancelButton = document.querySelector('.cancel');
     cancelButton.addEventListener('click', function(event) {
-      ReturnToHomepage()
+      ReturnToHomepage();
     });
   
     async function savedFormData() {
@@ -130,7 +136,7 @@ document.addEventListener("DOMContentLoaded", async function(event)  {
   
       const url = "http://localhost:8000/user/"+requestFormId;
       const response = await fetch(url, {
-          method: "POST",
+          method: "PUT",
           headers: header,
           body: body,
       });
@@ -190,7 +196,7 @@ document.addEventListener("DOMContentLoaded", async function(event)  {
     }
   
     function ReturnToHomepage(){
-      window.location.href = '../views/homepage.html'; 
+      window.location.href = `../views/homepage.html?id=${userID}`;
     }
   
     function formDataToJSON(formData) {
@@ -223,6 +229,7 @@ document.addEventListener("DOMContentLoaded", async function(event)  {
     if (closeModalButton) {
       closeModalButton.addEventListener('click', function() {
         closeModal(); // เมื่อกดปุ่ม "ตกลง" ให้ปิด modal
+        ReturnToHomepage();
       });
     }
     
@@ -238,6 +245,7 @@ document.addEventListener("DOMContentLoaded", async function(event)  {
   if (closeModalButton2) {
     closeModalButton2.addEventListener('click', function() {
       closeModal2(); // เมื่อกดปุ่ม "ตกลง" ให้ปิด modal
+      ReturnToHomepage();
     });
   }
 
