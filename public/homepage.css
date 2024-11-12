@@ -141,11 +141,11 @@ button.dropdown-icon{
 }
 
 .approve-status p{
-    font-size: var(--smallFont);
+    font-size: 18px
 }
 
 .approve-btn{
-    font-size: var(--smallFont);
+    font-size: 18px;
     width: 100px;
     padding: 3px 6px;
     border-radius: 15px;
@@ -180,11 +180,11 @@ button.dropdown-icon{
 }
 
 .pending-status p{
-    font-size: var(--smallFont);
+    font-size: 18px;
 }
 
 .pending-btns .edit-btn{
-    font-size: var(--smallFont);
+    font-size: 18px;
     width: 100px;
     padding: 3px 6px;
     border-radius: 15px;
@@ -197,7 +197,7 @@ button.dropdown-icon{
 }
 
 .pending-btns .cancel-btn{
-    font-size: var(--smallFont);
+    font-size: 18px;
     width: 100px;
     padding: 3px 6px;
     border-radius: 15px;
@@ -228,11 +228,11 @@ button.dropdown-icon{
 }
 
 .reject-status p{
-    font-size: var(--smallFont);
+    font-size: 18px;
 }
 
 .reject-btn{
-    font-size: var(--smallFont);
+    font-size: 18px;
     width: 100px;
     padding: 3px 6px;
     border-radius: 15px;
