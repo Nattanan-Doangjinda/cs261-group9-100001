@@ -94,7 +94,7 @@ document.addEventListener("DOMContentLoaded", async function(event)  {
         event.preventDefault();
         const form = document.querySelector('form');
           if (form.checkValidity()) {
-            savedFormData(form);
+            savedFormData();
           } else {
               alert('กรุณากรอกข้อมูลให้ครบทุกช่อง!');
           }

@@ -99,7 +99,7 @@ document.addEventListener("DOMContentLoaded", async function(event) {
 
     const body = JSON.stringify({
           "status": "รอดำเนินการ",
-          "state": "Published",
+          "state": "Draft",
           "type": "ขอลาออก",
           "details": {
               "date" : Datefrom,
