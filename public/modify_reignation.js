@@ -203,6 +203,10 @@ document.addEventListener("DOMContentLoaded", async function(event)  {
     function ReturnToHomepage(){
       window.location.href = `../views/homepage.html?id=${userID}`;
     }
+
+    function ReturnToDraft() {
+      window.location.href = `../views/Draft.html?id=${userID}`;
+    }
   
     function formDataToJSON(formData) {
       const obj = {};
@@ -234,7 +238,7 @@ document.addEventListener("DOMContentLoaded", async function(event)  {
     if (closeModalButton) {
       closeModalButton.addEventListener('click', function() {
         closeModal(); // เมื่อกดปุ่ม "ตกลง" ให้ปิด modal
-        ReturnToHomepage()
+        ReturnToHomepage();
       });
     }
     
@@ -250,7 +254,7 @@ document.addEventListener("DOMContentLoaded", async function(event)  {
   if (closeModalButton2) {
     closeModalButton2.addEventListener('click', function() {
       closeModal2(); // เมื่อกดปุ่ม "ตกลง" ให้ปิด modal
-      ReturnToHomepage()
+      ReturnToDraft();
     });
   }
 

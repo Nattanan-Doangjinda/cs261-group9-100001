@@ -290,3 +290,14 @@ select:invalid {
 .modal button:hover {
     background-color: #ddd;
 }
+
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* ซ่อนลูกศรสำหรับเบราว์เซอร์ Firefox */
+input[type=number] {
+    -moz-appearance: textfield;
+}
