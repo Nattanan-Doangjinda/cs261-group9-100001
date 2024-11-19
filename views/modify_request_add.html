@@ -22,7 +22,7 @@
                   <a href="../views/Draft.html" id="draft-link">แบบร่าง</a>
               </ul>
   
-              <button class="logout"><a href="../views/login.html">Logout</a></button>
+              <button class="logout" id="logout">Logout</button>
           </div>
           <div class="line"></div>
       </div>
@@ -55,7 +55,7 @@
         <div class="form-group special-row">
           <label>เลขทะเบียน</label>
           <div class="sixty-width">
-            <input type="text" name="student_id" id="student_id" placeholder="xxx xxx xxxx" maxlength="10" onkeydown="return restrictNumberInput(event)" oninput="this.value = this.value.replace(/[^0-9]/g, '')" required>
+            <input type="number" name="student_id" id="student_id" placeholder="xxx xxx xxxx" oninput="if(this.value.length > 10) this.value = this.value.slice(0, 10);" required>
           </div>
           <label>ชั้นปีการศึกษา</label>
           <div class="third-width">

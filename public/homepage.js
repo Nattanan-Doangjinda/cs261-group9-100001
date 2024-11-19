@@ -94,3 +94,7 @@ const requestDel = async (id) =>{
     })
     window.location.reload();
 }
+
+document.getElementById('logout').addEventListener('click' , () => {
+    window.location.href = window.location.href = `../views/login.html`;
+  })

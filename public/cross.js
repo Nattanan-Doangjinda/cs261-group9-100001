@@ -195,5 +195,6 @@ document.addEventListener("DOMContentLoaded", async function(event) {
 });
 
 
-
-
+document.getElementById('logout').addEventListener('click' , () => {
+  window.location.href = window.location.href = `../views/login.html`;
+})
