@@ -18,8 +18,7 @@
           <div class="links-logout">
               <ul class="links">
                   <a href="../views/homepage.html" id="homepage-link">หน้าหลัก</a>
-                  <a href="../views/createForm.html" id="createForm-link">สร้างคำร้อง</a>
-                  <a href="../views/Draft.html" id="draft-link">แบบร่าง</a>
+                  <a href="../views/createForm.html" id="createForm-link">ประวัติ</a>
               </ul>
   
               <button class="logout" id="logout">Logout</button>
@@ -30,14 +29,14 @@
 
 
     <div class="container">
-      <div class="header">เรื่อง ขอจดทะเบียนเพิ่มวิชา</div>
+      <div class="header" id = "header"></div>
       <form action="/submit-form" method="POST">
         <div class="form-group">
           <div class="header">เรียน คณบดีคณะวิทยาศาสตร์และเทคโนโลยี</div>
           <label>
             ข้าพเจ้า
             <div class="two-width">
-              <select name="title" id="title" required>
+              <select name="title" id="title" disabled>
                 <option value="" selected disabled hidden>คำนำหน้า</option>
                 <option value="นาย">นาย</option>
                 <option value="นางสาว">นางสาว</option>
@@ -45,21 +44,21 @@
               </select>
             </div>
             <div class="half-width">
-              <input type="text" name="first_name" id="first_name" placeholder="ชื่อ" required />
+              <input type="text" name="first_name" id="first_name" placeholder="ชื่อ" readonly />
             </div>
             <div class="half-width">
-              <input type="text" name="last_name" id="last_name" placeholder="นามสกุล" required />
+              <input type="text" name="last_name" id="last_name" placeholder="นามสกุล" readonly />
             </div>
           </label>
         </div>
         <div class="form-group special-row">
           <label>เลขทะเบียน</label>
           <div class="sixty-width">
-            <input type="text" name="student_id" id="student_id" placeholder="xxx xxx xxxx" maxlength="10" onkeydown="return restrictNumberInput(event)" oninput="this.value = this.value.replace(/[^0-9]/g, '')" required>
+            <input type="text" name="student_id" id="student_id" placeholder="xxx xxx xxxx" maxlength="10" onkeydown="return restrictNumberInput(event)" oninput="this.value = this.value.replace(/[^0-9]/g, '')" readonly />
           </div>
           <label>ชั้นปีการศึกษา</label>
           <div class="third-width">
-            <select name="semester" id="semester" required>
+            <select name="semester" id="semester" disabled>
               <option value="" selected disabled hidden>ปีการศึกษา</option>
               <option value="1">1</option>
               <option value="2">2</option>
@@ -75,27 +74,27 @@
         <div class="form-group special-row">
           <label>ที่อยู่ที่ติดต่อได้</label>
           <div class="third-width">
-            <input type="text" name="address" id="address" placeholder="เลขที่" required />
+            <input type="text" name="address" id="address" placeholder="เลขที่" readonly />
           </div>
           <label>แขวง/ตำบล</label>
           <div class="third-width">
-            <input type="text" name="sub_district" id="sub_district" placeholder="แขวง/ตำบล" required />
+            <input type="text" name="sub_district" id="sub_district" placeholder="แขวง/ตำบล" readonly />
           </div>
           <label>เขต/อำเภอ</label>
           <div class="third-width">
-            <input type="text" name="district" id="district" placeholder="เขต/อำเภอ" required />
+            <input type="text" name="district" id="district" placeholder="เขต/อำเภอ" readonly />
           </div>
         </div>
         <div class="form-group special-row">
           <label>จังหวัด</label>
           <div class="half-width">
-            <input type="text" name="province" id="province" placeholder="จังหวัด" required />
+            <input type="text" name="province" id="province" placeholder="จังหวัด" readonly />
           </div>
           <label>โทรศัพท์ติดต่อ</label>
           <div class="fifty-width">
             <div class="icon-input">
               <i class="fa fa-phone"></i>
-              <input type="text" name="phone" id="phone" placeholder="xxx xxx xxxx"  maxlength="10" onkeydown="return restrictNumberInput(event)" oninput="this.value = this.value.replace(/[^0-9]/g, '')" required >
+              <input type="text" name="phone" id="phone" placeholder="xxx xxx xxxx"  maxlength="10" onkeydown="return restrictNumberInput(event)" oninput="this.value = this.value.replace(/[^0-9]/g, '')" readonly />
             </div>
           </div>
         </div>
@@ -105,12 +104,12 @@
           <div class="half-width">
             <div class="icon-input">
               <i class="fa fa-phone"></i>
-              <input type="text" name="guardian_phone" id="guardian_phone" placeholder="xxx xxx xxxx"  maxlength="10" onkeydown="return restrictNumberInput(event)" oninput="this.value = this.value.replace(/[^0-9]/g, '')" required>
+              <input type="text" name="guardian_phone" id="guardian_phone" placeholder="xxx xxx xxxx"  maxlength="10" onkeydown="return restrictNumberInput(event)" oninput="this.value = this.value.replace(/[^0-9]/g, '')" readonly />
             </div>
           </div>
           <label>อาจารย์ที่ปรึกษา</label>
           <div class="fifty-width">
-            <input type="text" name="advisor" id="advisor" placeholder="อาจารย์ที่ปรึกษา" required />
+            <input type="text" name="advisor" id="advisor" placeholder="อาจารย์ที่ปรึกษา" readonly />
           </div>
         </div>
         <div class="form-group">
@@ -119,7 +118,7 @@
         <div class="form-group">
           <label>ภาคการศึกษาที่</label>
           <div class="small-width">
-            <select name="term" id="term" required>
+            <select name="term" id="term" disabled>
               <option value="" selected disabled hidden>ภาค</option>
               <option value="1">1</option>
               <option value="2">2</option>
@@ -128,7 +127,7 @@
           </div>
           <label class="large-label">/</label>
           <div class="small-width">
-            <select name="year" id="year" required>
+            <select name="year" id="year" disabled>
               <option value="" selected disabled hidden>ปี</option>
               <option value="2567">2567</option>
               <option value="2568">2568</option>
@@ -140,21 +139,21 @@
         <div class="form-group special-row">
           <label>รหัสวิชา</label>
           <div class="third-width">
-            <input type="text" name="course_code" id="course_code" placeholder="รหัสวิชา" required />
+            <input type="text" name="course_code" id="course_code" placeholder="รหัสวิชา" s />
           </div>
           <div class="third-width">
-            <input type="text" name="course_name" id="course_name" placeholder="ชื่อวิชา" required />
+            <input type="text" name="course_name" id="course_name" placeholder="ชื่อวิชา" readonly />
           </div>
           <div class="third-width">
-            <input type="text" name="section" id="section" placeholder="Section" required />
+            <input type="text" name="section" id="section" placeholder="Section" readonly />
           </div>
         </div>
-        <div class="form-group reason">
+        <div class="form-group special-row">
             <div>
                 <label>เหตุผลที่ยื่นคำร้องเนื่องจาก</label>
             </div>
             <div class="one-width">
-              <textarea name="reason" id="reason" placeholder="โปรดกรอกเหตุผล....." required></textarea>
+              <input type="text" name="reason" id="reason" placeholder="โปรดกรอกเหตุผล....." readonly ></textarea>
             </div>
         </div>
         <div class="form-group">
@@ -162,40 +161,33 @@
             จึงเรียนมาเพื่อโปรดพิจารณาอนุมัติและดำเนินการต่อไปด้วย จักเป็นพระคุณยิ่ง
             </p>
         </div>
-        <br>
-        <br>
-        <div class="buttons">
-          <button type="submit" class="submit" id="add_Subject">ส่ง</button>
-          <button type="button" class="save-draft">บันทึกแบบร่าง</button>
-          <button type="button" class="cancel">ยกเลิก</button>
-        </div>
       </form>
     </div>
-    
-    <div id="successModal" class="modal">
-      <div class="modal-content">
-        <div class="modal-header">
-          <br>
-          <span class="modal-dot"></span><h1>ส่งฟอร์มคำร้องสำเร็จ !</h1>
-        </div>
-        <br>
-        <button id="closeModal"><h2>ตกลง</h2></button>
-      </div>
-    </div>
-    <div id="successModal2" class="modal">
-      <div class="modal-content">
-        <div class="modal-header">
-          <br>
-          <span class="modal-dot"></span><h1>บันทึกแบบร่างสำเร็จ !</h1>
-        </div>
-        <br>
-        <button id="closeModal2"><h2>ตกลง</h2></button>
-      </div>
-    </div>
-    
-    
-    
 
-    <script src="../public/add_Subject.js"></script>
+    <div class="form-group decision">
+        <div>
+            <label>
+                <input type="checkbox" id="approve" name="decision" value="approve" />
+                อนุมัติคำร้อง
+            </label>
+        </div>
+        <br>
+        <div class="form-group reason">
+            <div>
+                <label>
+                    <input type="checkbox" id="reject" name="decision" value="reject" />
+                    ปฏิเสธคำร้อง
+                </label>
+            </div>
+            <div class="one-width">
+                <textarea name="approve_reason" id="approve_reason" placeholder="โปรดระบุเหตุผลในการปฏิเสธ....." readonly></textarea>
+            </div>
+        </div>
+        <br>
+        <button type="button" id="submit-button">ยืนยัน</button>
+    </div>
+      
+    
+    <script src="../public/request.js"></script>
   </body>
 </html>
