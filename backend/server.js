@@ -53,7 +53,7 @@ const createTable = `
             userId INT PRIMARY KEY IDENTITY(1,1),
             username VARCHAR(255) NOT NULL,
             type VARCHAR(255) NOT NULL,
-            nameTh VARCHAR(255) NOT NULL,
+            nameTh NVARCHAR(255) NOT NULL,
             nameEn VARCHAR(255) NOT NULL
         );
     END
@@ -69,8 +69,8 @@ const createTable = `
             status NVARCHAR(255) NOT NULL,
             state VARCHAR(255) NOT NULL,
             type NVARCHAR(255) NOT NULL,
-            reason VARCHAR(255) NOT NULL,
-            dateApprove VARCHAR(255) NOT NULL,
+            reason NVARCHAR(255),
+            dateApprove VARCHAR(255),
             details NVARCHAR(MAX),
             CHECK (ISJSON(details) = 1), 
             FOREIGN KEY (userId) REFERENCES users(userId)
@@ -86,7 +86,7 @@ const createTable = `
             employeeId INT PRIMARY KEY IDENTITY(1,1),
             username VARCHAR(255) NOT NULL,
             type VARCHAR(255) NOT NULL,
-            nameTh VARCHAR(255) NOT NULL,
+            nameTh NVARCHAR(255) NOT NULL,
             nameEn VARCHAR(255) NOT NULL
         );
     END
@@ -121,6 +121,18 @@ const initMySQL = async () => {
         }
     });
     await conn.request().query(createTable);
+
+    // สร้างรหัส Login ของครูที่ปรึกษา
+    const isHave = await conn.request().query('SELECT * FROM employees')
+
+    if (!isHave.recordset.length) {
+        await conn.request()
+            .input('username', sql.VarChar, 'employee')
+            .input('type', sql.VarChar, 'employee')
+            .input('nameTh', sql.VarChar, 'employee')
+            .input('nameEn', sql.VarChar, 'employee')
+            .query('INSERT INTO employees (username, type, nameTh, nameEn) VALUES (@username, @type, @nameTh, @nameEn)');
+    }
 };
 
 
@@ -142,7 +154,7 @@ app.post('/user', async (req, res) => {
             await conn.request()
                 .input('username', sql.VarChar, user.username)
                 .input('type', sql.VarChar, user.type)
-                .input('nameTh', sql.VarChar, user.nameTh)
+                .input('nameTh', sql.NVarChar, user.nameTh)
                 .input('nameEn', sql.VarChar, user.nameEn)
                 .query('INSERT INTO users (username, type, nameTh, nameEn) VALUES (@username, @type, @nameTh, @nameEn)');
 
@@ -297,11 +309,13 @@ app.get('/employee/request', async (req, res) => {
     try {
         const data = []
         const result = await conn.request()
-            .query('SELECT type, requestFormId FROM requestFormData WHERE status = \'รอดำเนินการ\'');
+            .input('status', sql.NVarChar, 'รอดำเนินการ')
+            .query('SELECT * FROM requestFormData WHERE status = @status');
 
 
         for (var i = 0; i < result.recordset.length; i++) {
             const response = {
+                status: result.recordset[i].status,
                 type: result.recordset[i].type,
                 requestFormId: result.recordset[i].requestFormId,
                 date: JSON.parse(result.recordset[i].details).date
@@ -319,24 +333,29 @@ app.get('/employee/request', async (req, res) => {
 
 app.get('/employee/request/history', async (req, res) => {
     try {
+        const data = []
         const result = await conn.request()
-            .input('requestFormId', sql.Int, id)
-            .query('SELECT * FROM requestFormData WHERE status IN (\'อนุมัติ\', \'ปฎิเสธ\')');
+            .input('status1', sql.NVarChar, 'อนุมัติ')
+            .input('status2', sql.NVarChar, 'ปฎิเสธ')
+            .query('SELECT * FROM requestFormData WHERE status IN (@status1, @status2)');
 
-        result.recordset = result.recordset.map(record => {
-            if (record.details) {
-                record.details = JSON.parse(record.details);
+        for (var i = 0; i < result.recordset.length; i++) {
+            const response = {
+                status: result.recordset[i].status,
+                type: result.recordset[i].type,
+                requestFormId: result.recordset[i].requestFormId,
+                date: JSON.parse(result.recordset[i].details).date
             }
-            return record;
-        });
 
-        res.json(result.recordset);
+            data.push(response);
+        }
+
+        res.json(data);
     } catch (error) {
         console.log('error', error);
         res.status(500).json({ message: error });
     }
 });
-
 
 // อัปเดตข้อมูล Approve or Reject
 app.put('/employee/request/:requestFormId', async (req, res) => {
@@ -346,8 +365,8 @@ app.put('/employee/request/:requestFormId', async (req, res) => {
 
         const result = await conn.request()
             .input('requestFormId', sql.Int, id)
-            .input('status', sql.VarChar, feedback.status)
-            .input('reason', sql.VarChar, feedback.reason)
+            .input('status', sql.NVarChar, feedback.status)
+            .input('reason', sql.NVarChar, feedback.reason)
             .input('dateApprove', sql.VarChar, feedback.dateApprove)
             .query('UPDATE requestFormData SET status = @status, reason = @reason, dateApprove = @dateApprove WHERE requestFormId = @requestFormId');
 
@@ -363,18 +382,5 @@ app.put('/employee/request/:requestFormId', async (req, res) => {
 app.listen(8000, async (req, res) => {
     await initMySQL();
     // await initMySQLNewDatabase();
-
-    // สร้างรหัส Login ของครูที่ปรึกษา
-    const isHave = await conn.request().query('SELECT * FROM employees')
-
-    if (!isHave) {
-        await conn.request()
-            .input('username', sql.VarChar, 'employee')
-            .input('type', sql.VarChar, 'employee')
-            .input('nameTh', sql.VarChar, 'employee')
-            .input('nameEn', sql.VarChar, 'employee')
-            .query('INSERT INTO employees (username, type, nameTh, nameEn) VALUES (@username, @type, @nameTh, @nameEn)');
-    }
-
     console.log('http server runing at ' + 8000);
 });
