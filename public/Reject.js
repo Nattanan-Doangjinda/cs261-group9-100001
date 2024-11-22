@@ -31,7 +31,7 @@ window.onload = async function () {
 
   // Add the id to links if it's available
   if (id) {
-    document.getElementById("homepage-link").href += `?id=${id}`;
+    document.getElementById("teacherHomepage-link").href += `?id=${id}`;
     document.getElementById("accept-link").href += `?id=${id}`;
     document.getElementById("reject-link").href += `?id=${id}`;
   }
@@ -62,8 +62,8 @@ window.onload = async function () {
       ref = registerCross;
     }
 
-    // Only append if the status is "อนุมัติ"
-    if (item.status === "อนุมัติ") {
+    // Only append if the status is "ปฏิเสธ"
+    if (item.status === "ปฏิเสธ") {
       // Format the approval time 
       const rejectdAt = new Date(item.rejectdAt);  
       const formattedTime = rejectdAt.toLocaleString('th-TH', {
@@ -83,7 +83,7 @@ window.onload = async function () {
                                     <i class="bx bxs-circle reject-status-color"></i>
                                     <div class="text-container">
                                         <p style="font-size: 25px">${item.type}</p> <!-- Dynamic type -->
-                                        <p class="sub-text">อนุมัติเมื่อ: ${formattedTime}</p> 
+                                        <p class="sub-text">ปฏิเสธเมื่อ: ${formattedTime}</p> 
                                     </div>
                                 </div>
                                 <button class="reject-btn" onclick="window.location.href='${ref}?id=${item.requestFormId}'">รายละเอียด</button>

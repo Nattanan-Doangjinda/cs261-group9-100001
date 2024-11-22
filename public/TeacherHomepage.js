@@ -30,7 +30,7 @@ window.onload = async function () {
 
   // Add the id to links if it's available
   if (id) {
-    document.getElementById("homepage-link").href += `?id=${id}`;
+    document.getElementById("teacherHomepage-link").href += `?id=${id}`;
     document.getElementById("accept-link").href += `?id=${id}`;
     document.getElementById("reject-link").href += `?id=${id}`;
   }
@@ -61,8 +61,8 @@ window.onload = async function () {
       ref = registerCross;
     }
 
-    // Only append if the status is "อนุมัติ"
-    if (item.status === "อนุมัติ") {
+    // Only append if the status is "รอดำเนินการ"
+    if (item.status === "รอดำเนินการ") {
       // Format the approval time 
       const teacherHomepagedAt = new Date(item.teacherHomepagedAt);  
       const formattedTime = teacherHomepagedAt.toLocaleString('th-TH', {
@@ -82,7 +82,7 @@ window.onload = async function () {
                                     <i class="bx bxs-circle teacherHomepage-status-color"></i>
                                     <div class="text-container">
                                         <p style="font-size: 25px">${item.type}</p> <!-- Dynamic type -->
-                                        <p class="sub-text">อนุมัติเมื่อ: ${formattedTime}</p> 
+                                        <p class="sub-text">ส่งเมื่อ: ${formattedTime}</p> 
                                     </div>
                                 </div>
                                 <button class="teacherHomepage-btn" onclick="window.location.href='${ref}?id=${item.requestFormId}'">รายละเอียด</button>

@@ -30,7 +30,7 @@ window.onload = async function () {
 
   // Add the id to links if it's available
   if (id) {
-    document.getElementById("homepage-link").href += `?id=${id}`;
+    document.getElementById("teacherHomepage-link").href += `?id=${id}`;
     document.getElementById("accept-link").href += `?id=${id}`;
     document.getElementById("reject-link").href += `?id=${id}`;
   }
