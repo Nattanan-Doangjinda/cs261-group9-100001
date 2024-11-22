@@ -96,30 +96,30 @@ var conn = null;
 
 const initMySQL = async () => {
     conn = await sql.connect({
-        user: "sa",
-        password: "YourStrong@Passw0rd",
-        server: "localhost",
-        database: "master",
+        user: process.env.DB_USER,
+        password: process.env.DB_PASSWORD,
+        server: process.env.DB_SERVER,
+        database: process.env.DB_NAME,
         options: {
             encrypt: true,
             trustServerCertificate: true
         }
-    });
+    }); 
     await conn.request().query(createDatabase);
 
     await conn.close();
     await new Promise(resolve => setTimeout(resolve, 5000));
 
     conn = await sql.connect({
-        user: 'sa',
-        password: 'YourStrong@Passw0rd',
-        server: 'localhost',
+        user: process.env.DB_USER,
+        password: process.env.DB_PASSWORD,
+        server: process.env.DB_SERVER,
         database: 'myDB',
         options: {
             encrypt: true,
             trustServerCertificate: true
         }
-    });
+    }); 
     await conn.request().query(createTable);
 
     // สร้างรหัส Login ของครูที่ปรึกษา
