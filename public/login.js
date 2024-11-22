@@ -28,7 +28,7 @@ const submit = async () => {
         const responseData = await response.json();
 
         const data = JSON.stringify({
-            studentId: responseData.username
+            id: responseData.username
         })
 
         // handleResponse(response, responseData)
@@ -42,7 +42,11 @@ const submit = async () => {
                 body: data
             })
             const userId = await userIdResponse.json()
-            window.location.href = `../views/homepage.html?id=${userId.userId}`
+            if(userId.type == "employee" ){
+                window.location.href = `../views/TeacherHomepage.html?id=${userId.userId}`
+            }else if(userId.type == "student" ){
+                window.location.href = `../views/homepage.html?id=${userId.userId}`
+            }
         } else {
             errorMsg.innerText = "ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง";
             usernameInput.parentElement.classList.add('incorrect');

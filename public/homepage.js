@@ -65,6 +65,9 @@ window.onload = async function() {
         }
 
         if(item.status === "รอดำเนินการ" ){
+            if (!pendingContainer) {
+                pendingContainer.innerHTML = `<p class="text">ไม่พบข้อมูล...</p>`;
+            }else{
             data = `<div class="pending-status">
                 <p class="pending-text">${item.type}</p>
                 <div class="pending-btns">
@@ -73,18 +76,25 @@ window.onload = async function() {
                 </div>
                 </div>`
             pendingContainer.innerHTML += data
-        } else if (item.status === "อนุมัติ"){
+        }
+        } if (item.status === "อนุมัติ"){
+            if (!approveContaienr) {
+                approveContaienr.innerHTML = `<p class="text">ไม่พบข้อมูล...</p>`;
+            }else{
             data = `<div class="approve-status">
                     <p>${item.type}</p>
                     <button class="approve-btn">อนุมัติ</button>
                     </div>`
             approveContaienr.innerHTML += data
-        } else {
+        }
+        } if(item.status === "ปฏิเสธ") {
+            if (!rejectContainer) {
+                rejectContainer.innerHTML = `<p class="text">ไม่พบข้อมูล...</p>`;
+            }else{
             data = `<div class="reject-status"><p>${item.type}</p><button class="reject-btn">ถูกปฏิเสธ</button></div>`
             rejectContainer.innerHTML += data
-        }
-            
-        
+            }
+        }        
     });
 }
 
