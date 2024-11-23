@@ -36,7 +36,7 @@ window.onload = async function () {
   }
 
   // Fetch the data for the request
-  const response = await fetch(`http://localhost:8000/employee/request`, {
+  const response = await fetch(`http://localhost:8000/employee/request/`, {
     method: "GET",
     headers: {
       "Content-Type": "application/json",

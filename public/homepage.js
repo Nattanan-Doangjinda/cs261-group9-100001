@@ -58,9 +58,6 @@ window.onload = async function() {
     request.forEach(item => {
         var data = null
         var ref = null
-        pendingContainer.innerHTML = ``;
-        approveContainer.innerHTML = ``;
-        rejectContainer.innerHTML = ``;
 
         if(item.type === "ขอจดทะเบียนเพิ่มวิชา"){
             ref = requestAdd
@@ -73,6 +70,9 @@ window.onload = async function() {
         }
 
         if(item.status === "รอดำเนินการ" ){
+            if (pendingContainer.innerHTML == `<p class="text">ไม่พบข้อมูล...</p>`) {
+                pendingContainer.innerHTML = "";
+            }
             data = `<div class="pending-status">
                 <p class="pending-text">${item.type}</p>
                 <div class="pending-btns">
@@ -82,6 +82,9 @@ window.onload = async function() {
                 </div>`
             pendingContainer.innerHTML += data
         } if (item.status === "อนุมัติ"){
+            if (approveContainer.innerHTML == `<p class="text">ไม่พบข้อมูล...</p>`) {
+                approveContainer.innerHTML = "";
+            }
             data = `<div class="approve-status">
                     <p>${item.type}</p>
                     <button class="approve-btn">อนุมัติ</button>
@@ -89,19 +92,12 @@ window.onload = async function() {
             approveContainer.innerHTML += data
         
         } if(item.status === "ปฏิเสธ") {
+            if (rejectContainer.innerHTML == `<p class="text">ไม่พบข้อมูล...</p>`) {
+                rejectContainer.innerHTML = "";
+            }
             data = `<div class="reject-status"><p>${item.type}</p><button class="reject-btn">ถูกปฏิเสธ</button></div>`
             rejectContainer.innerHTML += data
         }      
-        
-        if (pendingContainer.innerHTML == "") {
-            pendingContainer.innerHTML = `<p class="text">ไม่พบข้อมูล...</p>`;
-        }
-        if (approveContainer.innerHTML == "") {
-            approveContainer.innerHTML = `<p class="text">ไม่พบข้อมูล...</p>`;
-        }
-        if (rejectContainer.innerHTML == "") {
-            rejectContainer.innerHTML = `<p class="text">ไม่พบข้อมูล...</p>`;
-        }
     });
 }
 
