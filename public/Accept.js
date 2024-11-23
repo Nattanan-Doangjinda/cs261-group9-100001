@@ -36,7 +36,7 @@ window.onload = async function () {
   }
 
   // Fetch the data for the request
-  const response = await fetch(`http://localhost:8000/user/published/${id}`, {
+  const response = await fetch(`http://localhost:8000/employee/request/history`, {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
@@ -64,15 +64,6 @@ window.onload = async function () {
     // Only append if the status is "อนุมัติ"
     if (item.status === "อนุมัติ") {
       // Format the approval time 
-      const approvedAt = new Date(item.approvedAt);  
-      const formattedTime = approvedAt.toLocaleString('th-TH', {
-        year: 'numeric',
-        month: 'long',
-        day: 'numeric',
-        hour: 'numeric',
-        minute: 'numeric',
-        second: 'numeric',
-      });
 
       const data = `<div class="approve-status-container">
                         <p class="approve-no-data"></p>  
@@ -82,14 +73,14 @@ window.onload = async function () {
                                     <i class="bx bxs-circle approve-status-color"></i>
                                     <div class="text-container">
                                         <p style="font-size: 25px">${item.type}</p> <!-- Dynamic type -->
-                                        <p class="sub-text">อนุมัติเมื่อ: ${formattedTime}</p> 
+                                        <p class="sub-text">อนุมัติเมื่อ: ${item.date} น.</p> 
                                     </div>
                                 </div>
                                 <button class="approve-btn" onclick="window.location.href='${ref}?id=${item.requestFormId}'">รายละเอียด</button>
                             </div>
                         </div>
                       </div>`;
-      approveStatusList.insertAdjacentHTML("beforeend", data);
+      document.getElementById("approve-container").innerHTML += data;
     }
   });
 };

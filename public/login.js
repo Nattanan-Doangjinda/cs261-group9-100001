@@ -28,12 +28,21 @@ const submit = async () => {
         const responseData = await response.json();
 
         const data = JSON.stringify({
-            studentId: responseData.username
+            "username": responseData.username,
+            "type": responseData.type,
+            "nameTh": responseData.displayname_th,
+            "nameEn": responseData.displayname_en,
         })
+        // console.log(JSON.stringify({
+        //     "username": responseData.username,
+        //     "type": responseData.type,
+        //     "nameTh": responseData.displayname_th,
+        //     "nameEn": responseData.displayname_en,
+        // }));
 
         // handleResponse(response, responseData)
 
-        if (response.ok && responseData.username) {
+        if (response.ok && responseData) {
             const userIdResponse = await fetch("http://localhost:8000/user", {
                 method: 'POST',
                 headers: {
