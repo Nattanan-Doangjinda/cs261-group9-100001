@@ -6,7 +6,7 @@ const pendingStatusList = document.querySelector('.pending-container');
 const approveStatusList = document.querySelector('.approve-container');
 const rejectStatusList = document.querySelector('.reject-container');
 var pendingContainer = document.querySelector('.pending-container')
-var approveContaienr = document.querySelector('.approve-container')
+var approveContainer = document.querySelector('.approve-container')
 var rejectContainer = document.querySelector('.reject-container')
 var registerCross = "modify_request_cross.html"
 var requestAdd = "modify_request_add.html"
@@ -50,10 +50,18 @@ window.onload = async function() {
     request = await response.json()
     console.log(request)
 
+    pendingContainer.innerHTML = `<p class="text">ไม่พบข้อมูล...</p>`;
+    approveContainer.innerHTML = `<p class="text">ไม่พบข้อมูล...</p>`;
+    rejectContainer.innerHTML = `<p class="text">ไม่พบข้อมูล...</p>`;
+
     var pendingtext = document.querySelector('.pending-text')
     request.forEach(item => {
         var data = null
         var ref = null
+        pendingContainer.innerHTML = ``;
+        approveContainer.innerHTML = ``;
+        rejectContainer.innerHTML = ``;
+
         if(item.type === "ขอจดทะเบียนเพิ่มวิชา"){
             ref = requestAdd
         } else if (item.type === "ขอถอนรายวิชา") {
@@ -65,9 +73,6 @@ window.onload = async function() {
         }
 
         if(item.status === "รอดำเนินการ" ){
-            if (!pendingContainer) {
-                pendingContainer.innerHTML = `<p class="text">ไม่พบข้อมูล...</p>`;
-            }else{
             data = `<div class="pending-status">
                 <p class="pending-text">${item.type}</p>
                 <div class="pending-btns">
@@ -76,25 +81,27 @@ window.onload = async function() {
                 </div>
                 </div>`
             pendingContainer.innerHTML += data
-        }
         } if (item.status === "อนุมัติ"){
-            if (!approveContaienr) {
-                approveContaienr.innerHTML = `<p class="text">ไม่พบข้อมูล...</p>`;
-            }else{
             data = `<div class="approve-status">
                     <p>${item.type}</p>
                     <button class="approve-btn">อนุมัติ</button>
                     </div>`
-            approveContaienr.innerHTML += data
-        }
+            approveContainer.innerHTML += data
+        
         } if(item.status === "ปฏิเสธ") {
-            if (!rejectContainer) {
-                rejectContainer.innerHTML = `<p class="text">ไม่พบข้อมูล...</p>`;
-            }else{
             data = `<div class="reject-status"><p>${item.type}</p><button class="reject-btn">ถูกปฏิเสธ</button></div>`
             rejectContainer.innerHTML += data
-            }
-        }        
+        }      
+        
+        if (pendingContainer.innerHTML == "") {
+            pendingContainer.innerHTML = `<p class="text">ไม่พบข้อมูล...</p>`;
+        }
+        if (approveContainer.innerHTML == "") {
+            approveContainer.innerHTML = `<p class="text">ไม่พบข้อมูล...</p>`;
+        }
+        if (rejectContainer.innerHTML == "") {
+            rejectContainer.innerHTML = `<p class="text">ไม่พบข้อมูล...</p>`;
+        }
     });
 }
 

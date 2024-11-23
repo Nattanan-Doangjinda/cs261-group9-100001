@@ -257,3 +257,8 @@ button.dropdown-icon{
     pointer-events: none;
 }
 
+.text{
+    font-size: 25px;
+    color: #878592;
+    margin: 10px 0 0 40px;
+}
