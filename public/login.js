@@ -28,7 +28,7 @@ const submit = async () => {
         const responseData = await response.json();
 
         const data = JSON.stringify({
-            id: responseData.username
+            studentId: responseData.username
         })
 
         // handleResponse(response, responseData)
@@ -44,7 +44,7 @@ const submit = async () => {
             const userId = await userIdResponse.json()
             if(userId.type == "employee" ){
                 window.location.href = `../views/TeacherHomepage.html?id=${userId.userId}`
-            }else if(userId.type == "student" ){
+            }else{
                 window.location.href = `../views/homepage.html?id=${userId.userId}`
             }
         } else {
