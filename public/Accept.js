@@ -12,9 +12,6 @@ approveDrop.addEventListener("click", () => {
   approveStatusList.classList.toggle("hide-status");
 });
 
-document.getElementById("teacherHomepage-link").addEventListener("click" , () => {
-  window.location.href = `../views/TeacherHomepage.html.html`
-})
 document.getElementById("accept-link").addEventListener("click" , () => {
   window.location.href = `../views/Accept.html`
 })
