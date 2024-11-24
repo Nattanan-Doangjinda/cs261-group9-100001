@@ -1,16 +1,17 @@
-const approveDrop = document.querySelector(".approve-drop");
-const approveStatusList = document.querySelector(".approve-container");
+const rejectDrop = document.querySelector(".reject-drop");
+const rejectStatusList = document.querySelector(".reject-container");
 
 var registerCross = "modify_request_cross.html";
 var requestAdd = "modify_request_add.html";
 var requestWithdraw = "modify_request_withdrow.html";
 var resignationForm = "modify_resignation.html";
 
-// Toggle the approve status list visibility
-approveDrop.addEventListener("click", () => {
-  console.log("Approve button is clicked");
-  approveStatusList.classList.toggle("hide-status");
+// Toggle the reject status list visibility
+rejectDrop.addEventListener("click", () => {
+  console.log("reject button is clicked");
+  rejectStatusList.classList.toggle("hide-status");
 });
+
 
 document.getElementById("teacherHomepage-link").addEventListener("click" , () => {
   window.location.href = `../views/TeacherHomepage.html.html`
@@ -46,7 +47,7 @@ window.onload = async function () {
   request = await response.json();
   console.log(request);
 
-  // Loop through the data and append the approve statuses
+  // Loop through the data and append the reject statuses
   request.forEach((item) => {
     let ref = null;
 
@@ -61,26 +62,26 @@ window.onload = async function () {
       ref = registerCross;
     }
 
-    // Only append if the status is "อนุมัติ"
-    if (item.status === "อนุมัติ") {
+    // Only append if the status is "ปฏิเสธ"
+    if (item.status === "ปฏิเสธ") {
       // Format the approval time 
 
-      const data = `<div class="approve-status-container">
-                        <p class="approve-no-data"></p>  
-                        <div class="approve-container">
-                            <div class="approve-status">
-                                <div class="approve-text">
-                                    <i class="bx bxs-circle approve-status-color"></i>
+      const data = `<div class="reject-status-container">
+                        <p class="reject-no-data"></p>  
+                        <div class="reject-container">
+                            <div class="reject-status">
+                                <div class="reject-text">
+                                    <i class="bx bxs-circle reject-status-color"></i>
                                     <div class="text-container">
                                         <p style="font-size: 25px">${item.type}</p> <!-- Dynamic type -->
-                                        <p class="sub-text">อนุมัติเมื่อ: ${item.date} น.</p> 
+                                        <p class="sub-text">ปฏิเสธเมื่อ: ${item.date} น.</p> 
                                     </div>
                                 </div>
-                                <button class="approve-btn" onclick="window.location.href='${ref}?id=${item.requestFormId}'">รายละเอียด</button>
+                                <button class="reject-btn" onclick="window.location.href='${ref}?id=${item.requestFormId}'">รายละเอียด</button>
                             </div>
                         </div>
                       </div>`;
-      document.getElementById("approve-container").innerHTML += data;
+      document.getElementById("reject-container").innerHTML += data;
     }
   });
 };
