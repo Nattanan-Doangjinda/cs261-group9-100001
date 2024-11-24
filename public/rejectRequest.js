@@ -104,36 +104,22 @@ window.onload = async function() {
         console.log("Error:", response.status);
         alert("ไม่สามารถดึงข้อมูลได้");
     }
-    document.getElementById("reject-text").addEventListener("click" ,async () => {
-        const id = document.getElementById("one-width"); // Get the element by ID
-        const toggleText = document.getElementById("toggle-text")
-        if (id) { // Check if the element exists
-            id.classList.toggle("active");
-            id.classList.toggle("inactive");
-            toggleText.classList.toggle("active")
-            toggleText.classList.toggle("inactive")
-            const textarea = id.querySelector("textarea");
-            if (textarea) {
-                textarea.readOnly = !id.classList.contains("active");
-                textarea.readOnly = true;
-
-                if (textarea) {
-                    textarea.readOnly = true;
-                    
-                    try {
-                        const response = await fetch(`http://localhost:8000/user/request/${requestFormId}`, {
-                            headers: { "Content-Type": "application/json" }
-                        });
-                        const data = await response.json();
-                        textarea.innerHTML = `${reason}`;
-                    } catch (error) {
-                        console.error('Error fetching request data:', error);
-                    }
-                }
+    const textarea = document.querySelector("textarea");
+    if (textarea) {
+        textarea.readOnly = true
+        if (textarea) {
+            textarea.readOnly = true;    
+            try {
+                const response = await fetch(`http://localhost:8000/user/request/${requestFormId}`, {
+                    headers: { "Content-Type": "application/json" }
+                });
+                const data = await response.json();
+                textarea.innerHTML = `${reason}`;
+            } catch (error) {
+                console.error('Error fetching request data:', error);
             }
         }
-
-    })
+    }
         
 
     document.getElementById("submit-button").addEventListener('click' , () => {
