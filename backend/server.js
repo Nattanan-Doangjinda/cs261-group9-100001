@@ -310,12 +310,14 @@ app.get('/employee/request', async (req, res) => {
         const data = []
         const result = await conn.request()
             .input('status', sql.NVarChar, 'รอดำเนินการ')
-            .query('SELECT * FROM requestFormData WHERE status = @status');
+            .input('state', sql.VarChar, 'Published')
+            .query('SELECT * FROM requestFormData WHERE status = @status AND state = @state');
 
 
         for (var i = 0; i < result.recordset.length; i++) {
             const response = {
                 status: result.recordset[i].status,
+                state : result.recordset[i].state,
                 type: result.recordset[i].type,
                 requestFormId: result.recordset[i].requestFormId,
                 date: JSON.parse(result.recordset[i].details).date

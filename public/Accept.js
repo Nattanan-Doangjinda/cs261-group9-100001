@@ -1,10 +1,11 @@
 const approveDrop = document.querySelector(".approve-drop");
 const approveStatusList = document.querySelector(".approve-container");
 
-var registerCross = "modify_request_cross.html";
-var requestAdd = "modify_request_add.html";
-var requestWithdraw = "modify_request_withdrow.html";
-var resignationForm = "modify_resignation.html";
+// var registerCross = "modify_request_cross.html";
+// var requestAdd = "modify_request_add.html";
+// var requestWithdraw = "modify_request_withdrow.html";
+// var resignationForm = "modify_resignation.html";
+var requestForm = "request.html"
 
 // Toggle the approve status list visibility
 approveDrop.addEventListener("click", () => {
@@ -48,15 +49,15 @@ window.onload = async function () {
     let ref = null;
 
     // Set the appropriate reference for each type of request
-    if (item.type === "ขอจดทะเบียนเพิ่มวิชา") {
-      ref = requestAdd;
-    } else if (item.type === "ขอถอนรายวิชา") {
-      ref = requestWithdraw;
-    } else if (item.type === "ขอลาออก") {
-      ref = resignationForm;
-    } else {
-      ref = registerCross;
-    }
+    // if (item.type === "ขอจดทะเบียนเพิ่มวิชา") {
+    //   ref = requestAdd;
+    // } else if (item.type === "ขอถอนรายวิชา") {
+    //   ref = requestWithdraw;
+    // } else if (item.type === "ขอลาออก") {
+    //   ref = resignationForm;
+    // } else {
+    //   ref = registerCross;
+    // }
 
     // Only append if the status is "อนุมัติ"
     if (item.status === "อนุมัติ") {
@@ -73,7 +74,7 @@ window.onload = async function () {
                                         <p class="sub-text">อนุมัติเมื่อ: ${item.date} น.</p> 
                                     </div>
                                 </div>
-                                <button class="approve-btn" onclick="window.location.href='${ref}?id=${item.requestFormId}'">รายละเอียด</button>
+                                <button class="approve-btn" onclick="window.location.href='${requestForm}?id=${item.requestFormId}'">รายละเอียด</button>
                             </div>
                         </div>
                       </div>`;

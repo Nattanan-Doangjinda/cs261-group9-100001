@@ -56,6 +56,7 @@ window.onload = async function() {
 
     var pendingtext = document.querySelector('.pending-text')
     request.forEach(item => {
+        // console.log(item)
         var data = null
         var ref = null
 
@@ -82,6 +83,7 @@ window.onload = async function() {
                 </div>`
             pendingContainer.innerHTML += data
         } if (item.status === "อนุมัติ"){
+            
             if (approveContainer.innerHTML == `<p class="text">ไม่พบข้อมูล...</p>`) {
                 approveContainer.innerHTML = "";
             }
@@ -91,7 +93,8 @@ window.onload = async function() {
                     </div>`
             approveContainer.innerHTML += data
         
-        } if(item.status === "ปฏิเสธ") {
+        } if(item.status === "ปฎิเสธ") {
+            
             if (rejectContainer.innerHTML == `<p class="text">ไม่พบข้อมูล...</p>`) {
                 rejectContainer.innerHTML = "";
             }
