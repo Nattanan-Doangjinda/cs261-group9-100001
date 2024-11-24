@@ -225,10 +225,12 @@ function toggleCheckbox(selected) {
                     method: "PUT",
                     headers: header,
                     body: body,
-                });
-
+                })
+                // const result = await response.json();
+                // console.log(result)
                 if (response.ok) {
                     alert('บันทึก: คำร้องถูกปฏิเสธพร้อมเหตุผล: ');
+                    window.localStorage.setItem("reason",rejectReasonTextarea.value)
                     window.location.href = `../views/Reject.html`;
                 } else {
                     alert('เกิดข้อผิดพลาดในการบันทึกข้อมูล');
