@@ -62,26 +62,24 @@ window.onload = async function() {
             termYear = data.details.sinceSemester;
             term = termYear.split('/')[0];
             year = termYear.split('/')[1];            
-            document.getElementById('advisor').value = data.details.advisor;
-            document.getElementById('term').value = term;
-            document.getElementById('year').value = year;
             console.log(term);
             console.log(year);
+            document.getElementById('term').value = term;
+            document.getElementById('year').value = year;
         }
         else{
             termYear = data.details.Semester;
             term = termYear.split('/')[0];
             year = termYear.split('/')[1];
-            document.getElementById('advisor').value = data.details.advisor;
-            document.getElementById('term').value = term;
-            document.getElementById('year').value = year;
-            document.getElementById('course_code').value = data.details.courseId;
-            document.getElementById('course_name').value = data.details.courseName;
-            document.getElementById('section').value = data.details.section;
             console.log(term);
             console.log(year);
+            document.getElementById('form-2').querySelector('#term').value = term;  // ตั้งค่า term ใน select ของ form-2
+            document.getElementById('form-2').querySelector('#year').value = year;  // ตั้งค่า year ใน select ของ form-2
+            document.getElementById('course_code').value = data.details.courseId;
+            document.getElementById('course_name').value = data.details.courseName;
+            document.getElementById('section').value = data.details.section
             
-        }   
+        } 
 
         type= "เรื่อง "+data.type;
         document.getElementById('header').innerHTML = type;
@@ -96,6 +94,7 @@ window.onload = async function() {
         document.getElementById('province').value = province;
         document.getElementById('phone').value = data.details.contact;
         document.getElementById('guardian_phone').value = data.details.parentContactNumber;
+        document.getElementById('advisor').value = data.details.advisor;;
         document.getElementById('reason').value = data.details.requestReason;
         //updateLinks(userID);
         

@@ -128,36 +128,36 @@
         <div class="form-group" id="form-1">
           <label>ตั้งแต่ภาคการศึกษาที่</label>
           <div class="tree-width">
-            <input type="text" name="term" id="term"  placeholder="ภาคการศึกษา" required />
+            <input type="text" name="term" id="term"  placeholder="ภาคการศึกษา" readonly />
           </div>
           <label>ปีการศึกษา</label>
           <div class="tree-width">
-            <input type="text" name="year" id="year" placeholder="ปีการศึกษา" required />
+            <input type="text" name="year" id="year" placeholder="ปีการศึกษา" readonly />
           </div>
         </div>
 
         <div id="form-2" style="display: none;">
-        <div class="form-group">
-          <label>ภาคการศึกษาที่</label>
-          <div class="small-width">
-            <select name="term" id="term" disabled>
-              <option value="" selected disabled hidden>ภาค</option>
-              <option value="1">1</option>
-              <option value="2">2</option>
-              <option value="3">3</option>
-            </select>
+          <div class="form-group">
+            <label>ภาคการศึกษาที่</label>
+            <div class="small-width">
+              <select name="term" id="term" required>
+                <option value="" selected disabled hidden>ภาค</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+              </select>
+            </div>
+            <label class="large-label">/</label>
+            <div class="small-width">
+              <select name="year" id="year" required>
+                <option value="" selected disabled hidden>ปี</option>
+                <option value="2567">2567</option>
+                <option value="2568">2568</option>
+                <option value="2569">2569</option>
+                <option value="2570">2570</option>
+              </select>
+            </div>
           </div>
-          <label class="large-label">/</label>
-          <div class="small-width">
-            <select name="year" id="year" disabled>
-              <option value="" selected disabled hidden>ปี</option>
-              <option value="2567">2567</option>
-              <option value="2568">2568</option>
-              <option value="2569">2569</option>
-              <option value="2570">2570</option>
-            </select>
-          </div>
-        </div>
         <div class="form-group special-row">
           <label>รหัสวิชา</label>
           <div class="third-width">
