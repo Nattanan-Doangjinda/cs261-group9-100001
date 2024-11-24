@@ -5,7 +5,7 @@ const approveStatusList = document.querySelector(".approve-container");
 // var requestAdd = "modify_request_add.html";
 // var requestWithdraw = "modify_request_withdrow.html";
 // var resignationForm = "modify_resignation.html";
-var requestForm = "request.html"
+var acceptRequestForm = "acceptRequest.html"
 
 // Toggle the approve status list visibility
 approveDrop.addEventListener("click", () => {
@@ -74,7 +74,7 @@ window.onload = async function () {
                                         <p class="sub-text">อนุมัติเมื่อ: ${item.date} น.</p> 
                                     </div>
                                 </div>
-                                <button class="approve-btn" onclick="window.location.href='${requestForm}?id=${item.requestFormId}'">รายละเอียด</button>
+                                <button class="approve-btn" onclick="window.location.href='${acceptRequestForm}?id=${item.requestFormId}'">รายละเอียด</button>
                             </div>
                         </div>
                       </div>`;

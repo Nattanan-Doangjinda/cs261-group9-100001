@@ -306,74 +306,22 @@ input[type=number] {
 }
 
 /* สำหรับ container หลัก */
-.form-group.decision {
+/* .form-group.decision {
     max-width: 1500px;
     margin: 20px auto;
     border-radius: 30px;
     box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
     padding: 30px;
-
-}
-
-.checkbox-wrapper {
-    display: flex;
+} */
+.confirmBtn{
+    width: 80%;
+    margin: 20px auto;
+    border-radius: 30px;
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+    padding: 30px;
     align-items: center;
-    margin-bottom: 10px;
 }
-
-.checkbox-wrapper input[type="checkbox"] {
-    appearance: none;
-    width: 24px;
-    height: 24px;
-    border: 2px solid #ccc;  /* ขอบของกล่อง */
-    border-radius: 5px;
-    margin-right: 10px;
-    transition: background-color 0.3s, border-color 0.3s;
-    background-color: #fff;  /* สีพื้นหลังเมื่อยังไม่ได้เลือก */
-    position: relative;
-}
-
-/* กรณีของ checkbox "อนุมัติคำร้อง" */
-#approve:checked {
-    background-color: #fff; /* สีเขียวเมื่อเลือก */
-    border-color: #ccc; /* ขอบสีเทา */
-}
-
-#approve:checked::after {
-    content: '';
-    position: absolute;
-    top: 2px;
-    left: 2px;
-    right: 2px;
-    bottom: 2px;
-    background-color: #B7DBB5;  /* ขอบด้านในเป็นสีขาว */
-    border-radius: 4px;
-}
-
-/* กรณีของ checkbox "ปฏิเสธคำร้อง" */
-#reject:checked {
-    background-color:#fff ; /* สีชมพูแดงเมื่อเลือก */
-    border-color: #ccc; /* ขอบสีเทา */
-}
-
-#reject:checked::after {
-    content: '';
-    position: absolute;
-    top: 2px;
-    left: 2px;
-    right: 2px;
-    bottom: 2px;
-    background-color: #d5a6bd;  /* ขอบด้านในเป็นสีขาว */
-    border-radius: 4px;
-}
-
-/* สไตล์ของข้อความ */
-.checkbox-wrapper label {
-    font-size: 18px;
-    color: #333;
-}
-
-.form-group.decision #submit-button {
+.confirmBtn button{
     float: right;
     padding: 10px 20px;
     font-size: 14px;
@@ -381,42 +329,55 @@ input[type=number] {
     border-radius: 15px;
     cursor: pointer;
     margin: 0 10px;
-    box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.2); 
+    box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.2);
     background-color: #F1F1F1;
     color: #000000;
     box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3);
 }
 
-.form-group.decision #submit-button2 {
-    float: right;
-    padding: 10px 20px;
-    font-size: 14px;
-    border: none;
-    border-radius: 15px;
+.reject-reason{
+    /* display: flex;
+    flex-direction: row; */
+    max-width: 1500px;
+    margin: 10px auto;
+    border-radius: 30px;
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+    /* height: 200px; height: 500px; */
+    padding: 20px;
+}
+.reject-text{
+    display: inline;
     cursor: pointer;
-    margin: 0 10px;
-    box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.2); 
-    background-color: #F1F1F1;
-    color: #000000;
-    box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3);
+    font-size: 24px;
 }
-
-/* สีเขียวเมื่อเลือก "อนุมัติคำร้อง" */
-.green {
-    background-color: #B7DBB5 !important; /* สีเขียว */
-    color: rgb(0, 0, 0);
-}
-
-/* สีแดงเมื่อเลือก "ปฏิเสธคำร้อง" */
 .red {
     background-color: #DBB5B5 !important; /* สีแดง */
     color: rgb(0, 0, 0);
 }
-
-
-#approve_reason {
-    display: none; /* ซ่อน textarea โดยเริ่มต้น */
+.reject-status-color {
+    color: crimson;
 }
+.toggle-text{
+    font-size: 24px;
+}
+#approve_reason {
+    width: calc(100% - 20px);
+    padding: 10px;
+    font-size: 15px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    outline: none;
+    height: 150px; /* ซ่อน textarea โดยเริ่มต้น */
+}
+.inactive{display: none;}
+.active{display: block;}
+/* สไตล์ของข้อความ */
+.checkbox-wrapper label {
+    width: 100%;
+    font-size: 18px;
+    color: #333;
+}
+
 
 /* Dropdown styles */
 .dropdown {
@@ -472,9 +433,3 @@ input[type=number] {
 .dropdown-toggle:hover {
     color: #3a3a3a;
 }
-.circle {
-    width: 10px;
-    height: 10px;
-    background-color: #FF5A5A;
-    border-radius: 50%;
-  }

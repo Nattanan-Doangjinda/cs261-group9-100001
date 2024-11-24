@@ -5,7 +5,7 @@ const rejectStatusList = document.querySelector(".reject-container");
 // var requestAdd = "modify_request_add.html";
 // var requestWithdraw = "modify_request_withdrow.html";
 // var resignationForm = "modify_resignation.html";
-var requestForm = "request.html"
+var rejectRequestForm = "rejectRequest.html"
 
 // Toggle the reject status list visibility
 rejectDrop.addEventListener("click", () => {
@@ -60,7 +60,7 @@ window.onload = async function () {
     // }
 
     // Only append if the status is "ปฏิเสธ"
-    if (item.status === "ปฎิเสธ") {
+    if (item.status === "ปฏิเสธ") {
       const data = `<div class="reject-status-container">
                       <p class="reject-no-data"></p>  
                       <div class="reject-container">
@@ -72,7 +72,7 @@ window.onload = async function () {
                                       <p class="sub-text">ปฏิเสธเมื่อ: ${item.date} น.</p> 
                                   </div>
                               </div>
-                              <button class="reject-btn" onclick="window.location.href='${requestForm}?id=${item.requestFormId}'">รายละเอียด</button>
+                              <button class="reject-btn" onclick="window.location.href='${rejectRequestForm}?id=${item.requestFormId}'">รายละเอียด</button>
                           </div>
                       </div>
                     </div>`;

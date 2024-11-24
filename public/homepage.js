@@ -93,7 +93,7 @@ window.onload = async function() {
                     </div>`
             approveContainer.innerHTML += data
         
-        } if(item.status === "ปฎิเสธ") {
+        } if(item.status === "ปฏิเสธ") {
             
             if (rejectContainer.innerHTML == `<p class="text">ไม่พบข้อมูล...</p>`) {
                 rejectContainer.innerHTML = "";
