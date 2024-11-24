@@ -56,6 +56,8 @@ document.addEventListener("DOMContentLoaded", async function(event) {
           "status": "รอดำเนินการ",
           "state": "Published",
           "type": "ขอลาออก",
+          "reason": "",
+          "dateApprove": "",
           "details": {
               "date" : Datefrom,
               "studentName": formDataObj.title+" "+formDataObj.first_name+" "+formDataObj.last_name,
@@ -101,6 +103,8 @@ document.addEventListener("DOMContentLoaded", async function(event) {
           "status": "รอดำเนินการ",
           "state": "Draft",
           "type": "ขอลาออก",
+          "reason": "",
+          "dateApprove": "",
           "details": {
               "date" : Datefrom,
               "studentName": formDataObj.title+" "+formDataObj.first_name+" "+formDataObj.last_name,
