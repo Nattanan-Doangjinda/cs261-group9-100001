@@ -91,7 +91,6 @@ button.logout{
     width: calc(100% - 20px);
     padding: 10px;
     font-size: 15px;
-    font-family: 'Inter', sans-serif;
     border: 1px solid #ccc;
     border-radius: 10px;
 }
@@ -316,24 +315,64 @@ input[type=number] {
 
 }
 
-/* สำหรับ checkbox */
-.form-group.decision label {
-    font-size: 18px;
-    font-family: 'Noto Sans Thai', sans-serif;
-    color: #333;
+.checkbox-wrapper {
     display: flex;
     align-items: center;
-    gap: 10px;
+    margin-bottom: 10px;
 }
 
-.form-group.decision input[type="checkbox"] {
-    width: 20px;
-    height: 20px;
-    accent-color: #4caf50;
-    cursor: pointer;
+.checkbox-wrapper input[type="checkbox"] {
+    appearance: none;
+    width: 24px;
+    height: 24px;
+    border: 2px solid #ccc;  /* ขอบของกล่อง */
+    border-radius: 5px;
+    margin-right: 10px;
+    transition: background-color 0.3s, border-color 0.3s;
+    background-color: #fff;  /* สีพื้นหลังเมื่อยังไม่ได้เลือก */
+    position: relative;
 }
 
-/* สำหรับปุ่มยืนยันให้อยู่ขวาสุด */
+/* กรณีของ checkbox "อนุมัติคำร้อง" */
+#approve:checked {
+    background-color: #fff; /* สีเขียวเมื่อเลือก */
+    border-color: #ccc; /* ขอบสีเทา */
+}
+
+#approve:checked::after {
+    content: '';
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    right: 2px;
+    bottom: 2px;
+    background-color: #B7DBB5;  /* ขอบด้านในเป็นสีขาว */
+    border-radius: 4px;
+}
+
+/* กรณีของ checkbox "ปฏิเสธคำร้อง" */
+#reject:checked {
+    background-color:#fff ; /* สีชมพูแดงเมื่อเลือก */
+    border-color: #ccc; /* ขอบสีเทา */
+}
+
+#reject:checked::after {
+    content: '';
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    right: 2px;
+    bottom: 2px;
+    background-color: #d5a6bd;  /* ขอบด้านในเป็นสีขาว */
+    border-radius: 4px;
+}
+
+/* สไตล์ของข้อความ */
+.checkbox-wrapper label {
+    font-size: 18px;
+    color: #333;
+}
+
 .form-group.decision #submit-button {
     float: right;
     padding: 10px 20px;
@@ -349,17 +388,73 @@ input[type=number] {
 }
 
 /* สีเขียวเมื่อเลือก "อนุมัติคำร้อง" */
-#submit-button.green {
-    background-color: green;
+.green {
+    background-color: #B7DBB5 !important; /* สีเขียว */
     color: rgb(0, 0, 0);
 }
 
 /* สีแดงเมื่อเลือก "ปฏิเสธคำร้อง" */
-#submit-button.red {
-    background-color: red;
+.red {
+    background-color: #DBB5B5 !important; /* สีแดง */
     color: rgb(0, 0, 0);
 }
 
+
 #approve_reason {
     display: none; /* ซ่อน textarea โดยเริ่มต้น */
+}
+
+/* Dropdown styles */
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown-menu {
+    display: none;
+    position: absolute;
+    background-color: #ffffff;
+    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+    padding: 0px 0px;
+    top: 100%;
+    right: 10px;
+    border-radius: 5px;
+}
+
+.dropdown-menu li {
+    padding: 8px 16px;
+}
+
+.dropdown-menu li a {
+    color: #2e2b41;
+    text-decoration: none;
+    display: block;
+}
+
+.dropdown-menu li a:hover {
+    background-color: #f1f1f1;
+}
+
+.dropdown:hover .dropdown-menu {
+    display: block;
+    /* Show menu on hover */
+}
+
+.dropdown-toggle {
+    cursor: pointer;
+    font-size: var(--normalFont);
+    font-weight: 500;
+    color: #2e2b41;
+    display: inline-flex;
+    align-items: center;
+}
+
+.dropdown-toggle i {
+    font-size: 20px;
+    margin-left: 8px;
+}
+
+.dropdown-toggle:hover {
+    color: #3a3a3a;
 }

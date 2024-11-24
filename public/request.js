@@ -28,11 +28,61 @@ window.onload = async function() {
         const district = addressParts[2] || '';
         const province = addressParts[3] || '';
         
-        //term year
-        const termYear = data.details.Semester;
-        const term = termYear.split('/')[0];
-        const year = termYear.split('/')[1];
+
+        if (data.type == "ขอจดทะเบียนเพิ่มวิชา") {
+            document.getElementById('purpose').innerHTML = "ประสงค์จะยื่นคำร้องเรื่อง จดทะเบียนล่าช้า / เพิ่มล้าช้า";
+        }
+        else if (data.type == "ขอถอนรายวิชา"){
+            document.getElementById('purpose').innerHTML = "ประสงค์จะยื่นคำร้องเรื่อง ขอถอนวิชา/รายวิชา (Drop W)";
+        }
+        else if (data.type == "ขอลาออก"){
+            document.getElementById('purpose').innerHTML = "ประสงค์จะยื่นคำร้องเรื่อง ขอลาออก";
+        }
+        else if (data.type == "จดทะเบียนวิชาข้ามหลักสูตร"){
+            document.getElementById('purpose').innerHTML = "ประสงค์จะยื่นคำร้องเรื่อง ขอจดทะเบียนศึกษารายวิชาข้ามหลักสูตร";
+        }
+            
+        var form1 = document.getElementById('form-1');
+        var form2 = document.getElementById('form-2');
+
+        if (data.type === "ขอลาออก") {
+            form1.style.display = 'block';  // แสดง form 1
+            form2.style.display = 'none';   // ซ่อน form 2
+        } else {
+            form1.style.display = 'none';   // ซ่อน form 1
+            form2.style.display = 'block';  // แสดง form 2
+        }
+
         
+        //term year
+        let term, year, termYear;
+        console.log(data.details.sinceSemester);
+        console.log(data.details.Semester);
+        if (data.type == "ขอลาออก"){
+            termYear = data.details.sinceSemester;
+            term = termYear.split('/')[0];
+            year = termYear.split('/')[1];            
+            document.getElementById('advisor').value = data.details.advisor;
+            document.getElementById('term').value = term;
+            document.getElementById('year').value = year;
+            console.log(term);
+            console.log(year);
+        }
+        else{
+            termYear = data.details.Semester;
+            term = termYear.split('/')[0];
+            year = termYear.split('/')[1];
+            document.getElementById('advisor').value = data.details.advisor;
+            document.getElementById('term').value = term;
+            document.getElementById('year').value = year;
+            document.getElementById('course_code').value = data.details.courseId;
+            document.getElementById('course_name').value = data.details.courseName;
+            document.getElementById('section').value = data.details.section;
+            console.log(term);
+            console.log(year);
+            
+        }   
+
         type= "เรื่อง "+data.type;
         document.getElementById('header').innerHTML = type;
         document.getElementById('title').value = title; 
@@ -46,14 +96,9 @@ window.onload = async function() {
         document.getElementById('province').value = province;
         document.getElementById('phone').value = data.details.contact;
         document.getElementById('guardian_phone').value = data.details.parentContactNumber;
-        document.getElementById('advisor').value = data.details.advisor;
-        document.getElementById('term').value = term;
-        document.getElementById('year').value = year;
-        document.getElementById('course_code').value = data.details.courseId;
-        document.getElementById('course_name').value = data.details.courseName;
-        document.getElementById('section').value = data.details.section;
         document.getElementById('reason').value = data.details.requestReason;
-        updateLinks(userID);
+        //updateLinks(userID);
+        
 
     } else {
         console.log("Error:", response.status);
@@ -63,26 +108,126 @@ window.onload = async function() {
 
 document.getElementById('approve').addEventListener('change', function() {
     var submitButton = document.getElementById('submit-button');
+    var reasonTextarea = document.getElementById('approve_reason');
     if (this.checked) {  // ถ้า "อนุมัติคำร้อง" ถูกเลือก
         submitButton.classList.add('green');
         submitButton.classList.remove('red');
+        reasonTextarea.style.display = 'none'; // ซ่อน textarea
+        reasonTextarea.setAttribute('readonly', 'true'); // เพิ่ม readonly กลับเข้าไป
     } else {
         submitButton.classList.remove('green');
     }
 });
+
 document.getElementById('reject').addEventListener('change', function() {
+    var submitButton = document.getElementById('submit-button');
     var reasonTextarea = document.getElementById('approve_reason');
-    
-    // ถ้าตัว checkbox "ปฏิเสธคำร้อง" ถูกเลือก ให้แสดง textarea
-    if (this.checked) {
+    if (this.checked) {  // ถ้า "ปฏิเสธคำร้อง" ถูกเลือก
+        submitButton.classList.add('red');
+        submitButton.classList.remove('green');
         reasonTextarea.style.display = 'block'; // แสดง textarea
         reasonTextarea.removeAttribute('readonly'); // ลบ readonly
     } else {
+        submitButton.classList.remove('red');
         reasonTextarea.style.display = 'none'; // ซ่อน textarea
         reasonTextarea.setAttribute('readonly', 'true'); // เพิ่ม readonly กลับเข้าไป
     }
 });
 
 
+function toggleCheckbox(selected) {
+    const approveCheckbox = document.getElementById('approve');
+    const rejectCheckbox = document.getElementById('reject');
+    const approveReasonTextarea = document.getElementById('approve_reason');
+    
+    // หากเลือกอนุมัติ จะยกเลิกการเลือกปฏิเสธ
+    if (selected === 'approve') {
+      rejectCheckbox.checked = false;
+      approveReasonTextarea.readOnly = true;
+    }
+    // หากเลือกปฏิเสธ จะยกเลิกการเลือกอนุมัติ
+    if (selected === 'reject') {
+      approveCheckbox.checked = false;
+      approveReasonTextarea.readOnly = false;
+    }
+  }
 
+  document.getElementById('submit-button').addEventListener('click', async () => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const requestFormId = urlParams.get('id');
+    const approveCheckbox = document.getElementById('approve');
+    const rejectCheckbox = document.getElementById('reject');
+    const rejectReasonTextarea = document.getElementById('approve_reason'); // ใช้ตัวแปรที่ถูกต้อง
+    const Datefrom = getCurrentDateTime(); // ฟังก์ชันที่จะต้องมีการกำหนดไว้
 
+    // ตรวจสอบการเลือกอนุมัติหรือปฏิเสธ
+    if (approveCheckbox.checked) {
+        const header = {
+            "Content-Type": "application/json"
+        };
+        const body = JSON.stringify({
+            "status": "อนุมัติ",
+            "reason": "", // ส่งเหตุผลที่กรอกใน textarea
+            "dateApprove": Datefrom,
+        });
+
+        const url = "http://localhost:8000/employee/request/" + requestFormId; 
+        try {
+            const response = await fetch(url, {
+                method: "PUT",
+                headers: header,
+                body: body,
+            });
+
+            if (response.ok) {
+                alert('บันทึก: คำร้องได้รับการอนุมัติ');
+            } else {
+                alert('เกิดข้อผิดพลาดในการบันทึกข้อมูล');
+            }
+        } catch (error) {
+            alert('เกิดข้อผิดพลาด: ' + error.message);
+        }
+    } else if (rejectCheckbox.checked) {
+        if (rejectReasonTextarea.value.trim() === '') { 
+            alert('กรุณากรอกเหตุผลในการปฏิเสธคำร้อง');
+        } else {
+            const header = {
+                "Content-Type": "application/json"
+            };
+            const body = JSON.stringify({
+                "status": "ปฏิเสธ",
+                "reason": rejectReasonTextarea.value,
+                "dateApprove": Datefrom,
+            });
+
+            const url = "http://localhost:8000/employee/request/" + requestFormId; 
+            try {
+                const response = await fetch(url, {
+                    method: "PUT",
+                    headers: header,
+                    body: body,
+                });
+
+                if (response.ok) {
+                    alert('บันทึก: คำร้องถูกปฏิเสธพร้อมเหตุผล: ');
+                } else {
+                    alert('เกิดข้อผิดพลาดในการบันทึกข้อมูล');
+                }
+            } catch (error) {
+                alert('เกิดข้อผิดพลาด: ' + error.message);
+            }
+        }
+    } else {
+        alert('กรุณาเลือกอนุมัติหรือปฏิเสธคำร้อง');
+    }
+});
+
+  function getCurrentDateTime() {
+    const currentDate = new Date();
+    const day = currentDate.getDate();
+    const month = currentDate.getMonth() + 1;
+    const year = currentDate.getFullYear();
+    const hours = String(currentDate.getHours()).padStart(2, '0');
+    const minutes = String(currentDate.getMinutes()).padStart(2, '0');
+    return `${day}/${month}/${year} ${hours}:${minutes}`;
+  }
