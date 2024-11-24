@@ -53,6 +53,24 @@ window.onload = async function() {
             form2.style.display = 'block';  // แสดง form 2
         }
 
+        var Approval = document.getElementById('Approval');
+        var History = document.getElementById('History');
+        var circle = document.getElementById('circle');
+        console.log(data.status);
+        if(data.status=="รอดำเนินการ"){
+            Approval.style.display = 'block';  // แสดง Approval
+            History.style.display = 'none';   // ซ่อน History
+        }else{
+            Approval.style.display = 'none';   // ซ่อน Approval
+            History.style.display = 'block';  // แสดง History
+            circle.style.display = 'none'; 
+            if (data.status == "ปฏิเสธ"){
+                circle.style.display = 'block'; 
+                reason2 = "ปฏิเสธเนื่องจาก  "+data.reason;
+                document.getElementById('reason2').innerHTML = reason2;
+            }
+        }
+
         
         //term year
         let term, year, termYear;
@@ -103,6 +121,7 @@ window.onload = async function() {
         console.log("Error:", response.status);
         alert("ไม่สามารถดึงข้อมูลได้");
     }
+
 }
 
 document.getElementById('approve').addEventListener('change', function() {
@@ -180,6 +199,7 @@ function toggleCheckbox(selected) {
 
             if (response.ok) {
                 alert('บันทึก: คำร้องได้รับการอนุมัติ');
+                window.location.href = `../views/Accept.html`;
             } else {
                 alert('เกิดข้อผิดพลาดในการบันทึกข้อมูล');
             }
@@ -209,6 +229,7 @@ function toggleCheckbox(selected) {
 
                 if (response.ok) {
                     alert('บันทึก: คำร้องถูกปฏิเสธพร้อมเหตุผล: ');
+                    window.location.href = `../views/Reject.html`;
                 } else {
                     alert('เกิดข้อผิดพลาดในการบันทึกข้อมูล');
                 }
@@ -230,3 +251,24 @@ function toggleCheckbox(selected) {
     const minutes = String(currentDate.getMinutes()).padStart(2, '0');
     return `${day}/${month}/${year} ${hours}:${minutes}`;
   }
+
+  document.getElementById('submit-button2').addEventListener('click', async () => {
+    const urlParams = new URLSearchParams(window.location.search);
+  const requestFormId = urlParams.get('id');
+    const header = {
+        "Content-Type": "application/json"
+    };
+    const url = "http://localhost:8000/user/request/"+requestFormId;
+    const response = await fetch(url, {
+        method: "GET",
+        headers: header,
+    });
+    if (response.ok) {
+        const data = await response.json();
+        if(data.status === "ปฏิเสธ") {
+            window.location.href = `../views/Reject.html`;
+        }else{
+            window.location.href = `../views/Accept.html`;
+        }
+    }
+  });

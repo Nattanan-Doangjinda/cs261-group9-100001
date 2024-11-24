@@ -387,6 +387,20 @@ input[type=number] {
     box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3);
 }
 
+.form-group.decision #submit-button2 {
+    float: right;
+    padding: 10px 20px;
+    font-size: 14px;
+    border: none;
+    border-radius: 15px;
+    cursor: pointer;
+    margin: 0 10px;
+    box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.2); 
+    background-color: #F1F1F1;
+    color: #000000;
+    box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3);
+}
+
 /* สีเขียวเมื่อเลือก "อนุมัติคำร้อง" */
 .green {
     background-color: #B7DBB5 !important; /* สีเขียว */
@@ -458,3 +472,9 @@ input[type=number] {
 .dropdown-toggle:hover {
     color: #3a3a3a;
 }
+.circle {
+    width: 10px;
+    height: 10px;
+    background-color: #FF5A5A;
+    border-radius: 50%;
+  }

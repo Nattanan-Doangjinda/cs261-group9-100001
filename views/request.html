@@ -6,7 +6,7 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
     />
-    <title>แบบฟอร์มจดทะเบียนเพิ่มรายวิชา</title>
+    <title>request</title>
   </head>
   <body>
     <div class="nav-bar">
@@ -140,7 +140,7 @@
           <div class="form-group">
             <label>ภาคการศึกษาที่</label>
             <div class="small-width">
-              <select name="term" id="term" required>
+              <select name="term" id="term" disabled>
                 <option value="" selected disabled hidden>ภาค</option>
                 <option value="1">1</option>
                 <option value="2">2</option>
@@ -149,7 +149,7 @@
             </div>
             <label class="large-label">/</label>
             <div class="small-width">
-              <select name="year" id="year" required>
+              <select name="year" id="year" disabled>
                 <option value="" selected disabled hidden>ปี</option>
                 <option value="2567">2567</option>
                 <option value="2568">2568</option>
@@ -187,27 +187,44 @@
         </div>
       </form>
     </div>
-
-    <div class="form-group decision">
-      <div class="checkbox-wrapper">
-        <input type="checkbox" id="approve" onclick="toggleCheckbox('approve')">
-        <label for="approve">อนุมัติคำร้อง</label>
-    </div>
-      <br>
-      <div class="form-group reason">
+      
+    <div id ="Approval">
+      <div class="form-group decision">
         <div class="checkbox-wrapper">
-          <input type="checkbox" id="reject" onclick="toggleCheckbox('reject')">
-              <label for="reject">ปฏิเสธคำร้อง</label>
-          </div>
-          <div class="one-width">
-              <textarea name="approve_reason" id="approve_reason" placeholder="โปรดระบุเหตุผลในการปฏิเสธ....." readonly></textarea>
-          </div>
+          <input type="checkbox" id="approve" onclick="toggleCheckbox('approve')">
+          <label for="approve">อนุมัติคำร้อง</label>
+        </div>
+        <br>
+        <div class="form-group reason">
+          <div class="checkbox-wrapper">
+            <input type="checkbox" id="reject" onclick="toggleCheckbox('reject')">
+                <label for="reject">ปฏิเสธคำร้อง</label>
+            </div>
+            <div class="one-width">
+                <textarea name="approve_reason" id="approve_reason" placeholder="โปรดระบุเหตุผลในการปฏิเสธ....." readonly></textarea>
+            </div>
+        </div>
+        <br>
+        <div>
+          <button type="button" id="submit-button">ยืนยัน</button>
+        </div>
       </div>
-      <br>
-      <div>
-        <button type="button" id="submit-button">ยืนยัน</button>
+    </div>
+
+    <div id ="History">
+      <div class="form-group decision">
+        <div class ="form-group special-row">
+          <div class="circle" id="circle" ></div>
+          <div id ="reason2"></div>
+        </div>
+        <br>
+        <div>
+          <button type="button" id="submit-button2">ยืนยัน</button>
+        </div>
       </div>
-  </div>
+    </div>
+
+    
       
     
     <script src="../public/request.js"></script>
