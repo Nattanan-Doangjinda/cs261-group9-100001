@@ -1,5 +1,4 @@
 let userID;
-const reason = window.localStorage.getItem("reason")
 window.onload = async function() {
   const urlParams = new URLSearchParams(window.location.search);
   const requestFormId = urlParams.get('id');
@@ -114,7 +113,7 @@ window.onload = async function() {
                     headers: { "Content-Type": "application/json" }
                 });
                 const data = await response.json();
-                textarea.innerHTML = `${reason}`;
+                textarea.innerHTML = `${data.reason}`;
             } catch (error) {
                 console.error('Error fetching request data:', error);
             }
