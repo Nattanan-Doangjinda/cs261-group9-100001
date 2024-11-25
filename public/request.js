@@ -262,6 +262,7 @@ function toggleCheckbox(selected) {
         method: "GET",
         headers: header,
     });
+
     const data = await response.json();
     console.log(data)
     if (response.ok) {
