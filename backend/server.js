@@ -33,6 +33,32 @@ conn = await sql.connect({
 }); 
 */
 
+/* 
+conn = await sql.connect({
+    user: "sa",
+    password: "YourStrong@Passw0rd",
+    server: "localhost",
+    database: "master",
+    options: {
+        encrypt: true,
+        trustServerCertificate: true
+    }
+}); 
+*/
+
+/* 
+conn = await sql.connect({
+    user: process.env.DB_USER,
+    password: process.env.DB_PASSWORD,
+    server: process.env.DB_SERVER,
+    database: process.env.DB_NAME,
+    options: {
+        encrypt: true,
+        trustServerCertificate: true
+    }
+}); 
+*/
+
 const createDatabase = `
     IF NOT EXISTS (
         SELECT * FROM sys.databases 
@@ -55,6 +81,10 @@ const createTable = `
             type VARCHAR(255) NOT NULL,
             nameTh NVARCHAR(255) NOT NULL,
             nameEn VARCHAR(255) NOT NULL
+            username VARCHAR(255) NOT NULL,
+            type VARCHAR(255) NOT NULL,
+            nameTh NVARCHAR(255) NOT NULL,
+            nameEn VARCHAR(255) NOT NULL
         );
     END
 
@@ -71,9 +101,25 @@ const createTable = `
             type NVARCHAR(255) NOT NULL,
             reason NVARCHAR(255),
             dateApprove VARCHAR(255),
+            reason NVARCHAR(255),
+            dateApprove VARCHAR(255),
             details NVARCHAR(MAX),
             CHECK (ISJSON(details) = 1), 
             FOREIGN KEY (userId) REFERENCES users(userId)
+        );
+    END
+
+    IF NOT EXISTS (
+        SELECT * FROM INFORMATION_SCHEMA.TABLES 
+        WHERE TABLE_NAME = 'employees'
+    )
+    BEGIN
+        CREATE TABLE employees (
+            employeeId INT PRIMARY KEY IDENTITY(1,1),
+            username VARCHAR(255) NOT NULL,
+            type VARCHAR(255) NOT NULL,
+            nameTh NVARCHAR(255) NOT NULL,
+            nameEn VARCHAR(255) NOT NULL
         );
     END
 
@@ -105,10 +151,12 @@ const initMySQL = async () => {
             trustServerCertificate: true
         }
     }); 
+    }); 
     await conn.request().query(createDatabase);
 
     await conn.close();
     await new Promise(resolve => setTimeout(resolve, 5000));
+
 
     conn = await sql.connect({
         user: process.env.DB_USER,
@@ -120,7 +168,20 @@ const initMySQL = async () => {
             trustServerCertificate: true
         }
     }); 
+    }); 
     await conn.request().query(createTable);
+
+    // สร้างรหัส Login ของครูที่ปรึกษา
+    const isHave = await conn.request().query('SELECT * FROM employees')
+
+    if (!isHave.recordset.length) {
+        await conn.request()
+            .input('username', sql.VarChar, 'employee')
+            .input('type', sql.VarChar, 'employee')
+            .input('nameTh', sql.VarChar, 'employee')
+            .input('nameEn', sql.VarChar, 'employee')
+            .query('INSERT INTO employees (username, type, nameTh, nameEn) VALUES (@username, @type, @nameTh, @nameEn)');
+    }
 
     // สร้างรหัส Login ของครูที่ปรึกษา
     const isHave = await conn.request().query('SELECT * FROM employees')
@@ -144,8 +205,17 @@ app.post('/user', async (req, res) => {
 
         var users = await conn.request()
             .input('username', sql.VarChar, user.username)
+        var result;
+
+        var users = await conn.request()
+            .input('username', sql.VarChar, user.username)
             .query('SELECT * FROM users WHERE username = @username');
 
+        var employees = await conn.request()
+            .input('username', sql.VarChar, user.username)
+            .query('SELECT * FROM employees WHERE username = @username');
+
+        if (!users.recordset.length && !employees.recordset.length) {
         var employees = await conn.request()
             .input('username', sql.VarChar, user.username)
             .query('SELECT * FROM employees WHERE username = @username');
@@ -157,8 +227,22 @@ app.post('/user', async (req, res) => {
                 .input('nameTh', sql.NVarChar, user.nameTh)
                 .input('nameEn', sql.VarChar, user.nameEn)
                 .query('INSERT INTO users (username, type, nameTh, nameEn) VALUES (@username, @type, @nameTh, @nameEn)');
+                .input('username', sql.VarChar, user.username)
+                .input('type', sql.VarChar, user.type)
+                .input('nameTh', sql.NVarChar, user.nameTh)
+                .input('nameEn', sql.VarChar, user.nameEn)
+                .query('INSERT INTO users (username, type, nameTh, nameEn) VALUES (@username, @type, @nameTh, @nameEn)');
 
             result = await conn.request()
+                .input('username', sql.VarChar, user.username)
+                .query('SELECT * FROM users WHERE username = @username');
+        } else if (employees.recordset.length) {
+            result = await conn.request()
+                .input('username', sql.VarChar, user.username)
+                .query('SELECT * FROM employees WHERE username = @username');
+        } else {
+            result = await conn.request()
+                .input('username', sql.VarChar, user.username)
                 .input('username', sql.VarChar, user.username)
                 .query('SELECT * FROM users WHERE username = @username');
         } else if (employees.recordset.length) {
@@ -177,7 +261,12 @@ app.post('/user', async (req, res) => {
             type: result.recordset[0].type,
             nameTh: result.recordset[0].nameTh,
             nameEn: result.recordset[0].nameEn,
+            userId: result.recordset[0].userId,
+            type: result.recordset[0].type,
+            nameTh: result.recordset[0].nameTh,
+            nameEn: result.recordset[0].nameEn,
         });
+
 
     } catch (error) {
         console.log('error', error);
@@ -336,7 +425,9 @@ app.get('/employee/request/history', async (req, res) => {
         const data = []
         const result = await conn.request()
             .input('status1', sql.NVarChar, 'อนุมัติ')
-            .input('status2', sql.NVarChar, 'ปฎิเสธ')
+            .input('status2', sql.NVarChar, 'ปฏิเสธ')
+            // .input('reason', sql.NVarChar, feedback.reason)
+            // .input('details', sql.NVarChar, JSON.stringify(requestDetails.details))
             .query('SELECT * FROM requestFormData WHERE status IN (@status1, @status2)');
 
         for (var i = 0; i < result.recordset.length; i++) {
@@ -344,9 +435,9 @@ app.get('/employee/request/history', async (req, res) => {
                 status: result.recordset[i].status,
                 type: result.recordset[i].type,
                 requestFormId: result.recordset[i].requestFormId,
+                // reason : result.recordset[i].reason,
                 date: JSON.parse(result.recordset[i].details).date
             }
-
             data.push(response);
         }
 

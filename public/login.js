@@ -46,7 +46,6 @@ const submit = async () => {
             const userId = await userIdResponse.json()
             console.log(userId.userId)
             window.location.href = `../views/homepage.html?id=${userId.userId}`
-        
         } else {
             errorMsg.innerText = "ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง";
             usernameInput.parentElement.classList.add('incorrect');

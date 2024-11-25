@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" href="../public/request.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+    />
+    <title>request</title>
+  </head>
+  <body>
+    <div class="nav-bar">
+      <div class="logo">
+        <img src="../public/Assets/Emblem_of_Thammasat_University.svg.png" />
+      </div>
+
+      <div class="nav-links">
+        <div class="links-logout">
+          <ul class="links">
+            <a href="#" id="Homepage-link">หน้าหลัก</a>
+            <div class="dropdown">
+              <span class="dropdown-toggle"
+                >ประวัติ <i class="bx bx-chevron-down"></i
+              ></span>
+              <ul class="dropdown-menu">
+                <li><a href="Accept.html" id="accept-link">อนุมัติ</a></li>
+                <li><a href="Reject.html" id="reject-link">ปฏิเสธ</a></li>
+              </ul>
+            </div>
+          </ul>
+          <button class="logout" id="logout">Logout</button>
+        </div>
+        <div class="line"></div>
+      </div>
+    </div>
+
+
+    <div class="container">
+      <div class="header" id = "header"></div>
+      <form action="/submit-form" method="POST">
+        <div class="form-group">
+          <div class="header">เรียน คณบดีคณะวิทยาศาสตร์และเทคโนโลยี</div>
+          <label>
+            ข้าพเจ้า
+            <div class="two-width">
+              <select name="title" id="title" disabled>
+                <option value="" selected disabled hidden>คำนำหน้า</option>
+                <option value="นาย">นาย</option>
+                <option value="นางสาว">นางสาว</option>
+                <option value="นาง">นาง</option>
+              </select>
+            </div>
+            <div class="half-width">
+              <input type="text" name="first_name" id="first_name" placeholder="ชื่อ" readonly />
+            </div>
+            <div class="half-width">
+              <input type="text" name="last_name" id="last_name" placeholder="นามสกุล" readonly />
+            </div>
+          </label>
+        </div>
+        <div class="form-group special-row">
+          <label>เลขทะเบียน</label>
+          <div class="sixty-width">
+            <input type="text" name="student_id" id="student_id" placeholder="xxx xxx xxxx" maxlength="10" onkeydown="return restrictNumberInput(event)" oninput="this.value = this.value.replace(/[^0-9]/g, '')" readonly />
+          </div>
+          <label>ชั้นปีการศึกษา</label>
+          <div class="third-width">
+            <select name="semester" id="semester" disabled>
+              <option value="" selected disabled hidden>ปีการศึกษา</option>
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+            </select>
+          </div>
+          <div class="half-width">
+            <label>สาขาวิชา วิทยาการคอมพิวเตอร์</label>
+          </div>
+        </div>
+        <div class="form-group special-row">
+          <label>ที่อยู่ที่ติดต่อได้</label>
+          <div class="third-width">
+            <input type="text" name="address" id="address" placeholder="เลขที่" readonly />
+          </div>
+          <label>แขวง/ตำบล</label>
+          <div class="third-width">
+            <input type="text" name="sub_district" id="sub_district" placeholder="แขวง/ตำบล" readonly />
+          </div>
+          <label>เขต/อำเภอ</label>
+          <div class="third-width">
+            <input type="text" name="district" id="district" placeholder="เขต/อำเภอ" readonly />
+          </div>
+        </div>
+        <div class="form-group special-row">
+          <label>จังหวัด</label>
+          <div class="half-width">
+            <input type="text" name="province" id="province" placeholder="จังหวัด" readonly />
+          </div>
+          <label>โทรศัพท์ติดต่อ</label>
+          <div class="fifty-width">
+            <div class="icon-input">
+              <i class="fa fa-phone"></i>
+              <input type="text" name="phone" id="phone" placeholder="xxx xxx xxxx"  maxlength="10" onkeydown="return restrictNumberInput(event)" oninput="this.value = this.value.replace(/[^0-9]/g, '')" readonly />
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group special-row">
+          <label>โทรศัพท์ติดต่อผู้ปกครอง</label>
+          <div class="half-width">
+            <div class="icon-input">
+              <i class="fa fa-phone"></i>
+              <input type="text" name="guardian_phone" id="guardian_phone" placeholder="xxx xxx xxxx"  maxlength="10" onkeydown="return restrictNumberInput(event)" oninput="this.value = this.value.replace(/[^0-9]/g, '')" readonly />
+            </div>
+          </div>
+          <label>อาจารย์ที่ปรึกษา</label>
+          <div class="fifty-width">
+            <input type="text" name="advisor" id="advisor" placeholder="อาจารย์ที่ปรึกษา" readonly />
+          </div>
+        </div>
+        <div class="form-group">
+          <label>
+            <div id="purpose"></div>
+          </label>
+        </div>
+
+        <div class="form-group" id="form-1">
+          <label>ตั้งแต่ภาคการศึกษาที่</label>
+          <div class="tree-width">
+            <input type="text" name="term" id="term"  placeholder="ภาคการศึกษา" readonly />
+          </div>
+          <label>ปีการศึกษา</label>
+          <div class="tree-width">
+            <input type="text" name="year" id="year" placeholder="ปีการศึกษา" readonly />
+          </div>
+        </div>
+
+        <div id="form-2" style="display: none;">
+          <div class="form-group">
+            <label>ภาคการศึกษาที่</label>
+            <div class="small-width">
+              <select name="term" id="term" disabled>
+                <option value="" selected disabled hidden>ภาค</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+              </select>
+            </div>
+            <label class="large-label">/</label>
+            <div class="small-width">
+              <select name="year" id="year" disabled>
+                <option value="" selected disabled hidden>ปี</option>
+                <option value="2567">2567</option>
+                <option value="2568">2568</option>
+                <option value="2569">2569</option>
+                <option value="2570">2570</option>
+              </select>
+            </div>
+          </div>
+        <div class="form-group special-row">
+          <label>รหัสวิชา</label>
+          <div class="third-width">
+            <input type="text" name="course_code" id="course_code" placeholder="รหัสวิชา" s />
+          </div>
+          <div class="third-width">
+            <input type="text" name="course_name" id="course_name" placeholder="ชื่อวิชา" readonly />
+          </div>
+          <div class="third-width">
+            <input type="text" name="section" id="section" placeholder="Section" readonly />
+          </div>
+        </div>
+      </div>
+
+        <div class="form-group special-row">
+            <div>
+                <label>เหตุผลที่ยื่นคำร้องเนื่องจาก</label>
+            </div>
+            <div class="one-width">
+              <input type="text" name="reason" id="reason" placeholder="โปรดกรอกเหตุผล....." readonly ></textarea>
+            </div>
+        </div>
+        <div class="form-group">
+            <p>
+            จึงเรียนมาเพื่อโปรดพิจารณาอนุมัติและดำเนินการต่อไปด้วย จักเป็นพระคุณยิ่ง
+            </p>
+        </div>
+      </form>
+    </div>
+      
+    <div id ="Approval">
+      <div class="form-group decision">
+        <div class="checkbox-wrapper">
+          <input type="checkbox" id="approve" onclick="toggleCheckbox('approve')">
+          <label for="approve">อนุมัติคำร้อง</label>
+        </div>
+        <br>
+        <div class="form-group reason">
+          <div class="checkbox-wrapper">
+            <input type="checkbox" id="reject" onclick="toggleCheckbox('reject')">
+                <label for="reject">ปฏิเสธคำร้อง</label>
+            </div>
+            <div class="one-width">
+                <textarea name="approve_reason" id="approve_reason" placeholder="โปรดระบุเหตุผลในการปฏิเสธ....." readonly></textarea>
+            </div>
+        </div>
+        <br>
+        <div>
+          <button type="button" id="submit-button">ยืนยัน</button>
+        </div>
+      </div>
+    </div>
+
+    <div id ="History">
+      <div class="form-group decision">
+        <div class ="form-group special-row">
+          <div class="circle" id="circle" ></div>
+          <div id ="reason2"></div>
+        </div>
+        <br>
+        <div>
+          <button type="button" id="submit-button2">ยืนยัน</button>
+        </div>
+      </div>
+    </div>
+
+    
+      
+    
+    <script src="../public/request.js"></script>
+  </body>
+</html>

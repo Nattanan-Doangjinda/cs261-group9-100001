@@ -54,6 +54,13 @@ ul.links a{
     color: #2E2B41;
 }
 
+.Logout a {
+    color: #000;
+    font-size: 30px;
+    padding: 0 30px;
+    text-decoration: none;
+}
+
 button.logout{
     border: none;
     background-color: transparent;
@@ -257,3 +264,8 @@ button.dropdown-icon{
     pointer-events: none;
 }
 
+.text{
+    font-size: 25px;
+    color: #878592;
+    margin: 10px 0 0 40px;
+}
