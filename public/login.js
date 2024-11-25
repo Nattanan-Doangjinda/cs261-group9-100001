@@ -4,9 +4,16 @@
 const usernameInput = document.getElementById('username-input');
 const passwordInput = document.getElementById('password-input');
 const errorMsg = document.getElementById('error-message');
+const admin = document.querySelector('.switchAccount');
+
+admin.addEventListener('click', () => {
+    window.location.href = '../views/teacherLogin.html';
+})
 
 const apiUrl = "https://restapi.tu.ac.th/api/v1/auth/Ad/verify";
 const apiToken = "TUa102b22222c092b0a4d8880665add4bfc4cd74b48ef7b7e2d657e126b6faaf63148ead8e7ce823d2587ec03686d3da84";
+
+
 
 let errors = [];
 
