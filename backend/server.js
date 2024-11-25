@@ -425,7 +425,9 @@ app.get('/employee/request/history', async (req, res) => {
         const data = []
         const result = await conn.request()
             .input('status1', sql.NVarChar, 'อนุมัติ')
-            .input('status2', sql.NVarChar, 'ปฎิเสธ')
+            .input('status2', sql.NVarChar, 'ปฏิเสธ')
+            // .input('reason', sql.NVarChar, feedback.reason)
+            // .input('details', sql.NVarChar, JSON.stringify(requestDetails.details))
             .query('SELECT * FROM requestFormData WHERE status IN (@status1, @status2)');
 
         for (var i = 0; i < result.recordset.length; i++) {
@@ -433,9 +435,9 @@ app.get('/employee/request/history', async (req, res) => {
                 status: result.recordset[i].status,
                 type: result.recordset[i].type,
                 requestFormId: result.recordset[i].requestFormId,
+                // reason : result.recordset[i].reason,
                 date: JSON.parse(result.recordset[i].details).date
             }
-
             data.push(response);
         }
 

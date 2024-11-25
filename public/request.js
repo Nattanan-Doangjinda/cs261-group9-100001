@@ -225,8 +225,7 @@ function toggleCheckbox(selected) {
                     method: "PUT",
                     headers: header,
                     body: body,
-                });
-
+                })
                 if (response.ok) {
                     alert('บันทึก: คำร้องถูกปฏิเสธพร้อมเหตุผล: ');
                     window.location.href = `../views/Reject.html`;
@@ -263,8 +262,10 @@ function toggleCheckbox(selected) {
         method: "GET",
         headers: header,
     });
+
+    const data = await response.json();
+    console.log(data)
     if (response.ok) {
-        const data = await response.json();
         if(data.status === "ปฏิเสธ") {
             window.location.href = `../views/Reject.html`;
         }else{
