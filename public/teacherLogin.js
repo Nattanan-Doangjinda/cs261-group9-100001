@@ -1,3 +1,4 @@
+
 const usernameInput = document.getElementById('username-input');
 const passwordInput = document.getElementById('password-input');
 const errorMsg = document.getElementById('error-message');
@@ -36,6 +37,7 @@ const submit = async () => {
     }
     
 }
+
 const allInputs = [usernameInput, passwordInput];
 
 allInputs.forEach(input => {

@@ -477,4 +477,9 @@ input[type=number] {
     height: 10px;
     background-color: #FF5A5A;
     border-radius: 50%;
-  }
+}
+
+.error {
+    border: 2px solid red !important;
+}
+

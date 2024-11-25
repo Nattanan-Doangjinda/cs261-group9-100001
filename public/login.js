@@ -27,30 +27,26 @@ const submit = async () => {
         });
         const responseData = await response.json();
 
-        const data = JSON.stringify({
-            "username": responseData.username,
-            "type": responseData.type,
-            "nameTh": responseData.displayname_th,
-            "nameEn": responseData.displayname_en,
-        })
-        // console.log(JSON.stringify({
-        //     "username": responseData.username,
-        //     "type": responseData.type,
-        //     "nameTh": responseData.displayname_th,
-        //     "nameEn": responseData.displayname_en,
-        // }));
-
+        const data = {
+            'username': responseData.username,
+            'type': responseData.type,
+            'nameTh': responseData.displayname_th,
+            'nameEn': responseData.displayname_en
+        }
         // handleResponse(response, responseData)
-
-        if (response.ok && responseData) {
+        if (response.ok && responseData.username) {
+            
             const userIdResponse = await fetch("http://localhost:8000/user", {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: data
+                body:JSON.stringify(data)
             })
             const userId = await userIdResponse.json()
+
+
+            console.log(userId.userId)
             window.location.href = `../views/homepage.html?id=${userId.userId}`
         } else {
             errorMsg.innerText = "ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง";
@@ -63,39 +59,6 @@ const submit = async () => {
     } 
 }
 
-// function handleResponse(response, responseData){
-//     errors = formValidation(usernameInput.value, passwordInput.value, response.ok, responseData);
-
-//     if(errors.length > 0){
-//         errorMsg.innerText = errors.join('. ');
-//         // e.preventDefault();
-//     }
-// }
-
-// function formValidation(username, password, status, responseData){
-//     let errors = [];
-
-//     if(!status){
-//         errors.push('Users or Password Invalid!');
-//         usernameInput.parentElement.classList.add('incorrect');
-//     }
-
-//     if(username === '' || username == null){
-//         errors.push('Username is required');
-//         usernameInput.parentElement.classList.add('incorrect');
-//     }
-
-//     if(password === '' || password == null){
-//         errors.push('Password is required');
-//         passwordInput.parentElement.classList.add('incorrect');
-//     }
-
-//     if (responseData && username !== responseData.username) {
-//         errors.push('Username does not match');
-//     }
-
-//     return errors;
-// }
 
 const allInputs = [usernameInput, passwordInput];
 
