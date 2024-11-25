@@ -69,7 +69,7 @@ button.logout{
 .container {
     max-width: 1500px;
     margin: 20px auto;
-    background-color: #fff;
+    background-color: #F1F1F1;
     border-radius: 30px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     padding: 30px;
@@ -91,7 +91,6 @@ button.logout{
     width: calc(100% - 20px);
     padding: 10px;
     font-size: 15px;
-    font-family: 'Inter', sans-serif;
     border: 1px solid #ccc;
     border-radius: 10px;
 }
@@ -174,7 +173,7 @@ button.logout{
 }
 
 .form-group .small-width {
-    width: calc(5%);
+    width: calc(6%);
     display: inline-block;
 }
 
@@ -235,7 +234,7 @@ select:invalid {
 }
 
 .buttons .save-draft {
-    background-color: #e0e0e0;
+    background-color: #E2E2E2;
     color: #333;
     box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3);
 }
@@ -302,7 +301,184 @@ input[type=number]::-webkit-outer-spin-button {
     margin: 0;
 }
 
-/* ซ่อนลูกศรสำหรับเบราว์เซอร์ Firefox */
 input[type=number] {
     -moz-appearance: textfield;
+}
+
+/* สำหรับ container หลัก */
+.form-group.decision {
+    max-width: 1500px;
+    margin: 20px auto;
+    border-radius: 30px;
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+    padding: 30px;
+
+}
+
+.checkbox-wrapper {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.checkbox-wrapper input[type="checkbox"] {
+    appearance: none;
+    width: 24px;
+    height: 24px;
+    border: 2px solid #ccc;  /* ขอบของกล่อง */
+    border-radius: 5px;
+    margin-right: 10px;
+    transition: background-color 0.3s, border-color 0.3s;
+    background-color: #fff;  /* สีพื้นหลังเมื่อยังไม่ได้เลือก */
+    position: relative;
+}
+
+/* กรณีของ checkbox "อนุมัติคำร้อง" */
+#approve:checked {
+    background-color: #fff; /* สีเขียวเมื่อเลือก */
+    border-color: #ccc; /* ขอบสีเทา */
+}
+
+#approve:checked::after {
+    content: '';
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    right: 2px;
+    bottom: 2px;
+    background-color: #B7DBB5;  /* ขอบด้านในเป็นสีขาว */
+    border-radius: 4px;
+}
+
+/* กรณีของ checkbox "ปฏิเสธคำร้อง" */
+#reject:checked {
+    background-color:#fff ; /* สีชมพูแดงเมื่อเลือก */
+    border-color: #ccc; /* ขอบสีเทา */
+}
+
+#reject:checked::after {
+    content: '';
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    right: 2px;
+    bottom: 2px;
+    background-color: #d5a6bd;  /* ขอบด้านในเป็นสีขาว */
+    border-radius: 4px;
+}
+
+/* สไตล์ของข้อความ */
+.checkbox-wrapper label {
+    font-size: 18px;
+    color: #333;
+}
+
+.form-group.decision #submit-button {
+    float: right;
+    padding: 10px 20px;
+    font-size: 14px;
+    border: none;
+    border-radius: 15px;
+    cursor: pointer;
+    margin: 0 10px;
+    box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.2); 
+    background-color: #F1F1F1;
+    color: #000000;
+    box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+.form-group.decision #submit-button2 {
+    float: right;
+    padding: 10px 20px;
+    font-size: 14px;
+    border: none;
+    border-radius: 15px;
+    cursor: pointer;
+    margin: 0 10px;
+    box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.2); 
+    background-color: #F1F1F1;
+    color: #000000;
+    box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+/* สีเขียวเมื่อเลือก "อนุมัติคำร้อง" */
+.green {
+    background-color: #B7DBB5 !important; /* สีเขียว */
+    color: rgb(0, 0, 0);
+}
+
+/* สีแดงเมื่อเลือก "ปฏิเสธคำร้อง" */
+.red {
+    background-color: #DBB5B5 !important; /* สีแดง */
+    color: rgb(0, 0, 0);
+}
+
+
+#approve_reason {
+    display: none; /* ซ่อน textarea โดยเริ่มต้น */
+}
+
+/* Dropdown styles */
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown-menu {
+    display: none;
+    position: absolute;
+    background-color: #ffffff;
+    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+    padding: 0px 0px;
+    top: 100%;
+    right: 10px;
+    border-radius: 5px;
+}
+
+.dropdown-menu li {
+    padding: 8px 16px;
+}
+
+.dropdown-menu li a {
+    color: #2e2b41;
+    text-decoration: none;
+    display: block;
+}
+
+.dropdown-menu li a:hover {
+    background-color: #f1f1f1;
+}
+
+.dropdown:hover .dropdown-menu {
+    display: block;
+    /* Show menu on hover */
+}
+
+.dropdown-toggle {
+    cursor: pointer;
+    font-size: var(--normalFont);
+    font-weight: 500;
+    color: #2e2b41;
+    display: inline-flex;
+    align-items: center;
+}
+
+.dropdown-toggle i {
+    font-size: 20px;
+    margin-left: 8px;
+}
+
+.dropdown-toggle:hover {
+    color: #3a3a3a;
+}
+.circle {
+    width: 10px;
+    height: 10px;
+    background-color: #FF5A5A;
+    border-radius: 50%;
+}
+
+.error {
+    border: 2px solid red !important;
 }
