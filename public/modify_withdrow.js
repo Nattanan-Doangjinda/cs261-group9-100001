@@ -79,6 +79,31 @@ document.addEventListener("DOMContentLoaded", async function(event)  {
   const requestFormId = urlParams.get('id');
     const submitButton = document.querySelector('.submit');
     submitButton.addEventListener('click', function(event) {
+      if(title.value.trim() === "") {
+        title.classList.add('error');
+      }else{
+        title.classList.remove('error');
+      }
+      if(first_name.value.trim() === ""){
+        first_name.classList.add('error');
+      }else{
+        first_name.classList.remove('error');
+      }
+      if(last_name.value.trim() === ""){
+        last_name.classList.add('error');
+      }else{
+        last_name.classList.remove('error');
+      }
+      if(student_id.value.trim() === ""){
+        student_id.classList.add('error');
+      }else{
+        student_id.classList.remove('error');
+      }
+      if(semester.value.trim() === ""){
+        semester.classList.add('error');
+      }else{
+        semester.classList.remove('error');
+      }
       if (address.value === "") {
         address.value = "-";
       }
@@ -91,6 +116,52 @@ document.addEventListener("DOMContentLoaded", async function(event)  {
       if (province.value === "") {
         province.value = "-";
       }
+      if(phone.value.trim() === ""){
+        phone.classList.add('error');
+      }else{
+        phone.classList.remove('error');
+      }
+      if(guardian_phone.value.trim() === ""){
+        guardian_phone.classList.add('error');
+      }else{
+        guardian_phone.classList.remove('error');
+      }
+      if(advisor.value.trim() === ""){
+        advisor.classList.add('error');
+      }else{
+        advisor.classList.remove('error');
+      }
+      if(term.value.trim() === ""){
+        term.classList.add('error');
+      }else{
+        term.classList.remove('error');
+      }
+      if(year.value.trim() === ""){
+        year.classList.add('error');
+      }else{
+        year.classList.remove('error');
+      }
+      if(course_code.value.trim() === ""){
+        course_code.classList.add('error');
+      }else{
+        course_code.classList.remove('error');
+      }
+      if(course_name.value.trim() === ""){
+        course_name.classList.add('error');
+      }else{
+        course_name.classList.remove('error');
+      }
+      if(section.value.trim() === ""){
+        section.classList.add('error');
+      }else{
+        section.classList.remove('error');
+      }
+      if(reason.value.trim() === ""){
+        reason.classList.add('error');
+      }else{
+        reason.classList.remove('error');
+      }
+  
         event.preventDefault();
         const form = document.querySelector('form');
           if (form.checkValidity()) {
@@ -108,7 +179,7 @@ document.addEventListener("DOMContentLoaded", async function(event)  {
   
     const cancelButton = document.querySelector('.cancel');
     cancelButton.addEventListener('click', function(event) {
-      ReturnToHomepage()
+      ReturnToDraft();
     });
   
     async function savedFormData() {
