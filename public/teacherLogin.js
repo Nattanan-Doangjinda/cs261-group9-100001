@@ -1,63 +1,44 @@
 // const { response } = require("express");
-'use strict';
+
 
 const usernameInput = document.getElementById('username-input');
 const passwordInput = document.getElementById('password-input');
 const errorMsg = document.getElementById('error-message');
 
-const apiUrl = "https://restapi.tu.ac.th/api/v1/auth/Ad/verify";
-const apiToken = "TUa102b22222c092b0a4d8880665add4bfc4cd74b48ef7b7e2d657e126b6faaf63148ead8e7ce823d2587ec03686d3da84";
-
 let errors = [];
 
+
 const submit = async () => {
-    const userInput = {
-        UserName: usernameInput.value,
-        PassWord: passwordInput.value
-    };
+    const employeeInput = {
+        'username': 'employee',
+        'type': 'employee',
+        'nameTh': '',
+        'nameEn': '',
+    }
+    console.log(usernameInput.value)
 
-    try {
-        const response = await fetch("https://restapi.tu.ac.th/api/v1/auth/Ad/verify", {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                "Application-Key": `${apiToken}`
-            },
-            body: JSON.stringify(userInput)
-        });
-        const responseData = await response.json();
-
-        const data = {
-            'username': responseData.username,
-            'type': responseData.type,
-            'nameTh': responseData.displayname_th,
-            'nameEn': responseData.displayname_en
-        }
-        // handleResponse(response, responseData)
-        if (response.ok && responseData.username) {
-            
-            const userIdResponse = await fetch("http://localhost:8000/user", {
+    if(usernameInput.value === '' || passwordInput.value === ''){
+        errorMsg.innerText = "ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง";
+        usernameInput.parentElement.classList.add('incorrect');
+        passwordInput.parentElement.classList.add('incorrect');
+        
+    } else {
+        try {
+            const response = await fetch("http://localhost:8000/user", {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body:JSON.stringify(data)
+                body: JSON.stringify(employeeInput)
             })
-            const userId = await userIdResponse.json()
-            console.log(userId.userId)
-            window.location.href = `../views/homepage.html?id=${userId.userId}`
-        
-        } else {
-            errorMsg.innerText = "ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง";
-            usernameInput.parentElement.classList.add('incorrect');
-            passwordInput.parentElement.classList.add('incorrect');
+            window.location.href = "../views/teacherHomepage.html";
+            console.log('login success');
+        } catch(error) {
+            console.log(error);
         }
-        
-    } catch (error){
-        console.log(error)
-    } 
+    }
+    
 }
-
 // function handleResponse(response, responseData){
 //     errors = formValidation(usernameInput.value, passwordInput.value, response.ok, responseData);
 
