@@ -13,6 +13,9 @@ approveDrop.addEventListener("click", () => {
   approveStatusList.classList.toggle("hide-status");
 });
 
+document.getElementById("teacherHomepage-link").addEventListener("click" , () => {
+  window.location.href = `../views/teacherHomepage.html`
+})
 document.getElementById("accept-link").addEventListener("click" , () => {
   window.location.href = `../views/Accept.html`
 })
@@ -85,5 +88,5 @@ window.onload = async function () {
 
 // Logout functionality
 document.getElementById("logout").addEventListener("click", () => {
-  window.location.href = `../views/login.html`;
+  window.location.href = `../views/teacherLogin.html`;
 });

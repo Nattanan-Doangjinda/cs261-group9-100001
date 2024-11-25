@@ -87,5 +87,5 @@ window.onload = async function () {
 
 // Logout functionality
 document.getElementById("logout").addEventListener("click", () => {
-  window.location.href = `../views/login.html`;
+  window.location.href = `../views/teacherLogin.html`;
 });

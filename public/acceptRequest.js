@@ -107,4 +107,8 @@ window.onload = async function() {
     document.getElementById("submit-button").addEventListener('click' , () => {
         window.location.href = `../views/Accept.html`
     })
+
+    document.getElementById("logout").addEventListener("click", () => {
+        window.location.href = `../views/teacherLogin.html`;
+      });
 }
