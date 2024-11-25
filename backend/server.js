@@ -192,7 +192,7 @@ app.get('/user/published/:userId', async (req, res) => {
         const result = await conn.request()
             .input('state', sql.VarChar, 'Published')
             .input('userId', sql.Int, userId)
-            .query('SELECT type, requestFormId, status FROM requestFormData WHERE userId = @userId AND state = @state');
+            .query('SELECT type, requestFormId, status, reason FROM requestFormData WHERE userId = @userId AND state = @state');
 
         res.json(result.recordset);
     } catch (error) {
