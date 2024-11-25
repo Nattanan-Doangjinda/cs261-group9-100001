@@ -5,7 +5,7 @@ const rejectStatusList = document.querySelector(".reject-container");
 // var requestAdd = "modify_request_add.html";
 // var requestWithdraw = "modify_request_withdrow.html";
 // var resignationForm = "modify_resignation.html";
-var rejectRequestForm = "rejectRequest.html"
+var rejectRequestForm = "request.html"
 
 // Toggle the reject status list visibility
 rejectDrop.addEventListener("click", () => {

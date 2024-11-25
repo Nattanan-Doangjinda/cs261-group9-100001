@@ -29,7 +29,9 @@ const submit = async () => {
                 },
                 body: JSON.stringify(employeeInput)
             })
-            window.location.href = "../views/teacherHomepage.html";
+            const data = await response.json()
+            console.log(data)
+            window.location.href = `../views/teacherHomepage.html`;
             console.log('login success');
         } catch(error) {
             console.log(error);

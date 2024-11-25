@@ -36,7 +36,7 @@ window.onload = async function () {
   }
 
   // Fetch the data for the request
-  const response = await fetch(`http://localhost:8000/user/published/${id}`, {
+  const response = await fetch(`http://localhost:8000/employee/request`, {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
@@ -64,15 +64,7 @@ window.onload = async function () {
     // Only append if the status is "รอดำเนินการ"
     if (item.status === "รอดำเนินการ") {
       // Format the approval time 
-      const teacherHomepagedAt = new Date(item.teacherHomepagedAt);  
-      const formattedTime = teacherHomepagedAt.toLocaleString('th-TH', {
-        year: 'numeric',
-        month: 'long',
-        day: 'numeric',
-        hour: 'numeric',
-        minute: 'numeric',
-        second: 'numeric',
-      });
+
 
       const data = `<div class="teacherHomepage-status-container">
                         <p class="teacherHomepage-no-data"></p>  
@@ -82,7 +74,7 @@ window.onload = async function () {
                                     <i class="bx bxs-circle teacherHomepage-status-color"></i>
                                     <div class="text-container">
                                         <p style="font-size: 25px">${item.type}</p> <!-- Dynamic type -->
-                                        <p class="sub-text">ส่งเมื่อ: ${formattedTime}</p> 
+                                        <p class="sub-text">ส่งเมื่อ: ${item.date}</p> 
                                     </div>
                                 </div>
                                 <button class="teacherHomepage-btn" onclick="window.location.href='${ref}?id=${item.requestFormId}'">รายละเอียด</button>
@@ -96,5 +88,5 @@ window.onload = async function () {
 
 // Logout functionality
 document.getElementById("logout").addEventListener("click", () => {
-  window.location.href = `../views/login.html`;
+  window.location.href = `../views/teacherLogin.html`;
 });
