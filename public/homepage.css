@@ -215,18 +215,37 @@ button.dropdown-icon{
     cursor: pointer;
 }
 
-.reject-status{
+.reject-content{
     display: flex;
-    justify-content: space-between;
-    align-items: center;
+    flex-direction: column;
+    justify-content: center;
     border: 1px solid none;
     padding: 10px 20px;
     border-radius: 20px;
     background-color: #F0F0F0;
     box-shadow: rgba(0, 0, 0, 0.3) 0px 1px 4px;
     margin-top: 20px;
-    width: 70%;
+    width:100%;
     transition: all 0.2s ease;
+}
+
+.reject-status{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.reject-reason{
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 10px;
+}
+
+.reject-reason p{
+    word-break: break-word;
+    white-space: normal;
+    overflow-wrap: break-word;
 }
 
 .reject-container{

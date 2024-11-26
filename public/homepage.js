@@ -98,7 +98,7 @@ window.onload = async function() {
             if (rejectContainer.innerHTML == `<p class="text">ไม่พบข้อมูล...</p>`) {
                 rejectContainer.innerHTML = "";
             }
-            data = `<div class="reject-status"><p>${item.type}</p><button class="reject-btn">ถูกปฏิเสธ</button></div>`
+            data = `<div class="reject-content"><div class="reject-status"><p>${item.type}</p><button class="reject-btn">ถูกปฏิเสธ</button></div><div class="reject-reason"><p>${item.reason}</p></div></div>`;
             rejectContainer.innerHTML += data
         }      
     });
