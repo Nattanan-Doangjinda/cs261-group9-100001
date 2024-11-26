@@ -1,11 +1,7 @@
 const teacherHomepageDrop = document.querySelector(".teacherHomepage-drop");
 const teacherHomepageStatusList = document.querySelector(".teacherHomepage-container");
 
-// var registerCross = "modify_request_cross.html";
-// var requestAdd = "modify_request_add.html";
-// var requestWithdraw = "modify_request_withdrow.html";
-// var resignationForm = "modify_resignation.html";
-var requestForm = "request.html"
+const requestForm = "request.html"
 
 // Toggle the teacherHomepage status list visibility
 teacherHomepageDrop.addEventListener("click", () => {
@@ -14,7 +10,7 @@ teacherHomepageDrop.addEventListener("click", () => {
 });
 
 document.getElementById("teacherHomepage-link").addEventListener("click" , () => {
-  window.location.href = `../views/TeacherHomepage.html.html`
+  window.location.href = `../views/teacherHomepage.html.html`
 })
 document.getElementById("accept-link").addEventListener("click" , () => {
   window.location.href = `../views/Accept.html`
@@ -37,7 +33,7 @@ window.onload = async function () {
   }
 
   // Fetch the data for the request
-  const response = await fetch(`http://localhost:8000/employee/request/`, {
+  const response = await fetch(`http://localhost:8000/employee/request`, {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
@@ -51,7 +47,7 @@ window.onload = async function () {
   request.forEach((item) => {
     let ref = null;
 
-    // // Set the appropriate reference for each type of request
+    // Set the appropriate reference for each type of request
     // if (item.type === "ขอจดทะเบียนเพิ่มวิชา") {
     //   ref = requestAdd;
     // } else if (item.type === "ขอถอนรายวิชา") {
@@ -64,7 +60,9 @@ window.onload = async function () {
 
     // Only append if the status is "รอดำเนินการ"
     if (item.status === "รอดำเนินการ") {
-      // Format the pending time
+      // Format the approval time 
+
+
       const data = `<div class="teacherHomepage-status-container">
                         <p class="teacherHomepage-no-data"></p>  
                         <div class="teacherHomepage-container">
@@ -73,14 +71,14 @@ window.onload = async function () {
                                     <i class="bx bxs-circle teacherHomepage-status-color"></i>
                                     <div class="text-container">
                                         <p style="font-size: 25px">${item.type}</p> <!-- Dynamic type -->
-                                        <p class="sub-text">ส่งเมื่อ: ${item.date} น.</p> 
+                                        <p class="sub-text">ส่งเมื่อ: ${item.date}</p> 
                                     </div>
                                 </div>
                                 <button class="teacherHomepage-btn" onclick="window.location.href='${requestForm}?id=${item.requestFormId}'">รายละเอียด</button>
                             </div>
                         </div>
                       </div>`;
-     document.getElementById("teacherHomepage-container").innerHTML += data;
+      teacherHomepageStatusList.insertAdjacentHTML("beforeend", data);
     }
   });
 };
