@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../public/Reject.css" />
+    <link
+      href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
+      rel="stylesheet"
+    />
+    <title>ปฏิเสธ</title>
+  </head>
+  <body>
+    <div class="nav-bar">
+      <div class="logo">
+        <img src="../public/Assets/Emblem_of_Thammasat_University.svg.png" />
+      </div>
+
+      <div class="nav-links">
+        <div class="links-logout">
+          <ul class="links">
+            <a href="../views/teacherHomepage.html" id="teacherHomepage-link">หน้าหลัก</a>
+            <div class="dropdown">
+              <span class="dropdown-toggle"
+                >ประวัติ <i class="bx bx-chevron-down"></i
+              ></span>
+              <ul class="dropdown-menu">
+                <li><a href="Accept.html" id="accept-link">อนุมัติ</a></li>
+                <li><a href="Reject.html" id="reject-link">ปฏิเสธ</a></li>
+              </ul>
+            </div>
+          </ul>
+          <button class="logout" id="logout">Logout</button>
+        </div>
+        <div class="line"></div>
+      </div>
+    </div>
+    <div class="tracker">
+      <div class="tracker-content">
+        <div class="reject-tracker">
+          <div class="tracker-title">
+            <button class="dropdown-icon reject-drop">
+              <i class="bx bx-menu"></i>
+            </button>
+            <p>ปฏิเสธ / Reject</p>
+            <i class="bx bxs-circle reject-status-color"></i>
+          </div>
+
+          <div class="reject-container" id="reject-container"></div>
+          
+          <!-- <div class="reject-status-container">
+            <p class="reject-no-data"></p>
+            <div class="reject-container">
+              <div class="reject-status">
+                <div class="reject-text">
+                  <i class="bx bxs-circle reject-status-color"></i>
+                  <div class="text-container">
+                    <p style="font-size: 25px">คำร้องจดทะเบียนล่าช้า</p>
+                    <p class="sub-text">อนุมัติเมื่อ</p>
+                  </div>
+                </div>
+                <button class="reject-btn">รายละเอียด</button>
+              </div>
+            </div>
+          </div> -->
+
+        </div>
+      </div>
+    </div>
+
+    <script src="../public/Reject.js"></script>
+  </body>
+</html>
