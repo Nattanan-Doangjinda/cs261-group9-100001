@@ -309,8 +309,8 @@ app.get('/employee/request', async (req, res) => {
     try {
         const data = []
         const result = await conn.request()
-            .input('status', sql.NVarChar, 'รอดำเนินการ')
-            .query('SELECT * FROM requestFormData WHERE status = @status');
+            .input('status', sql.NVarChar, 'รอดำเนินการ').input("state", sql.VarChar, 'Published')
+            .query('SELECT * FROM requestFormData WHERE status = @status AND state = @state');
 
 
         for (var i = 0; i < result.recordset.length; i++) {
