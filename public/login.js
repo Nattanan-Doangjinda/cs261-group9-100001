@@ -34,6 +34,14 @@ const submit = async () => {
         });
         const responseData = await response.json();
 
+        console.log(responseData);
+        const DataForShare ={
+            'nameTh': responseData.displayname_th,
+            'department' : responseData.department,
+            'username': responseData.username,
+        }
+        localStorage.setItem("DataForShare", JSON.stringify(DataForShare)); // เก็บ DataForShare ใน Local Storage
+
         const data = {
             'username': responseData.username,
             'type': responseData.type,

@@ -8,6 +8,28 @@ document.addEventListener("DOMContentLoaded", async function(event) {
     document.getElementById("draft-link").href += `?id=${userID}`;
 }
 
+window.onload = async function() {
+  const data = localStorage.getItem("DataForShare");
+  const responseData = JSON.parse(data);
+  console.log(responseData);
+
+  const studentName = responseData.nameTh;
+  const nameParts = studentName.split(" ");
+  const firstName = nameParts[0] || '';  
+  const lastName = nameParts[1] || '';  
+  
+  document.getElementById('first_name').value = firstName;
+  document.getElementById('last_name').value = lastName;
+  department = responseData.department;
+  console.log(department);
+  department = department.replace("ภาควิชา", ""); // ลบคำว่า "ภาควิชา"
+  console.log(department);
+  department = "สาขาวิชา " + department;
+  console.log(department);
+  document.getElementById('department').innerHTML = department;
+  document.getElementById('student_id').value = responseData.username;
+}
+
 const submitButton = document.querySelector('.submit');
 
 submitButton.addEventListener('click', async function(event) {
